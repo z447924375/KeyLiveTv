@@ -1,7 +1,9 @@
-package com.keyliveapp.keylivetv;
+package com.keyliveapp.keylivetv.main;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.keyliveapp.keylivetv.R;
 
 public class MainActivity extends AppCompatActivity {
 
