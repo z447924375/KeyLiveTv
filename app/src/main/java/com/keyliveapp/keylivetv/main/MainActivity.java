@@ -18,6 +18,6 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void inidate() {
-
+        INT I = 0;
     }
 }
