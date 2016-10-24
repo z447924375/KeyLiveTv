@@ -10,16 +10,13 @@ import com.keyliveapp.keylivetv.baseclass.BaseActivity;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+
 public class MainActivity extends BaseActivity {
 
-    private ViewPager lzViewPager;
-    private TabLayout lzTabLayout;
-    private int[] tabIcons = {
-            R.mipmap.ic_nav_home_normal,
-            R.mipmap.ic_nav_cate_normal,
-            R.mipmap.ic_nav_faxain_normal,
-            R.mipmap.ic_nav_mine_normal
-    };
+
+    @BindView(R.id.vp_longzhu)ViewPager lzViewPager;
+    @BindView(R.id.tb_longzhu)TabLayout lzTabLayout;
 
     @Override
     protected int setlayout() {
@@ -28,8 +25,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        lzViewPager = bindView(R.id.vp_longzhu);
-        lzTabLayout = bindView(R.id.tb_longzhu);
+//        lzViewPager = bindView(R.id.vp_longzhu);
+//        lzTabLayout = bindView(R.id.tb_longzhu);
     }
 
     @Override

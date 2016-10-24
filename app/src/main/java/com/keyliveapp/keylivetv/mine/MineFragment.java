@@ -10,7 +10,7 @@ import com.keyliveapp.keylivetv.baseclass.BaseFragment;
 public class MineFragment extends BaseFragment {
     @Override
     protected int setLayout() {
-        return R.layout.activity_mine;
+        return R.layout.mine_fragment;
     }
 
     @Override
