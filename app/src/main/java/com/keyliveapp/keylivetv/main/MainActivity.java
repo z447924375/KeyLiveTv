@@ -7,16 +7,18 @@ import android.support.v4.view.ViewPager;
 
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseActivity;
+import com.keyliveapp.keylivetv.classify.ClassifyFragment;
+import com.keyliveapp.keylivetv.discovery.DiscoveryFragment;
+import com.keyliveapp.keylivetv.home.HomeFragment;
+import com.keyliveapp.keylivetv.mine.MineFragment;
 
 import java.util.ArrayList;
-
-import butterknife.BindView;
 
 public class MainActivity extends BaseActivity {
 
 
-    @BindView(R.id.vp_longzhu)ViewPager lzViewPager;
-    @BindView(R.id.tb_longzhu)TabLayout lzTabLayout;
+    private ViewPager lzViewPager;
+    private TabLayout lzTabLayout;
 
     @Override
     protected int setlayout() {
@@ -25,8 +27,8 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-//        lzViewPager = bindView(R.id.vp_longzhu);
-//        lzTabLayout = bindView(R.id.tb_longzhu);
+        lzViewPager = bindView(R.id.vp_longzhu);
+        lzTabLayout = bindView(R.id.tb_longzhu);
     }
 
     @Override
