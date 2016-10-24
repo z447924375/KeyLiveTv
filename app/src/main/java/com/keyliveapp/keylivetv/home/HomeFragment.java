@@ -1,5 +1,6 @@
 package com.keyliveapp.keylivetv.home;
 
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.keyliveapp.keylivetv.R;
@@ -27,6 +28,9 @@ public class HomeFragment extends BaseFragment {
     @Override
     protected void initDate() {
         HomeRvAdapter adapter=new HomeRvAdapter(MyApp.getContext());
+        mHomeRecycler.setAdapter(adapter);
+        LinearLayoutManager manager=new LinearLayoutManager(MyApp.getContext());
+        mHomeRecycler.setLayoutManager(manager);
 
     }
 }

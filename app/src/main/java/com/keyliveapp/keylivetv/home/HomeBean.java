@@ -7,7 +7,15 @@ import java.util.List;
  */
 
 public class HomeBean {
+    private int viewType;
 
+    public int getViewType() {
+        return viewType;
+    }
+
+    public void setViewType(int viewType) {
+        this.viewType = viewType;
+    }
 
     /**
      * apiVersion : 1.0
