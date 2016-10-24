@@ -1,6 +1,12 @@
 package com.keyliveapp.keylivetv.main;
 
+
 import android.support.design.widget.TabLayout;
+
+
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+
 import android.support.v4.view.ViewPager;
 
 import com.keyliveapp.keylivetv.R;
@@ -11,11 +17,18 @@ import com.keyliveapp.keylivetv.homepage.HomepageFragment;
 
 import java.util.ArrayList;
 
+import java.util.ArrayList;
+
 public class MainActivity extends BaseActivity {
 
-
-    private TabLayout tb_longzhu;
-    private ViewPager vp_longzhu;
+    private ViewPager lzViewPager;
+    private TabLayout lzTabLayout;
+    private int[] tabIcons = {
+            R.mipmap.ic_nav_home_normal,
+            R.mipmap.ic_nav_cate_normal,
+            R.mipmap.ic_nav_faxain_normal,
+            R.mipmap.ic_nav_mine_normal
+    };
 
     @Override
     protected int setlayout() {
@@ -24,27 +37,32 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        tb_longzhu =
-                bindView(R.id.tb_longzhu);
-        vp_longzhu =
-                bindView(R.id.vp_longzhu);
+
+        lzViewPager = bindView(R.id.vp_longzhu);
+        lzTabLayout = bindView(R.id.tb_longzhu);
+
     }
 
     @Override
     protected void inidate() {
-        FragmentAdapter fragmentAdapter = new FragmentAdapter(getSupportFragmentManager());
 
-        ArrayList<BaseFragment> baseFragments = new ArrayList<>();
-        baseFragments.add(new HomepageFragment());
-        baseFragments.add(new ClassifyFragment());
-        baseFragments.add(new HomepageFragment());
-        baseFragments.add(new HomepageFragment());
-        fragmentAdapter.setBaseFragments(baseFragments);
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        fragments.add(new HomeFragment());
+        fragments.add(new ClassifyFragment());
+        fragments.add(new DiscoveryFragment());
+        fragments.add(new MineFragment());
 
-        vp_longzhu.setAdapter(fragmentAdapter);
-        tb_longzhu.setupWithViewPager(vp_longzhu);
+        MainVpAdapter adapter=new MainVpAdapter(getSupportFragmentManager(),fragments);
+        lzViewPager.setAdapter(adapter);
+        lzTabLayout.setupWithViewPager(lzViewPager);
+
+        lzTabLayout.getTabAt(0).setIcon(R.drawable.home);
+        lzTabLayout.getTabAt(1).setIcon(R.drawable.classify);
+        lzTabLayout.getTabAt(2).setIcon(R.drawable.discovery);
+        lzTabLayout.getTabAt(3).setIcon(R.drawable.mine);
 
 
 
     }
+
 }
