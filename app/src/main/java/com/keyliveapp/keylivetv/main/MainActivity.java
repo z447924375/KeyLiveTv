@@ -4,6 +4,7 @@ package com.keyliveapp.keylivetv.main;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.view.View;
 
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseActivity;
@@ -11,12 +12,15 @@ import com.keyliveapp.keylivetv.baseclass.BaseActivity;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
+    private ViewPager lzViewPager;
+    private TabLayout lzTabLayout;
 
 
-    @BindView(R.id.vp_longzhu)ViewPager lzViewPager;
-    @BindView(R.id.tb_longzhu)TabLayout lzTabLayout;
+//    @BindView(R.id.vp_longzhu)ViewPager lzViewPager;
+//    @BindView(R.id.tb_longzhu)TabLayout lzTabLayout;
 
     @Override
     protected int setlayout() {
@@ -25,12 +29,14 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-//        lzViewPager = bindView(R.id.vp_longzhu);
-//        lzTabLayout = bindView(R.id.tb_longzhu);
+        lzViewPager = bindView(R.id.vp_longzhu);
+        lzTabLayout = bindView(R.id.tb_longzhu);
     }
 
     @Override
     protected void inidate() {
+
+//        ButterKnife
 
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(new HomeFragment());
@@ -47,8 +53,7 @@ public class MainActivity extends BaseActivity {
         lzTabLayout.getTabAt(2).setIcon(R.drawable.discovery);
         lzTabLayout.getTabAt(3).setIcon(R.drawable.mine);
 
-
-
     }
+
 
 }
