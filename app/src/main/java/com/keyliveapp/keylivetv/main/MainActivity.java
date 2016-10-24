@@ -31,6 +31,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void inidate() {
+
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(new HomeFragment());
         fragments.add(new ClassifyFragment());
@@ -45,6 +46,7 @@ public class MainActivity extends BaseActivity {
         lzTabLayout.getTabAt(1).setIcon(R.drawable.classify);
         lzTabLayout.getTabAt(2).setIcon(R.drawable.discovery);
         lzTabLayout.getTabAt(3).setIcon(R.drawable.mine);
+
 
 
     }
