@@ -5,6 +5,8 @@ import android.support.v4.app.FragmentActivity;
 import android.view.View;
 import android.view.Window;
 
+import butterknife.ButterKnife;
+
 /**
  * Created by dllo on 16/10/20.
  */
@@ -12,7 +14,7 @@ import android.view.Window;
 public abstract class BaseActivity extends FragmentActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
-
+        ButterKnife.bind(this);
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(setlayout());

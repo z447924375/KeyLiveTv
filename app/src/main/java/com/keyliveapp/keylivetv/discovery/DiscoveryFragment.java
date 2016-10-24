@@ -1,4 +1,4 @@
-package com.keyliveapp.keylivetv.main;
+package com.keyliveapp.keylivetv.discovery;
 
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
@@ -6,10 +6,10 @@ import com.keyliveapp.keylivetv.baseclass.BaseFragment;
 /**
  * Created by dllo on 16/10/22.
  */
-public class HomeFragment extends BaseFragment {
+public class DiscoveryFragment extends BaseFragment {
     @Override
     protected int setLayout() {
-        return R.layout.home_fragment;
+        return R.layout.discovery_fragment;
     }
 
     @Override

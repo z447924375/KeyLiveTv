@@ -11,24 +11,26 @@ import android.support.v4.view.ViewPager;
 
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseActivity;
+<<<<<<< HEAD
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
 import com.keyliveapp.keylivetv.classify.ClassifyFragment;
 import com.keyliveapp.keylivetv.homepage.HomepageFragment;
 
 import java.util.ArrayList;
+=======
+import com.keyliveapp.keylivetv.classify.ClassifyFragment;
+import com.keyliveapp.keylivetv.discovery.DiscoveryFragment;
+import com.keyliveapp.keylivetv.home.HomeFragment;
+import com.keyliveapp.keylivetv.mine.MineFragment;
+>>>>>>> 99a59c5407fc6a86875816e9f3159f297407facb
 
 import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity {
 
+
     private ViewPager lzViewPager;
     private TabLayout lzTabLayout;
-    private int[] tabIcons = {
-            R.mipmap.ic_nav_home_normal,
-            R.mipmap.ic_nav_cate_normal,
-            R.mipmap.ic_nav_faxain_normal,
-            R.mipmap.ic_nav_mine_normal
-    };
 
     @Override
     protected int setlayout() {

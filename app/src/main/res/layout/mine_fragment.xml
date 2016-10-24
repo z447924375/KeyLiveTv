@@ -26,6 +26,12 @@
             android:src="@mipmap/top_setup_icon" />
     </RelativeLayout>
 
+<<<<<<< HEAD
+=======
+
+    
+
+>>>>>>> 99a59c5407fc6a86875816e9f3159f297407facb
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

@@ -26,6 +26,11 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:24.2.1'
     testCompile 'junit:junit:4.12'
+<<<<<<< HEAD
+=======
+    compile 'com.nostra13.universalimageloader:universal-image-loader:1.9.3'
+    compile 'com.jakewharton:butterknife:8.0.1'
+>>>>>>> 99a59c5407fc6a86875816e9f3159f297407facb
     compile 'com.android.support:design:24.2.1'
     compile 'com.zhy:base-rvadapter:3.0.3'
     compile 'com.zhy:base-adapter:3.0.3'
