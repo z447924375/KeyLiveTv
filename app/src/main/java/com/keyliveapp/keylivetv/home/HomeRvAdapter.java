@@ -2,24 +2,27 @@ package com.keyliveapp.keylivetv.home;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.keyliveapp.keylivetv.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 
+import java.util.List;
+
 /**
  * Created by dllo on 16/10/24.
  */
 
-public class HomeRvAdapter extends RecyclerView.Adapter<HomeRvAdapter.HomeViewHolder> {
+public class HomeRvAdapter extends RecyclerView.Adapter {
     private final DisplayImageOptions options;
-    private HomeBean mHomeBean;
+    private List<HomeBean.DataBean.ColumnsBean> mColumnsBeen;
+
+    public void setColumnsBeen(List<HomeBean.DataBean.ColumnsBean> columnsBeen) {
+        mColumnsBeen = columnsBeen;
+    }
+
     private Context mContext;
 
-    public void setHomeBean(HomeBean homeBean) {
-        mHomeBean = homeBean;
-    }
 
     public HomeRvAdapter(Context context) {
         mContext = context;
@@ -27,25 +30,30 @@ public class HomeRvAdapter extends RecyclerView.Adapter<HomeRvAdapter.HomeViewHo
                 .cacheInMemory(true).cacheOnDisk(true).considerExifParams(true).build();
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        for (int i = 0; i < mColumnsBeen.size(); i++) {
+            return i;
+        }
+        return super.getItemViewType(position);
+    }
 
     @Override
-    public HomeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+
         return null;
     }
 
     @Override
-    public void onBindViewHolder(HomeViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
 
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mColumnsBeen.size();
     }
 
-    public class HomeViewHolder extends RecyclerView.ViewHolder {
-        public HomeViewHolder(View itemView) {
-            super(itemView);
-        }
-    }
+
 }
