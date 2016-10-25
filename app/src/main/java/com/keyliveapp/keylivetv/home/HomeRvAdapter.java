@@ -2,14 +2,12 @@ package com.keyliveapp.keylivetv.home;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.HorizontalScrollView;
 
 import com.keyliveapp.keylivetv.R;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.youth.banner.Banner;
+
+import java.util.List;
 
 /**
  * Created by dllo on 16/10/24.
@@ -17,12 +15,14 @@ import com.youth.banner.Banner;
 
 public class HomeRvAdapter extends RecyclerView.Adapter {
     private final DisplayImageOptions options;
-    private HomeBean mHomeBean;
+    private List<HomeBean.DataBean.ColumnsBean> mColumnsBeen;
+
+    public void setColumnsBeen(List<HomeBean.DataBean.ColumnsBean> columnsBeen) {
+        mColumnsBeen = columnsBeen;
+    }
+
     private Context mContext;
 
-    public void setHomeBean(HomeBean homeBean) {
-        mHomeBean = homeBean;
-    }
 
     public HomeRvAdapter(Context context) {
         mContext = context;
@@ -31,21 +31,16 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        switch (viewType) {
-            case 1:
-                View bannerView = LayoutInflater.from(mContext).inflate(R.layout.home_banner_view, parent, false);
-                BannerHolder bannerHolder = new BannerHolder(bannerView);
-                return bannerHolder;
-
-            case 2:
-                View quickBtnView = LayoutInflater.from(mContext).inflate(R.layout.home_quickbtn_view, parent, false);
-                HoriScrollHolder horiScrollHolder = new HoriScrollHolder(quickBtnView);
-                return horiScrollHolder;
-            case 3:
-
-
+    public int getItemViewType(int position) {
+        for (int i = 0; i < mColumnsBeen.size(); i++) {
+            return i;
         }
+        return super.getItemViewType(position);
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
 
         return null;
     }
@@ -57,29 +52,8 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return 0;
+        return mColumnsBeen.size();
     }
 
-
-    class BannerHolder extends RecyclerView.ViewHolder {
-
-        private Banner recommend_banner;
-
-        public BannerHolder(View itemView) {
-            super(itemView);
-            recommend_banner = (Banner) itemView.findViewById(R.id.home_banner);
-        }
-    }
-
-    class HoriScrollHolder extends RecyclerView.ViewHolder {
-
-        private HorizontalScrollView mHorizontalScrollView;
-
-        public HoriScrollHolder(View itemView) {
-            super(itemView);
-            mHorizontalScrollView = (HorizontalScrollView) itemView.findViewById(R.id.home_quickbtn_scrollview);
-
-        }
-    }
 
 }

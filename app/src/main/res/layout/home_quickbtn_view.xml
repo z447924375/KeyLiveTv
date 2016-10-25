@@ -5,9 +5,17 @@
               android:orientation="vertical">
 
     <HorizontalScrollView
-        android:id="@+id/home_quickbtn_scrollview"
+
         android:layout_width="match_parent"
-        android:layout_height="140dp">
+        android:layout_height="80dp">
+
+        <LinearLayout
+            android:id="@+id/home_quickbtn_scrollview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+        </LinearLayout>
 
     </HorizontalScrollView>
 
