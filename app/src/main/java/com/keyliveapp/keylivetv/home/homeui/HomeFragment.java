@@ -86,8 +86,7 @@ public class HomeFragment extends BaseFragment implements IHomeView{
             homeScrollView.addView(view);
         }
 
-        HomeRvAdapter adapter = new HomeRvAdapter(getContext());
-        adapter.setColumnsBeen(columnsBean);
+        HomeRvAdapter adapter = new HomeRvAdapter(getContext(),columnsBean);
         mHomeRecycler.setAdapter(adapter);
         final LinearLayoutManager manager = new LinearLayoutManager(getContext());
         mHomeRecycler.setLayoutManager(manager);

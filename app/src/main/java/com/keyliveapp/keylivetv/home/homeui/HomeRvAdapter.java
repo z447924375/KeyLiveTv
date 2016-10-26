@@ -6,13 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.bean.HomeBean;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.List;
 
@@ -21,52 +19,58 @@ import java.util.List;
  */
 
 public class HomeRvAdapter extends RecyclerView.Adapter {
-    private static final int HEADER_TYPE=0;
-
-
+    private static final int HEADER_TYPE = 0;
+    private static final int CONTENT_TYPE = 1;
     private final DisplayImageOptions options;
     private List<HomeBean.DataBean.ColumnsBean> mColumnsBeen;
+    private LayoutInflater mInflater;
+    private int count;
 
-    public void setColumnsBeen(List<HomeBean.DataBean.ColumnsBean> columnsBeen) {
+
+    public HomeRvAdapter(Context context, List<HomeBean.DataBean.ColumnsBean> columnsBeen) {
         mColumnsBeen = columnsBeen;
-    }
-
-    private Context mContext;
-
-
-    public HomeRvAdapter(Context context) {
-        mContext = context;
         options = new DisplayImageOptions.Builder().showImageForEmptyUri(R.mipmap.default_live_ic).showImageOnLoading(R.mipmap.default_live_ic)
                 .cacheInMemory(true).cacheOnDisk(true).considerExifParams(true).build();
+        mInflater = LayoutInflater.from(context);
+        count = this.mColumnsBeen.size() + this.mColumnsBeen.size() * 4 + 2;
+
     }
+
+    /**
+     * v 0 1 1 1 1 1 1
+     * <p>
+     * 1     h c c c c c c    0
+     * 2     h c c c c        7
+     * 3     h c c c c        12
+     * 4     h c c c c        17
+     * 5     h c c c c        22
+     * 6     h c c c c        27
+     * 7     h c c c c        32
+     */
 
     @Override
     public int getItemViewType(int position) {
-
-        return mColumnsBeen.get(position).getViewType();
+        if (count == 0 || (count % 5 == 2 && count != 2)) {
+            return HEADER_TYPE;
+        } else {
+            return CONTENT_TYPE;
+        }
 
     }
+
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         switch (viewType) {
-            case 0:
-                View allView = LayoutInflater.from(mContext).inflate(R.layout.home_all_view, parent, false);
-                AllViewHolder allViewHolder = new AllViewHolder(allView);
-                return allViewHolder;
+            case HEADER_TYPE:
+                View headView = mInflater.inflate(R.layout.home_header_view, parent, false);
+                HeadViewHolder headViewHolder = new HeadViewHolder(headView);
+                return headViewHolder;
 
-            case 1:
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            case 5:
-                break;
-            case 6:
-                break;
+            case CONTENT_TYPE:
+                View contentView = mInflater.inflate(R.layout.home_content_view,parent,false);
+                ContentViewHolder contentViewHolder=new ContentViewHolder(contentView);
+                return contentViewHolder;
 
         }
 
@@ -75,66 +79,28 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        switch (mColumnsBeen.get(position).getViewType()) {
-            case 0:
-                AllViewHolder allViewHolder = (AllViewHolder) holder;
-                allViewHolder.allTitle.setText(mColumnsBeen.get(position).getGame().getTitle());
-                allViewHolder.btnChannel.setText(mColumnsBeen.get(position).getChannelsText());
-                for (int i = 0; i < 6; i++) {
-                  ImageLoader.getInstance().
-                          displayImage(mColumnsBeen.get(0).getRooms().get(i).getPreview(),allViewHolder.home_all_pics[i],options);
-                }
 
-                break;
-        }
     }
 
     @Override
     public int getItemCount() {
-        return mColumnsBeen.size();
+        return count;
     }
 
-    class AllViewHolder extends RecyclerView.ViewHolder {
+    class HeadViewHolder extends RecyclerView.ViewHolder {
 
-        private final Button btnChannel;
-        private int home_all_pics_id[] = {R.id.home_all_pic1, R.id.home_all_pic2,
-                R.id.home_all_pic3, R.id.home_all_pic4,
-                R.id.home_all_pic5, R.id.home_all_pic6};
-        private int home_all_texts_id[] = {R.id.home_all_text1, R.id.home_all_text2,
-                R.id.home_all_text3, R.id.home_all_text4,
-                R.id.home_all_text5, R.id.home_all_text6};
-        private ImageView home_all_pic2;
-        private ImageView home_all_pic1;
-        private ImageView home_all_pic4;
-        private ImageView home_all_pic3;
-        private ImageView home_all_pic5;
-        private ImageView home_all_pic6;
-        private ImageView home_all_pics[] = {home_all_pic1,
-                home_all_pic2, home_all_pic3,
-                home_all_pic4, home_all_pic5,
-                home_all_pic6};
-        private TextView home_all_text1;
-        private TextView home_all_text3;
-        private TextView home_all_text2;
-        private TextView home_all_text5;
-        private TextView home_all_text4;
-        private TextView home_all_text6;
-        private TextView home_all_texts[] = {home_all_text1,
-                home_all_text2, home_all_text3,
-                home_all_text4, home_all_text5,
-                home_all_text6};
+        private final TextView headTitle;
+        private final Button btnHeadChannel;
 
-        private final TextView allTitle;
-
-        public AllViewHolder(View itemView) {
+        public HeadViewHolder(View itemView) {
             super(itemView);
-            allTitle = (TextView) itemView.findViewById(R.id.home_all_title);
-            btnChannel = (Button) itemView.findViewById(R.id.home_btn_channel);
-            for (int i = 0; i < 6; i++) {
-                home_all_pics[i] = (ImageView) itemView.findViewById(home_all_pics_id[i]);
-                home_all_texts[i] = (TextView) itemView.findViewById(home_all_texts_id[i]);
-            }
-
+            headTitle = (TextView) itemView.findViewById(R.id.home_head_title);
+            btnHeadChannel = (Button) itemView.findViewById(R.id.home_btn_channel);
+        }
+    }
+    class ContentViewHolder extends RecyclerView.ViewHolder{
+        public ContentViewHolder(View itemView) {
+            super(itemView);
         }
     }
 
