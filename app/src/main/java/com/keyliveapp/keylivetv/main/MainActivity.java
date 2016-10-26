@@ -9,7 +9,7 @@ import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseActivity;
 import com.keyliveapp.keylivetv.classify.ClassifyFragment;
 import com.keyliveapp.keylivetv.discovery.DiscoveryFragment;
-import com.keyliveapp.keylivetv.home.HomeFragment;
+import com.keyliveapp.keylivetv.home.homeui.HomeFragment;
 import com.keyliveapp.keylivetv.mine.MineFragment;
 
 import java.util.ArrayList;

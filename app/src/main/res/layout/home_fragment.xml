@@ -24,6 +24,7 @@
                 android:orientation="vertical">
 
                 <include layout="@layout/home_banner_view"/>
+
                 <include layout="@layout/home_quickbtn_view"/>
             </LinearLayout>
 
@@ -58,7 +59,8 @@
             android:textColor="#000"
             android:textSize="20sp"/>
 
-        <ImageView
+        <ImageButton
+            android:id="@+id/home_search"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:layout_alignParentRight="true"
