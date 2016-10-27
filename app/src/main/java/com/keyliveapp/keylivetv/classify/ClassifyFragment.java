@@ -1,14 +1,10 @@
-package com.keyliveapp.keylivetv.main;
+package com.keyliveapp.keylivetv.classify;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
-import com.keyliveapp.keylivetv.main.classify.ClassifyFragmentAdapter;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Created by dllo on 16/10/22.

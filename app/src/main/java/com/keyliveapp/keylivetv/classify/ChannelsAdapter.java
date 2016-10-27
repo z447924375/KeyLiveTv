@@ -1,4 +1,4 @@
-package com.keyliveapp.keylivetv.main.classify;
+package com.keyliveapp.keylivetv.classify;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,16 +10,14 @@ import com.keyliveapp.keylivetv.R;
 /**
  * Created by dllo on 16/10/24.
  */
-public class HotAdapter extends RecyclerView.Adapter{
+public class ChannelsAdapter extends RecyclerView.Adapter{
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.classify_hot_channels, parent, false);
-
-        HotViewHolder hotViewHolder = new HotViewHolder(view);
-
-        return hotViewHolder;
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.classify_channels_channels, parent, false);
+        ChannelsViewHolder channelsViewHolder = new ChannelsViewHolder(view);
+        return channelsViewHolder;
     }
 
     @Override
@@ -29,12 +27,13 @@ public class HotAdapter extends RecyclerView.Adapter{
 
     @Override
     public int getItemCount() {
-        return 10;
+        return 20;
     }
 
-    private class HotViewHolder extends RecyclerView.ViewHolder {
-        public HotViewHolder(View itemView) {
-            super(itemView);
+    private class ChannelsViewHolder extends RecyclerView.ViewHolder {
+        public ChannelsViewHolder(View view) {
+            super(view);
+
         }
     }
 }
