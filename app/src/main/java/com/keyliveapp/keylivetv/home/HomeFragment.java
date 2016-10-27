@@ -1,5 +1,6 @@
 package com.keyliveapp.keylivetv.home;
 
+
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -7,7 +8,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
 import com.keyliveapp.keylivetv.tools.HttpManager;
 import com.keyliveapp.keylivetv.tools.OnCompletedListener;
