@@ -23,7 +23,6 @@ import butterknife.ButterKnife;
 public abstract class BaseActivity extends FragmentActivity{
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        ButterKnife.bind(this);
         super.onCreate(savedInstanceState);
         File cacheDir = StorageUtils.getOwnCacheDirectory(getApplicationContext(), "imageloader/Cache");
         ImageLoaderConfiguration configuration =
@@ -38,6 +37,7 @@ public abstract class BaseActivity extends FragmentActivity{
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(setlayout());
+        ButterKnife.bind(this);
         initView();
         inidate();
     }

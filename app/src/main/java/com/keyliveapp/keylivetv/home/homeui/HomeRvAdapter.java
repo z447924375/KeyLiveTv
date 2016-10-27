@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.keyliveapp.keylivetv.R;
@@ -37,7 +38,7 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
     }
 
     /**
-     * v 0 1 1 1 1 1 1
+     * v     0 1 1 1 1 1 1
      * <p>
      * 1     h c c c c c c    0
      * 2     h c c c c        7
@@ -55,7 +56,6 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
         } else {
             return CONTENT_TYPE;
         }
-
     }
 
 
@@ -68,17 +68,19 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
                 return headViewHolder;
 
             case CONTENT_TYPE:
-                View contentView = mInflater.inflate(R.layout.home_content_view,parent,false);
-                ContentViewHolder contentViewHolder=new ContentViewHolder(contentView);
+                View contentView = mInflater.inflate(R.layout.home_content_view, parent, false);
+                ContentViewHolder contentViewHolder = new ContentViewHolder(contentView);
                 return contentViewHolder;
-
+            default:
+                return null;
         }
-
-        return null;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        int titlePosition = (position+3)/5;
+
+
 
     }
 
@@ -89,8 +91,8 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
 
     class HeadViewHolder extends RecyclerView.ViewHolder {
 
-        private final TextView headTitle;
-        private final Button btnHeadChannel;
+        private TextView headTitle;
+        private Button btnHeadChannel;
 
         public HeadViewHolder(View itemView) {
             super(itemView);
@@ -98,9 +100,17 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
             btnHeadChannel = (Button) itemView.findViewById(R.id.home_btn_channel);
         }
     }
-    class ContentViewHolder extends RecyclerView.ViewHolder{
+
+    class ContentViewHolder extends RecyclerView.ViewHolder {
+
+        private ImageView contentPic;
+        private TextView contentTitle;
+
         public ContentViewHolder(View itemView) {
             super(itemView);
+            contentPic = (ImageView) itemView.findViewById(R.id.home_content_pic);
+            contentTitle = (TextView) itemView.findViewById(R.id.home_content_text);
+
         }
     }
 
