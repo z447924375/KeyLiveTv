@@ -2,16 +2,28 @@ package com.keyliveapp.keylivetv.main;
 
 
 import android.support.design.widget.TabLayout;
+
+
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+
 import android.support.v4.view.ViewPager;
 import android.view.View;
 
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseActivity;
+<<<<<<< HEAD
+import com.keyliveapp.keylivetv.baseclass.BaseFragment;
+import com.keyliveapp.keylivetv.classify.ClassifyFragment;
+import com.keyliveapp.keylivetv.homepage.HomepageFragment;
+
+import java.util.ArrayList;
+=======
 import com.keyliveapp.keylivetv.classify.ClassifyFragment;
 import com.keyliveapp.keylivetv.discovery.DiscoveryFragment;
 import com.keyliveapp.keylivetv.home.HomeFragment;
 import com.keyliveapp.keylivetv.mine.MineFragment;
+>>>>>>> 99a59c5407fc6a86875816e9f3159f297407facb
 
 import java.util.ArrayList;
 import butterknife.BindView;
@@ -34,8 +46,10 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+
         lzViewPager = bindView(R.id.vp_longzhu);
         lzTabLayout = bindView(R.id.tb_longzhu);
+
     }
 
     @Override
