@@ -1,8 +1,8 @@
 package com.keyliveapp.keylivetv.home;
 
+
 import android.support.v7.widget.RecyclerView;
 
-import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
 import com.keyliveapp.keylivetv.baseclass.MyApp;
 
