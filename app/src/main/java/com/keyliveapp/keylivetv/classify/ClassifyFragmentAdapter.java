@@ -10,12 +10,46 @@ import android.view.ViewGroup;
 
 import com.keyliveapp.keylivetv.R;
 
+import java.util.ArrayList;
+
 /**
  * Created by dllo on 16/10/24.
  */
 public class ClassifyFragmentAdapter extends RecyclerView.Adapter {
 
     private Context context;
+
+    private ArrayList<String> recommendsId;
+    private ArrayList<String> recommendsName;
+    private ArrayList<String> recommendsIcon;
+
+    private ArrayList<String> channelsId;
+    private ArrayList<String> channelsName;
+    private ArrayList<String> chennelsIcon;
+
+    public void setRecommendsId(ArrayList<String> recommendsId) {
+        this.recommendsId = recommendsId;
+    }
+
+    public void setRecommendsName(ArrayList<String> recommendsName) {
+        this.recommendsName = recommendsName;
+    }
+
+    public void setRecommendsIcon(ArrayList<String> recommendsIcon) {
+        this.recommendsIcon = recommendsIcon;
+    }
+
+    public void setChannelsId(ArrayList<String> channelsId) {
+        this.channelsId = channelsId;
+    }
+
+    public void setChannelsName(ArrayList<String> channelsName) {
+        this.channelsName = channelsName;
+    }
+
+    public void setChennelsIcon(ArrayList<String> chennelsIcon) {
+        this.chennelsIcon = chennelsIcon;
+    }
 
     @Override
     public int getItemViewType(int position) {
