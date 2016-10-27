@@ -21,7 +21,7 @@ import java.util.ArrayList;
 =======
 import com.keyliveapp.keylivetv.classify.ClassifyFragment;
 import com.keyliveapp.keylivetv.discovery.DiscoveryFragment;
-import com.keyliveapp.keylivetv.home.HomeFragment;
+import com.keyliveapp.keylivetv.home.homeui.HomeFragment;
 import com.keyliveapp.keylivetv.mine.MineFragment;
 >>>>>>> 99a59c5407fc6a86875816e9f3159f297407facb
 

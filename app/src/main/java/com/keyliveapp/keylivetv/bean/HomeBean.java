@@ -1,4 +1,4 @@
-package com.keyliveapp.keylivetv.home;
+package com.keyliveapp.keylivetv.bean;
 
 import java.util.List;
 
@@ -236,6 +236,15 @@ public class HomeBean {
 
         public static class ColumnsBean {
 
+            private int viewType;
+
+            public int getViewType() {
+                return viewType;
+            }
+
+            public void setViewType(int viewType) {
+                this.viewType = viewType;
+            }
 
             private GameBean game;
             private int viewers;
