@@ -78,8 +78,16 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        int titlePosition = (position+3)/5;
 
+        int titlePosition = (position + 3) / 5;
+        
+        int contentPosition;
+        if (titlePosition == 0) {
+            contentPosition = position - 1;
+        }
+        if (titlePosition > 0) {
+            contentPosition = position - titlePosition * 5 - 3;
+        }
 
 
     }
