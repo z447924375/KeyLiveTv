@@ -17,6 +17,7 @@ import com.keyliveapp.keylivetv.bean.HomeBean;
 import com.keyliveapp.keylivetv.home.homepresenter.HomePresenter;
 import com.keyliveapp.keylivetv.values.URLvalues;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -67,23 +68,78 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
     @Override
     public void onResponse(HomeBean homeBean) {
-        List<HomeBean.DataBean.ColumnsBean> columnsBean;
-        columnsBean = homeBean.getData().getColumns();
-        ArrayList<String> bannerImgSrc = new ArrayList<>();
-        for (int i = 0; i < homeBean.getData().getBanner().size(); i++) {
-            bannerImgSrc.add(homeBean.getData().getBanner().get(i).getImage());
-        }
-        homeBanner.setImages(bannerImgSrc);
+        showBanner(homeBean);
+        showHoriScrollView(homeBean);
+        showRecyclerView(homeBean);
+    }
+
+
+
+
+    @Override
+    public void onError() {
+        Toast.makeText(mContext, "loading mistake", Toast.LENGTH_SHORT).show();
+    }
+
+    private ProgressDialog createDialog() {
+        ProgressDialog dialog = new ProgressDialog(getContext());
+        dialog.setTitle("loading...");
+        dialog.setMessage("please waiting for a moment");
+        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        return dialog;
+    }
+
+
+
+
+    private void showHoriScrollView(HomeBean homeBean) {
         for (int i = 0; i < homeBean.getData().getQuickbutton().size(); i++) {
             View view = LayoutInflater.from(getContext()).inflate(R.layout.home_scrollview_imgs, homeScrollView, false);
             ImageView imgs = (ImageView) view.findViewById(R.id.home_scrollview_pic);
             imgs.setAdjustViewBounds(true);
             Glide.with(getContext()).load(homeBean.getData().getQuickbutton().get(i).getImage()).into(imgs);
-//            Picasso.with(getContext()).load(homeBean.getData().getQuickbutton().get(i).getImage()).into(imgs);
             homeScrollView.addView(view);
-
+            final int finalI = i;
+            view.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext, "i:" + finalI, Toast.LENGTH_SHORT).show();
+                }
+            });
         }
 
+
+
+
+    }
+
+    private void showBanner(HomeBean homeBean) {
+        ArrayList<String> bannerImgSrc = new ArrayList<>();
+//        ArrayList<String> bannerTitle=new ArrayList<>();
+        for (int i = 0; i < homeBean.getData().getBanner().size(); i++) {
+            bannerImgSrc.add(homeBean.getData().getBanner().get(i).getImage());
+//            bannerTitle.add(homeBean.getData().getBanner().get(i).getTitle());
+        }
+//        homeBanner.setBannerTitleList(bannerTitle);
+        homeBanner.setImages(bannerImgSrc);
+        homeBanner.setBannerStyle(Banner.SCROLL_INDICATOR_BOTTOM);
+        homeBanner.setDelayTime(3500);
+
+        homeBanner.setOnBannerClickListener(new OnBannerClickListener() {
+            @Override
+            public void OnBannerClick(int position) {
+                Toast.makeText(mContext, "position:" + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+
+    }
+
+    private void showRecyclerView(HomeBean homeBean) {
+        List<HomeBean.DataBean.ColumnsBean> columnsBean;
+        columnsBean = homeBean.getData().getColumns();
         HomeRvAdapter adapter = new HomeRvAdapter(getContext(), columnsBean);
         mHomeRecycler.setAdapter(adapter);
 
@@ -97,20 +153,8 @@ public class HomeFragment extends BaseFragment implements IHomeView {
             }
         });
         mHomeRecycler.setLayoutManager(manager);
+
+
+
     }
-
-    @Override
-    public void onError() {
-        Toast.makeText(mContext, "loading mistake", Toast.LENGTH_SHORT).show();
-    }
-
-    private ProgressDialog createDialog() {
-        ProgressDialog dialog = new ProgressDialog(getContext());
-        dialog.setTitle("loading...");
-        dialog.setMessage("please waiting for a moment");
-        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-
-        return dialog;
-    }
-
 }

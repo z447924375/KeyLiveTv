@@ -2,6 +2,7 @@ package com.keyliveapp.keylivetv.home.homeui;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,8 +80,8 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        int titlePosition;
-        int contentPosition;
+        final int titlePosition;
+        final int contentPosition;
         if (position < 1) {
             titlePosition = 0;
             contentPosition = 0;
@@ -98,12 +99,31 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
                             getRooms().get(i).getChannel().getStatus());
                     Glide.with(context).load(mColumnsBeen.get(0).getRooms().get(i)
                             .getPreview()).into(sixViewHolder.homeLivePics[i]);
+
+                    final int finalI = i;
+                    sixViewHolder.homeLivePics[i].setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // TODO: 16/10/28 回调
+//                            mClickListener.onHomeItemClick(finalI +100);
+                            Log.d("position", "(finalI +100):" + (finalI + 100));
+                        }
+                    });
+
                 }
                 break;
             case HEAD_TYPE:
                 HeadViewHolder headViewHolder = (HeadViewHolder) holder;
                 headViewHolder.headTitle.setText(mColumnsBeen.get(titlePosition).getGame().getTitle());
                 headViewHolder.btnHeadChannel.setText(mColumnsBeen.get(titlePosition).getChannelsText());
+                headViewHolder.btnHeadChannel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // TODO: 16/10/28 回调
+
+                    }
+                });
+
                 break;
 
 
@@ -113,13 +133,22 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
                         .get(contentPosition).getChannel().getStatus());
 
                 contentViewHolder.contentTag.setText(mColumnsBeen.get(titlePosition).getRooms()
-                        .get(contentPosition).getChannel().getStatus());
+                        .get(contentPosition).getChannel().getName());
 
                 contentViewHolder.contentNum.setText(mColumnsBeen.get(titlePosition).getRooms()
                         .get(contentPosition).getViewers()+"");
 
                 Glide.with(context).load(mColumnsBeen.get(titlePosition).getRooms()
                         .get(contentPosition).getPreview()).into(contentViewHolder.contentPic);
+                contentViewHolder.contentPic.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //// TODO: 16/10/28 回调
+                        Log.d("HomeRvAdapter", "titlePosition:" + titlePosition);
+                        Log.d("HomeRvAdapter", "contentPosition:" + contentPosition);
+                    }
+                });
+
 
                 break;
 
