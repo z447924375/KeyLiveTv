@@ -88,6 +88,8 @@ public class HomeFragment extends BaseFragment implements IHomeView{
 
         HomeRvAdapter adapter = new HomeRvAdapter(getContext(),columnsBean);
         mHomeRecycler.setAdapter(adapter);
+
+
         final LinearLayoutManager manager = new LinearLayoutManager(getContext());
         mHomeRecycler.setLayoutManager(manager);
     }

@@ -7,12 +7,10 @@
 
 
     <android.support.design.widget.AppBarLayout
-        android:id="@+id/chart_clickin_appbar_ll"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/chart_clickin_toolbar_ll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="50dp"
