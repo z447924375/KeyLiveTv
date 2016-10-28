@@ -15,17 +15,12 @@ import com.keyliveapp.keylivetv.mine.MineFragment;
 import java.util.ArrayList;
 
 public class MainActivity extends BaseActivity {
-//    private ViewPager lzViewPager;
-//    private TabLayout lzTabLayout;
-
-//    @BindView(R.id.vp_longzhu)ViewPager lzViewPager;
-//    @BindView(R.id.tb_longzhu)TabLayout lzTabLayout;
 
     private ViewPager lzViewPager;
     private TabLayout lzTabLayout;
 
     @Override
-    protected int setlayout() {
+    protected int setLayout() {
         return R.layout.activity_main;
     }
 

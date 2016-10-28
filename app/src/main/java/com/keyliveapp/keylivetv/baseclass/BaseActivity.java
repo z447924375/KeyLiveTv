@@ -36,7 +36,7 @@ public abstract class BaseActivity extends FragmentActivity{
         ImageLoader.getInstance().init(configuration);
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(setlayout());
+        setContentView(setLayout());
         ButterKnife.bind(this);
         initView();
         inidate();
@@ -46,7 +46,7 @@ public abstract class BaseActivity extends FragmentActivity{
      *  设置布局
      * @return 布局文件id
      */
-    protected abstract  int setlayout();
+    protected abstract  int setLayout();
 
     /**
      * 初始化

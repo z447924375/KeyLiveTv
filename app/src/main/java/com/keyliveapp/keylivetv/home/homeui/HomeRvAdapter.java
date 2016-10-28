@@ -34,23 +34,10 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
         mColumnsBeen = columnsBeen;
         this.context = context;
         mInflater = LayoutInflater.from(context);
-        count = this.mColumnsBeen.size() * 5 + 1;
+        count = (this.mColumnsBeen.size()-1) * 5 + 1;
 
     }
 
-    /**
-     * v     0 1 1 1 1 1 1
-     * <p>
-     * h     h c c c c c c    0
-     * <p>
-     * <p>
-     * 0     h c c c c
-     * 1     h c c c c
-     * 2     h c c c c
-     * 3     h c c c c
-     * 4     h c c c c
-     * 5     h c c c c
-     */
 
     @Override
     public int getItemViewType(int position) {
@@ -86,6 +73,8 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
 
         }
         return null;
+
+
     }
 
     @Override
@@ -96,7 +85,7 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
             titlePosition = 0;
             contentPosition = 0;
         } else {
-            titlePosition = (position - 1) / 5;
+            titlePosition = (position - 1) / 5 + 1;
             contentPosition = (position - 2) % 5;
         }
         switch (getItemViewType(position)) {
@@ -110,7 +99,6 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
                     Glide.with(context).load(mColumnsBeen.get(0).getRooms().get(i)
                             .getPreview()).into(sixViewHolder.homeLivePics[i]);
                 }
-
                 break;
             case HEAD_TYPE:
                 HeadViewHolder headViewHolder = (HeadViewHolder) holder;
@@ -124,17 +112,27 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
                 contentViewHolder.contentTitle.setText(mColumnsBeen.get(titlePosition).getRooms()
                         .get(contentPosition).getChannel().getStatus());
 
+                contentViewHolder.contentTag.setText(mColumnsBeen.get(titlePosition).getRooms()
+                        .get(contentPosition).getChannel().getStatus());
+
+                contentViewHolder.contentNum.setText(mColumnsBeen.get(titlePosition).getRooms()
+                        .get(contentPosition).getViewers()+"");
+
                 Glide.with(context).load(mColumnsBeen.get(titlePosition).getRooms()
                         .get(contentPosition).getPreview()).into(contentViewHolder.contentPic);
 
                 break;
-        }
-    }
 
+
+        }
+
+
+    }
 
     @Override
     public int getItemCount() {
         return count;
+
     }
 
     class HeadViewHolder extends RecyclerView.ViewHolder {
@@ -147,19 +145,26 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
             headTitle = (TextView) itemView.findViewById(R.id.home_head_title);
             btnHeadChannel = (Button) itemView.findViewById(R.id.home_btn_channel);
         }
+
+
     }
 
     class ContentViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView contentPic;
         private TextView contentTitle;
+        private TextView contentTag;
+        private TextView contentNum;
 
         public ContentViewHolder(View itemView) {
             super(itemView);
             contentPic = (ImageView) itemView.findViewById(R.id.home_content_pic);
             contentTitle = (TextView) itemView.findViewById(R.id.home_content_text);
-
+            contentTag= (TextView) itemView.findViewById(R.id.home_content_tag);
+            contentNum= (TextView) itemView.findViewById(R.id.home_content_num);
         }
+
+
     }
 
     class LiveSixViewHolder extends RecyclerView.ViewHolder {
@@ -202,6 +207,8 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
                 homeLiveTexts[i] = (TextView) itemView.findViewById(homeLiveTextIds[i]);
             }
         }
+
+
     }
 
 

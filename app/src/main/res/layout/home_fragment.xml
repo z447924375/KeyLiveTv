@@ -64,7 +64,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:src="@mipmap/tab_search"/>
+            android:background="@mipmap/tab_search"/>
     </RelativeLayout>
 
 
