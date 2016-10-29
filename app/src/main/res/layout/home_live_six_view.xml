@@ -36,7 +36,7 @@
             android:background="@color/colorAlpha"
             android:drawableRight="@mipmap/ic_arrow_go"
             android:textColor="@color/colorGray"
-            android:textSize="15dp"
+            android:textSize="10sp"
             />
 
 

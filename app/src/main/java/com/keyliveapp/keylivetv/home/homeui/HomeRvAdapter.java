@@ -2,7 +2,6 @@ package com.keyliveapp.keylivetv.home.homeui;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,7 +89,7 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
                 HeadViewHolder headViewHolder = new HeadViewHolder(headView);
                 return headViewHolder;
             case CONTENT_TYPE:
-                View contentView = mInflater.inflate(R.layout.home_content_view, parent, false);
+                View contentView = mInflater.inflate(R.layout.recycler_content_view, parent, false);
                 ContentViewHolder contentViewHolder = new ContentViewHolder(contentView);
                 return contentViewHolder;
 
@@ -170,14 +169,10 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
                 contentViewHolder.contentPic.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //// TODO: 16/10/28 回调
                         mContentClickListener.contentClicked(titlePosition, contentPosition);
                     }
                 });
-
-
                 break;
-
 
         }
 

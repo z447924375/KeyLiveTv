@@ -1,6 +1,7 @@
 package com.keyliveapp.keylivetv.home.homeui;
 
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
 import com.keyliveapp.keylivetv.bean.HomeBean;
+import com.keyliveapp.keylivetv.classify.zxh.ClassifyClickInActivity;
 import com.keyliveapp.keylivetv.home.homepresenter.HomePresenter;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeContentClickListener;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeTitleClickListener;
@@ -46,6 +48,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
     @Override
     protected void initView() {
+
         mDialog = createDialog();
         mHomeRecycler = getViewLayout(R.id.home_recyclerview);
         homeBanner = getViewLayout(R.id.home_banner);
@@ -56,6 +59,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
     @Override
     protected void initDate() {
+
         mPresenter = new HomePresenter(this);
         mPresenter.startPresenterRequest(URLvalues.HOME_PAGE_URL);
 
@@ -73,9 +77,11 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
     @Override
     public void onResponse(HomeBean homeBean) {
+
         showBanner(homeBean);
         showHoriScrollView(homeBean);
         showRecyclerView(homeBean);
+
     }
 
 
@@ -85,16 +91,21 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     }
 
     private ProgressDialog createDialog() {
+
         ProgressDialog dialog = new ProgressDialog(getContext());
         dialog.setTitle("loading...");
         dialog.setMessage("please waiting for a moment");
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         return dialog;
+
+
     }
 
 
-    private void showHoriScrollView(HomeBean homeBean) {
+    private void showHoriScrollView(final HomeBean homeBean) {
+
         for (int i = 0; i < homeBean.getData().getQuickbutton().size(); i++) {
+
             View view = LayoutInflater.from(getContext()).inflate(R.layout.home_scrollview_imgs, homeScrollView, false);
             ImageView imgs = (ImageView) view.findViewById(R.id.home_scrollview_pic);
             imgs.setAdjustViewBounds(true);
@@ -105,14 +116,27 @@ public class HomeFragment extends BaseFragment implements IHomeView {
                 @Override
                 public void onClick(View v) {
                     Toast.makeText(mContext, "i:" + finalI, Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
+                    String url = URLvalues.CLASSIFY_URL_FRONT + homeBean.getData().getQuickbutton()
+                            .get(finalI).getHrefTarget() + URLvalues.CLASSIFY_URL_BEHIND;
 
+                    jumpToClassifyClickIn(url);
+
+                }
+
+            });
+
+        }
 
     }
 
+    private void jumpToClassifyClickIn(String url) {
+        Intent intent = new Intent(getActivity(), ClassifyClickInActivity.class);
+        intent.putExtra("url", url);
+        startActivity(intent);
+    }
+
     private void showBanner(HomeBean homeBean) {
+
         ArrayList<String> bannerImgSrc = new ArrayList<>();
 //        ArrayList<String> bannerTitle=new ArrayList<>();
         for (int i = 0; i < homeBean.getData().getBanner().size(); i++) {
@@ -135,6 +159,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     }
 
     private void showRecyclerView(HomeBean homeBean) {
+
         List<HomeBean.DataBean.ColumnsBean> columnsBean;
         columnsBean = homeBean.getData().getColumns();
         HomeRvAdapter adapter = new HomeRvAdapter(getContext(), columnsBean);
@@ -170,7 +195,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         adapter.setTitleClickListener(new OnHomeTitleClickListener() {
             @Override
             public void titleClicked(int position) {
-                Log.d("titlePosition", "position:" + position+"channel++");
+                Log.d("titlePosition", "position:" + position + "channel++");
             }
         });
         //content点击
