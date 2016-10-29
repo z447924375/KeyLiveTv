@@ -13,6 +13,10 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.bean.HomeBean;
+import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeContentClickListener;
+import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeTitleClickListener;
+import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnLiveRecChannelListener;
+import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnLiveRecItemClickListener;
 
 import java.util.List;
 
@@ -29,13 +33,32 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
     private List<HomeBean.DataBean.ColumnsBean> mColumnsBeen;
     private LayoutInflater mInflater;
     private int count;
+    private OnLiveRecItemClickListener mLiveRecItemClickListener;
+    private OnHomeTitleClickListener mTitleClickListener;
+    private OnHomeContentClickListener mContentClickListener;
+    private OnLiveRecChannelListener mChannelListener;
 
+    public void setChannelListener(OnLiveRecChannelListener channelListener) {
+        mChannelListener = channelListener;
+    }
+
+    public void setLiveRecItemClickListener(OnLiveRecItemClickListener liveRecItemClickListener) {
+        mLiveRecItemClickListener = liveRecItemClickListener;
+    }
+
+    public void setTitleClickListener(OnHomeTitleClickListener titleClickListener) {
+        mTitleClickListener = titleClickListener;
+    }
+
+    public void setContentClickListener(OnHomeContentClickListener contentClickListener) {
+        mContentClickListener = contentClickListener;
+    }
 
     public HomeRvAdapter(Context context, List<HomeBean.DataBean.ColumnsBean> columnsBeen) {
         mColumnsBeen = columnsBeen;
         this.context = context;
         mInflater = LayoutInflater.from(context);
-        count = (this.mColumnsBeen.size()-1) * 5 + 1;
+        count = (this.mColumnsBeen.size() - 1) * 5 + 1;
 
     }
 
@@ -94,6 +117,13 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
                 LiveSixViewHolder sixViewHolder = (LiveSixViewHolder) holder;
                 sixViewHolder.title.setText(mColumnsBeen.get(0).getGame().getName());
                 sixViewHolder.btnChannel.setText(mColumnsBeen.get(0).getChannelsText());
+                sixViewHolder.btnChannel.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mChannelListener.liveRecChannelClicked();
+                    }
+                });
+
                 for (int i = 0; i < 6; i++) {
                     sixViewHolder.homeLiveTexts[i].setText(mColumnsBeen.get(0).
                             getRooms().get(i).getChannel().getStatus());
@@ -104,9 +134,7 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
                     sixViewHolder.homeLivePics[i].setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            // TODO: 16/10/28 回调
-//                            mClickListener.onHomeItemClick(finalI +100);
-                            Log.d("position", "(finalI +100):" + (finalI + 100));
+                            mLiveRecItemClickListener.liveItemClicked(finalI);
                         }
                     });
 
@@ -119,8 +147,7 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
                 headViewHolder.btnHeadChannel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // TODO: 16/10/28 回调
-
+                        mTitleClickListener.titleClicked(titlePosition);
                     }
                 });
 
@@ -136,7 +163,7 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
                         .get(contentPosition).getChannel().getName());
 
                 contentViewHolder.contentNum.setText(mColumnsBeen.get(titlePosition).getRooms()
-                        .get(contentPosition).getViewers()+"");
+                        .get(contentPosition).getViewers() + "");
 
                 Glide.with(context).load(mColumnsBeen.get(titlePosition).getRooms()
                         .get(contentPosition).getPreview()).into(contentViewHolder.contentPic);
@@ -144,8 +171,7 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
                     @Override
                     public void onClick(View v) {
                         //// TODO: 16/10/28 回调
-                        Log.d("HomeRvAdapter", "titlePosition:" + titlePosition);
-                        Log.d("HomeRvAdapter", "contentPosition:" + contentPosition);
+                        mContentClickListener.contentClicked(titlePosition, contentPosition);
                     }
                 });
 
@@ -189,8 +215,8 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
             super(itemView);
             contentPic = (ImageView) itemView.findViewById(R.id.home_content_pic);
             contentTitle = (TextView) itemView.findViewById(R.id.home_content_text);
-            contentTag= (TextView) itemView.findViewById(R.id.home_content_tag);
-            contentNum= (TextView) itemView.findViewById(R.id.home_content_num);
+            contentTag = (TextView) itemView.findViewById(R.id.home_content_tag);
+            contentNum = (TextView) itemView.findViewById(R.id.home_content_num);
         }
 
 

@@ -3,6 +3,7 @@ package com.keyliveapp.keylivetv.home.homeui;
 import android.app.ProgressDialog;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
@@ -15,6 +16,10 @@ import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
 import com.keyliveapp.keylivetv.bean.HomeBean;
 import com.keyliveapp.keylivetv.home.homepresenter.HomePresenter;
+import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeContentClickListener;
+import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeTitleClickListener;
+import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnLiveRecChannelListener;
+import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnLiveRecItemClickListener;
 import com.keyliveapp.keylivetv.values.URLvalues;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerClickListener;
@@ -74,8 +79,6 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     }
 
 
-
-
     @Override
     public void onError() {
         Toast.makeText(mContext, "loading mistake", Toast.LENGTH_SHORT).show();
@@ -88,8 +91,6 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
         return dialog;
     }
-
-
 
 
     private void showHoriScrollView(HomeBean homeBean) {
@@ -107,8 +108,6 @@ public class HomeFragment extends BaseFragment implements IHomeView {
                 }
             });
         }
-
-
 
 
     }
@@ -133,8 +132,6 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         });
 
 
-
-
     }
 
     private void showRecyclerView(HomeBean homeBean) {
@@ -154,6 +151,36 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         });
         mHomeRecycler.setLayoutManager(manager);
 
+
+        //livechannel点击
+        adapter.setChannelListener(new OnLiveRecChannelListener() {
+            @Override
+            public void liveRecChannelClicked() {
+                Log.d("liveTitleClicked", "channel");
+            }
+        });
+        //liveitem  点击
+        adapter.setLiveRecItemClickListener(new OnLiveRecItemClickListener() {
+            @Override
+            public void liveItemClicked(int i) {
+                Log.d("liveItemPosition", "i:" + i);
+            }
+        });
+        //title点击
+        adapter.setTitleClickListener(new OnHomeTitleClickListener() {
+            @Override
+            public void titleClicked(int position) {
+                Log.d("titlePosition", "position:" + position+"channel++");
+            }
+        });
+        //content点击
+        adapter.setContentClickListener(new OnHomeContentClickListener() {
+            @Override
+            public void contentClicked(int titlePosition, int contentPosition) {
+                Log.d("contentClicked", "titlePosition:" + titlePosition);
+                Log.d("contentClicked", "contentPosition:" + contentPosition);
+            }
+        });
 
 
     }
