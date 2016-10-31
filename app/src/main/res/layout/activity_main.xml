@@ -10,6 +10,7 @@
     tools:context="com.keyliveapp.keylivetv.main.MainActivity">
 
 
+
     <android.support.v4.view.ViewPager
         android:id="@+id/vp_longzhu"
         android:layout_width="match_parent"
@@ -22,13 +23,14 @@
     </android.support.v4.view.ViewPager>
 
     <android.support.design.widget.TabLayout
-        app:tabIndicatorColor="@color/colorOrange"
-        app:tabTextColor="@color/colorOrange"
         android:id="@+id/tb_longzhu"
         android:layout_width="match_parent"
         android:background="@color/colorWhite"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        app:tabIndicatorColor="@color/colorWhite"
+        app:tabSelectedTextColor="@color/colorOrange"
+        app:tabTextColor="@color/colorGray">
 
     </android.support.design.widget.TabLayout>
 

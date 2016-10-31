@@ -5,8 +5,9 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <android.support.design.widget.TabLayout
-        app:tabIndicatorColor="@color/colorOrange"
-        app:tabTextColor="@color/colorOrange"
+        app:tabIndicatorColor="@color/colorWhite"
+        app:tabSelectedTextColor="@color/colorOrange"
+        app:tabTextColor="@color/colorGray"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:id="@+id/tb_discovery">

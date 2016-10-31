@@ -7,6 +7,7 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="radiobutton">
         <item name="android:button">@null</item>
         <item name="android:height">40dp</item>
@@ -14,10 +15,32 @@
         <item name="android:layout_weight">1</item>
 
     </style>
+
     <style name="titleStyle">
         <item name="android:background">@color/colorWhite</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">50dp</item>
     </style>
+
+    <style name="homeLivePicStyle">
+        <item name="android:layout_width">180dp</item>
+        <item name="android:layout_height">100dp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:src">@mipmap/default_live_ic</item>
+    </style>
+    <style name="homeLiveTextStyle">
+        <item name="android:layout_width">180dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textSize">10dp</item>
+        <item name="android:text">"whatever"</item>
+    </style>
+    <style name="homeLiveLinerStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
 
 </resources>

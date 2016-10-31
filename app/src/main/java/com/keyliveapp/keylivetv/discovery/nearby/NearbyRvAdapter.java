@@ -9,8 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.keyliveapp.keylivetv.R;
-
-import java.util.ArrayList;
+import com.keyliveapp.keylivetv.bean.DiscoveryBean;
 
 /**
  * Created by dllo on 16/10/28.
@@ -18,14 +17,14 @@ import java.util.ArrayList;
 
 public class NearbyRvAdapter extends RecyclerView.Adapter {
     private Context mContext;
-    private ArrayList<String> arrayList;
+    private DiscoveryBean bean;
 
     public NearbyRvAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-    public void setArrayList(ArrayList<String> arrayList) {
-        this.arrayList = arrayList;
+    public void setBean(DiscoveryBean bean) {
+        this.bean = bean;
     }
 
     @Override
@@ -42,7 +41,7 @@ public class NearbyRvAdapter extends RecyclerView.Adapter {
 
     @Override
     public int getItemCount() {
-        return 0;
+        return bean.getData().getStreams().getItems().size();
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
