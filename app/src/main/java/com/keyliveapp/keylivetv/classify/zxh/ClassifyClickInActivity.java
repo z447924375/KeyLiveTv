@@ -9,7 +9,7 @@ import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseActivity;
 
 public class ClassifyClickInActivity extends BaseActivity {
-    private TextView title;
+    private TextView topTitle;
     private RecyclerView mRecyclerView;
 
     @Override
@@ -19,7 +19,7 @@ public class ClassifyClickInActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        title = bindView(R.id.classify_clickin_title);
+        topTitle = bindView(R.id.classify_clickin_title);
         mRecyclerView = bindView(R.id.classify_clickin_rv);
     }
 
@@ -27,6 +27,8 @@ public class ClassifyClickInActivity extends BaseActivity {
     protected void inidate() {
         Intent intent = getIntent();
         String url = intent.getExtras().getString("url");
+        String title = intent.getExtras().getString("title");
+        topTitle.setText(title);
         Log.d("ClassifyClickInActivity", url);
 
     }
