@@ -1,5 +1,6 @@
 package com.keyliveapp.keylivetv.classify;
 
+import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ public class ChannelsAdapter extends RecyclerView.Adapter{
     private ArrayList<String> channelsId;
     private ArrayList<String> channelsName;
     private ArrayList<String> chennelsIcon;
+    private Context context;
 
     public void setChannelsId(ArrayList<String> channelsId) {
         this.channelsId = channelsId;
@@ -37,6 +39,10 @@ public class ChannelsAdapter extends RecyclerView.Adapter{
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
+        if (context == null) {
+            context = parent.getContext();
+        }
+
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.classify_channels_channels, parent, false);
         ChannelsViewHolder channelsViewHolder = new ChannelsViewHolder(view);
         return channelsViewHolder;
@@ -46,7 +52,9 @@ public class ChannelsAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ChannelsViewHolder channelsViewHolder = (ChannelsViewHolder) holder;
         channelsViewHolder.tvChannels.setText(channelsName.get(position));
-        Glide
+        Glide.with(context)
+                .load(chennelsIcon)
+                .into(channelsViewHolder.imgChannels);
     }
 
     @Override
