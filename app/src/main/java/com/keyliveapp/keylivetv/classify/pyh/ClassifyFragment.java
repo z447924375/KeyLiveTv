@@ -5,6 +5,11 @@ import android.support.v7.widget.RecyclerView;
 
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
+import com.keyliveapp.keylivetv.tools.HttpManager;
+import com.keyliveapp.keylivetv.tools.OnCompletedListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by dllo on 16/10/22.
@@ -12,6 +17,14 @@ import com.keyliveapp.keylivetv.baseclass.BaseFragment;
 public class ClassifyFragment extends BaseFragment {
 
     private RecyclerView recyclerView;
+
+    private String URL_CLASSIFY = "https://a4.plu.cn/api/games/all?version=3.7.0&device=4&packageId=1";
+    private ArrayList<String> chennelsIcon;
+    private ArrayList<String> channelsName;
+    private ArrayList<String> channelsId;
+    private ArrayList<String> recommendsIcon;
+    private ArrayList<String> recommendsName;
+    private ArrayList<String> recommendsId;
 
     @Override
     protected int setLayout() {
@@ -28,11 +41,72 @@ public class ClassifyFragment extends BaseFragment {
     @Override
     protected void initDate() {
 
-        ClassifyFragmentAdapter classifyFragmentAdapter = new ClassifyFragmentAdapter();
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(classifyFragmentAdapter);
+        HttpManager.getInstance().getRequest(URL_CLASSIFY, ClassifyBean.class, new OnCompletedListener<ClassifyBean>() {
+            @Override
+            public void onCompleted(ClassifyBean result) {
 
+                ClassifyFragmentAdapter classifyFragmentAdapter = new ClassifyFragmentAdapter();
+
+                getData(result);
+
+                sendData(classifyFragmentAdapter);
+
+
+                LinearLayoutManager manager = new LinearLayoutManager(getContext());
+                recyclerView.setLayoutManager(manager);
+                recyclerView.setAdapter(classifyFragmentAdapter);
+
+            }
+
+            @Override
+            public void onFailed() {
+
+            }
+        });
+
+    }
+
+    private void sendData(ClassifyFragmentAdapter classifyFragmentAdapter) {
+        classifyFragmentAdapter.setChannelsId(channelsId);
+        classifyFragmentAdapter.setChannelsName(channelsName);
+        classifyFragmentAdapter.setChennelsIcon(chennelsIcon);
+        classifyFragmentAdapter.setRecommendsIcon(recommendsIcon);
+        classifyFragmentAdapter.setRecommendsId(recommendsId);
+        classifyFragmentAdapter.setRecommendsName(recommendsName);
+    }
+
+    private void getData(ClassifyBean result) {
+
+        recommendsId =
+                new ArrayList<String>();
+        recommendsName =
+                new ArrayList<String>();
+        recommendsIcon =
+                new ArrayList<String>();
+
+        channelsId =
+                new ArrayList<>();
+        channelsName =
+                new ArrayList<>();
+        chennelsIcon =
+                new ArrayList<>();
+
+        List<ClassifyBean.DataBean.RecommendBean> recommends = result.getData().getRecommend();
+        List<ClassifyBean.DataBean.ItemsBean> items = result.getData().getItems();
+
+        for (ClassifyBean.DataBean.RecommendBean recommend : recommends) {
+            ClassifyBean.DataBean.RecommendBean.GameBean game = recommend.getGame();
+            recommendsId.add(game.getId());
+            recommendsName.add(game.getName());
+            recommendsIcon.add(game.getLogo());
+        }
+
+        for (ClassifyBean.DataBean.ItemsBean item : items) {
+            ClassifyBean.DataBean.ItemsBean.GameBean game = item.getGame();
+            channelsId.add(String.valueOf(game.getId()));
+            channelsName.add(game.getName());
+            chennelsIcon.add(game.getLogo());
+        }
     }
 
     @Override
