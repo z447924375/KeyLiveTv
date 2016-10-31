@@ -5,13 +5,22 @@
               android:orientation="vertical">
 
     <include layout="@layout/classify_son_layout_title"/>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/classify_clickin_rv"
+
+    <com.handmark.pulltorefresh.library.PullToRefreshListView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/lv_classify"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="10">
-
-    </android.support.v7.widget.RecyclerView>
-
+        android:layout_height="match_parent"
+        android:cacheColorHint="#00000000"
+        android:divider="#ffffff"
+        android:dividerHeight="5dp"
+        android:fadingEdge="none"
+        android:fastScrollEnabled="false"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:listSelector="#00000000"
+        android:smoothScrollbar="true"
+        ptr:ptrHeaderBackground="#c80202"
+        ptr:ptrHeaderTextColor="#F39801" />
 
 </LinearLayout>

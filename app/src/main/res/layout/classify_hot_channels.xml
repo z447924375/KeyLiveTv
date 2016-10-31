@@ -8,15 +8,16 @@
 
     <ImageView
         android:id="@+id/img_hot"
-        android:background="@mipmap/ic_launcher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_width="68dp"
+        android:layout_height="68dp" />
 
     <TextView
+        android:id="@+id/tv_hot"
         android:text="hothothot"
         android:textColor="#FFFFFF"
-        android:textSize="19dp"
-        android:layout_width="wrap_content"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:layout_width="100dp"
         android:layout_height="wrap_content" />
 
 </LinearLayout>
