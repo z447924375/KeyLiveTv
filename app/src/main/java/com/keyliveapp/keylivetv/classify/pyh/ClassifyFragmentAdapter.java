@@ -27,6 +27,11 @@ public class ClassifyFragmentAdapter extends RecyclerView.Adapter {
     private ArrayList<String> channelsName;
     private ArrayList<String> chennelsIcon;
 
+    private String URL_BEFORE = "https://a4.plu.cn/api/streams?start-index=0&max-results=30&game=";
+    private String URL_BEHIND = "&version=3.7.0&device=4&packageId=1";
+    private String URL_ALL = "https://a4.plu.cn/api/streams?start-index=0&max-results=30&game=0&sort-by=views&version=3.7.0&device=4&packageId=1";
+    private String URL_ALLMATCH = "https://a4.plu.cn/api/matches?start-index=0&max-results=200&version=3.7.0&device=4&packageId=1";
+
     public void setRecommendsId(ArrayList<String> recommendsId) {
         this.recommendsId = recommendsId;
     }
@@ -101,6 +106,7 @@ public class ClassifyFragmentAdapter extends RecyclerView.Adapter {
                 channelsAdapter.setChennelsIcon(chennelsIcon);
                 channelsAdapter.setChannelsName(channelsName);
                 GridLayoutManager manager1 = new GridLayoutManager(context, 3);
+                channelsViewHolder.channelsRecyclerView.addItemDecoration(new SpaceDecoration(80));
                 channelsViewHolder.channelsRecyclerView.setLayoutManager(manager1);
                 channelsViewHolder.channelsRecyclerView.setAdapter(channelsAdapter);
                 break;

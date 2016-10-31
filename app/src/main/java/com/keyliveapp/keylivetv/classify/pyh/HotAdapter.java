@@ -1,6 +1,7 @@
 package com.keyliveapp.keylivetv.classify.pyh;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.MyApp;
 
+import com.keyliveapp.keylivetv.classify.zxh.ClassifyClickInActivity;
 import com.keyliveapp.keylivetv.myapp.MyAppp;
 
 import java.util.ArrayList;
@@ -26,6 +28,7 @@ public class HotAdapter extends RecyclerView.Adapter{
     private ArrayList<String> recommendsName;
     private ArrayList<String> recommendsIcon;
     private Context context;
+
 
     public void setRecommendsId(ArrayList<String> recommendsId) {
         this.recommendsId = recommendsId;
@@ -54,16 +57,27 @@ public class HotAdapter extends RecyclerView.Adapter{
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         HotViewHolder hotViewHolder = (HotViewHolder) holder;
-        String hotTitle = recommendsName.get(position);
-        String iconUrl = recommendsIcon.get(position);
+        final String hotTitle = recommendsName.get(position);
+        final String iconUrl = recommendsIcon.get(position);
         hotViewHolder.tvHot.setText(hotTitle);
-        Log.d("HotAdapter", "MyAppp.getmContext():" + MyAppp.getmContext());
-        Log.d("HotAdapter", "MyApp.getContext():" + MyApp.getContext());
         Glide.with(context)
                 .load(iconUrl)
                 .into(hotViewHolder.imgHot);
+
+//        final String url = URL_BEFORE + recommendsId.get(position) + URL_BEHIND;
+
+        hotViewHolder.imgHot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ClassifyClickInActivity.class);
+                intent.putExtra("gameId", recommendsId.get(position));
+                intent.putExtra("name", hotTitle);
+                context.startActivity(intent);
+            }
+        });
+
     }
 
     @Override
@@ -71,15 +85,17 @@ public class HotAdapter extends RecyclerView.Adapter{
         return recommendsIcon.size();
     }
 
-    private class HotViewHolder extends RecyclerView.ViewHolder {
+    private class HotViewHolder extends RecyclerView.ViewHolder{
 
         private final TextView tvHot;
         private final ImageView imgHot;
 
         public HotViewHolder(View itemView) {
             super(itemView);
+
             tvHot = (TextView) itemView.findViewById(R.id.tv_hot);
             imgHot = (ImageView) itemView.findViewById(R.id.img_hot);
+
         }
     }
 }
