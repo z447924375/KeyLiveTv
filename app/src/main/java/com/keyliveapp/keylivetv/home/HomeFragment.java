@@ -74,9 +74,9 @@ public class HomeFragment extends BaseFragment {
         });
 
 
-//        HomeRvAdapter adapter=new HomeRvAdapter(MyApp.getContext());
+//        HomeRvAdapter adapter=new HomeRvAdapter(MyAppp.getContext());
 //        mHomeRecycler.setAdapter(adapter);
-//        LinearLayoutManager manager=new LinearLayoutManager(MyApp.getContext());
+//        LinearLayoutManager manager=new LinearLayoutManager(MyAppp.getContext());
 //        mHomeRecycler.setLayoutManager(manager);
 
     }

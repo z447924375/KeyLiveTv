@@ -86,6 +86,9 @@ public class ClassifyFragmentAdapter extends RecyclerView.Adapter {
             case 0:
                 HotViewHolder hotViewHolder = (HotViewHolder) holder;
                 HotAdapter hotAdapter = new HotAdapter();
+                hotAdapter.setRecommendsId(recommendsId);
+                hotAdapter.setRecommendsIcon(recommendsIcon);
+                hotAdapter.setRecommendsName(recommendsName);
                 LinearLayoutManager manager = new LinearLayoutManager(context);
                 manager.setOrientation(LinearLayoutManager.HORIZONTAL);
                 hotViewHolder.hotRecyclerView.setLayoutManager(manager);
@@ -94,6 +97,9 @@ public class ClassifyFragmentAdapter extends RecyclerView.Adapter {
             case 1:
                 ChannelsViewHolder channelsViewHolder = (ChannelsViewHolder) holder;
                 ChannelsAdapter channelsAdapter = new ChannelsAdapter();
+                channelsAdapter.setChannelsId(channelsId);
+                channelsAdapter.setChennelsIcon(chennelsIcon);
+                channelsAdapter.setChannelsName(channelsName);
                 GridLayoutManager manager1 = new GridLayoutManager(context, 3);
                 channelsViewHolder.channelsRecyclerView.setLayoutManager(manager1);
                 channelsViewHolder.channelsRecyclerView.setAdapter(channelsAdapter);

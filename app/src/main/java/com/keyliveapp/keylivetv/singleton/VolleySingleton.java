@@ -3,7 +3,7 @@ package com.keyliveapp.keylivetv.singleton;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
-import com.keyliveapp.keylivetv.myapp.MyApp;
+import com.keyliveapp.keylivetv.myapp.MyAppp;
 
 /**
  * Created by dllo on 16/10/22.
@@ -15,7 +15,7 @@ public class VolleySingleton {
     private RequestQueue requestQueue;
 
     private VolleySingleton() {
-        requestQueue = Volley.newRequestQueue(MyApp.getmContext());
+        requestQueue = Volley.newRequestQueue(MyAppp.getmContext());
     }
 
     public static VolleySingleton getInstance() {
