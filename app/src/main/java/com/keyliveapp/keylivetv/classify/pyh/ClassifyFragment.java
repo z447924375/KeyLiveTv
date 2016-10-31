@@ -5,8 +5,9 @@ import android.support.v7.widget.RecyclerView;
 
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
-import com.keyliveapp.keylivetv.tools.HttpManager;
-import com.keyliveapp.keylivetv.tools.OnCompletedListener;
+import com.keyliveapp.keylivetv.classify.ClassifyBean;
+import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
+import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
 
 import java.util.ArrayList;
 import java.util.List;

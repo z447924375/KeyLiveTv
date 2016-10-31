@@ -51,7 +51,7 @@ public class ChannelsAdapter extends RecyclerView.Adapter{
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         ChannelsViewHolder channelsViewHolder = (ChannelsViewHolder) holder;
-        channelsViewHolder.tvChannels.setText(channelsName.get(position));
+//        channelsViewHolder.tvChannels.setText(channelsName.get(position));
         Glide.with(context)
                 .load(chennelsIcon)
                 .into(channelsViewHolder.imgChannels);
@@ -65,12 +65,12 @@ public class ChannelsAdapter extends RecyclerView.Adapter{
     private class ChannelsViewHolder extends RecyclerView.ViewHolder {
 
         private final ImageView imgChannels;
-        private final TextView tvChannels;
+//        private final TextView tvChannels;
 
         public ChannelsViewHolder(View view) {
             super(view);
             imgChannels = (ImageView) view.findViewById(R.id.img_channels);
-            tvChannels = (TextView) view.findViewById(R.id.tv_channels);
+//            tvChannels = (TextView) view.findViewById(R.id.tv_channels);
         }
     }
 }
