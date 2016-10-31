@@ -5,5 +5,5 @@ package com.keyliveapp.keylivetv.home.homeui.homeclickcallback;
  */
 
 public interface OnHomeTitleClickListener {
-    void titleClicked(int position);
+    void titleClicked(int titlePosition);
 }

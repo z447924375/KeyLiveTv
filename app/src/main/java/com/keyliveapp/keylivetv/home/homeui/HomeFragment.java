@@ -20,7 +20,6 @@ import com.keyliveapp.keylivetv.classify.zxh.ClassifyClickInActivity;
 import com.keyliveapp.keylivetv.home.homepresenter.HomePresenter;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeContentClickListener;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeTitleClickListener;
-import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnLiveRecChannelListener;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnLiveRecItemClickListener;
 import com.keyliveapp.keylivetv.values.URLvalues;
 import com.youth.banner.Banner;
@@ -129,11 +128,6 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
     }
 
-    private void jumpToClassifyClickIn(String url) {
-        Intent intent = new Intent(getActivity(), ClassifyClickInActivity.class);
-        intent.putExtra("url", url);
-        startActivity(intent);
-    }
 
     private void showBanner(HomeBean homeBean) {
 
@@ -158,7 +152,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
     }
 
-    private void showRecyclerView(HomeBean homeBean) {
+    private void showRecyclerView(final HomeBean homeBean) {
 
         List<HomeBean.DataBean.ColumnsBean> columnsBean;
         columnsBean = homeBean.getData().getColumns();
@@ -182,6 +176,8 @@ public class HomeFragment extends BaseFragment implements IHomeView {
             @Override
             public void liveRecChannelClicked() {
                 Log.d("liveTitleClicked", "channel");
+
+                jumpToClassifyClickIn("https://a4.plu.cn/api/streams?start-index=0&max-results=30&game=0&sort-by=views&version=3.7.0&device=4&packageId=1");
             }
         });
         //liveitem  点击
@@ -194,8 +190,10 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         //title点击
         adapter.setTitleClickListener(new OnHomeTitleClickListener() {
             @Override
-            public void titleClicked(int position) {
-                Log.d("titlePosition", "position:" + position + "channel++");
+            public void titleClicked(int titlePosition) {
+
+
+
             }
         });
         //content点击
@@ -204,9 +202,18 @@ public class HomeFragment extends BaseFragment implements IHomeView {
             public void contentClicked(int titlePosition, int contentPosition) {
                 Log.d("contentClicked", "titlePosition:" + titlePosition);
                 Log.d("contentClicked", "contentPosition:" + contentPosition);
+//                homeBean.getData().getColumns().get(titlePosition).getRooms()
+
             }
         });
 
+    }
 
+
+
+    private void jumpToClassifyClickIn(String url) {
+        Intent intent = new Intent(getActivity(), ClassifyClickInActivity.class);
+        intent.putExtra("url", url);
+        startActivity(intent);
     }
 }
