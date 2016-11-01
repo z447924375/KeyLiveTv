@@ -8,8 +8,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.keyliveapp.keylivetv.R;
-import com.keyliveapp.keylivetv.bean.DiscoveryBean;
+import com.keyliveapp.keylivetv.bean.NearbyBean;
 
 /**
  * Created by dllo on 16/10/28.
@@ -17,13 +18,13 @@ import com.keyliveapp.keylivetv.bean.DiscoveryBean;
 
 public class NearbyRvAdapter extends RecyclerView.Adapter {
     private Context mContext;
-    private DiscoveryBean bean;
+    private NearbyBean bean;
 
     public NearbyRvAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-    public void setBean(DiscoveryBean bean) {
+    public void setBean(NearbyBean bean) {
         this.bean = bean;
     }
 
@@ -36,6 +37,9 @@ public class NearbyRvAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+        MyViewHolder myViewHolder = null;
+        Glide.with(mContext).load(bean.getData().getStreams().getItems().get(position).getPreview()).into(myViewHolder.pic);
+        myViewHolder.tv.setText(bean.getData().getStreams().getItems().get(position).getUser().getName());
 
     }
 

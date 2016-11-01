@@ -6,7 +6,7 @@ import java.util.List;
  * Created by dllo on 16/10/28.
  */
 
-public class DiscoveryBean {
+public class NearbyBean {
 
     /**
      * apiVersion : 1.0
