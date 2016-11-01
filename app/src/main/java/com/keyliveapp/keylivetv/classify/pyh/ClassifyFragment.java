@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
-import com.keyliveapp.keylivetv.classify.ClassifyBean;
+import com.keyliveapp.keylivetv.bean.ClassifyBean;
 import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
 
@@ -79,11 +79,11 @@ public class ClassifyFragment extends BaseFragment {
     private void getData(ClassifyBean result) {
 
         recommendsId =
-                new ArrayList<String>();
+                new ArrayList<>();
         recommendsName =
-                new ArrayList<String>();
+                new ArrayList<>();
         recommendsIcon =
-                new ArrayList<String>();
+                new ArrayList<>();
 
         channelsId =
                 new ArrayList<>();

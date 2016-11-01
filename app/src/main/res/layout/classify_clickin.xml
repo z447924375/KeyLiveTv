@@ -6,6 +6,26 @@
 
     <include layout="@layout/classify_son_layout_title"/>
 
+    <LinearLayout
+        android:id="@+id/classify_ff"
+        android:background="#23FF0000"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/img_classify_loading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_classify_loading"
+            android:text="正在寻找..."
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
     <com.handmark.pulltorefresh.library.PullToRefreshListView
         xmlns:ptr="http://schemas.android.com/apk/res-auto"
         android:id="@+id/lv_classify"

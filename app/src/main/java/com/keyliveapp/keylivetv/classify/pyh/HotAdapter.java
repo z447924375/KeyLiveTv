@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.keyliveapp.keylivetv.R;
@@ -71,6 +72,8 @@ public class HotAdapter extends RecyclerView.Adapter{
         hotViewHolder.imgHot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+//                Toast.makeText(context, hotTitle, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(context, recommendsId.get(position), Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context, ClassifyClickInActivity.class);
                 intent.putExtra("gameId", recommendsId.get(position));
                 intent.putExtra("name", hotTitle);

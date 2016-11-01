@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.keyliveapp.keylivetv.R;
@@ -18,6 +19,21 @@ import java.util.ArrayList;
 public class PullToRefreshAdapter extends BaseAdapter{
 
     private ArrayList<String> previews;
+    private ArrayList<String> viewers;
+    private ArrayList<String> names;
+    private ArrayList<String> titles;
+
+    public void setViewers(ArrayList<String> viewers) {
+        this.viewers = viewers;
+    }
+
+    public void setNames(ArrayList<String> names) {
+        this.names = names;
+    }
+
+    public void setTitles(ArrayList<String> titles) {
+        this.titles = titles;
+    }
 
     private int totalItems;
 
@@ -29,8 +45,11 @@ public class PullToRefreshAdapter extends BaseAdapter{
         this.previews = previews;
     }
 
-    public void setAll(ArrayList<String> previewss) {
+    public void setAll(ArrayList<String> previewss, ArrayList<String> namess, ArrayList<String> titless, ArrayList<String> viewerss) {
         previews.addAll(previewss);
+        names.addAll(namess);
+        viewers.addAll(viewerss);
+        titles.addAll(titless);
         notifyDataSetChanged();
     }
 
@@ -74,8 +93,21 @@ public class PullToRefreshAdapter extends BaseAdapter{
             Glide.with(parent.getContext())
                     .load(previews.get(position * 2 + 1))
                     .into(myViewHolder.imageViewRight);
+
+            myViewHolder.tvNameLeft.setText(names.get(position * 2));
+            myViewHolder.tvNameRight.setText(names.get(position * 2 + 1));
+
+            myViewHolder.tvTitlesLeft.setText(titles.get(position * 2));
+            myViewHolder.tvTitlesRight.setText(titles.get(position * 2 + 1));
+
+            myViewHolder.tvViewerLeft.setText(viewers.get(position * 2));
+            myViewHolder.tvViewRigth.setText(viewers.get(position * 2 + 1));
+
         } catch (IndexOutOfBoundsException e) {
             myViewHolder.imageViewRight.setVisibility(View.INVISIBLE);
+            myViewHolder.tvViewRigth.setVisibility(View.INVISIBLE);
+            myViewHolder.tvTitlesRight.setVisibility(View.INVISIBLE);
+            myViewHolder.tvNameRight.setVisibility(View.INVISIBLE);
         }
 
         return convertView;
@@ -85,10 +117,22 @@ public class PullToRefreshAdapter extends BaseAdapter{
 
         private final ImageView imageViewLeft;
         private final ImageView imageViewRight;
+        private final TextView tvTitlesRight;
+        private final TextView tvTitlesLeft;
+        private final TextView tvViewRigth;
+        private final TextView tvViewerLeft;
+        private final TextView tvNameRight;
+        private final TextView tvNameLeft;
 
         public MyViewHolder(View convertView) {
             imageViewLeft = (ImageView) convertView.findViewById(R.id.img_classify_left);
             imageViewRight = (ImageView) convertView.findViewById(R.id.img_classify_right);
+            tvNameLeft = (TextView) convertView.findViewById(R.id.tv_name_left);
+            tvNameRight = (TextView) convertView.findViewById(R.id.tv_name_right);
+            tvViewerLeft = (TextView) convertView.findViewById(R.id.tv_viewers_left);
+            tvViewRigth = (TextView) convertView.findViewById(R.id.tv_viewers_right);
+            tvTitlesLeft = (TextView) convertView.findViewById(R.id.tv_title_left);
+            tvTitlesRight = (TextView) convertView.findViewById(R.id.tv_title_right);
         }
     }
 }

@@ -1,6 +1,7 @@
 package com.keyliveapp.keylivetv.classify.pyh;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.keyliveapp.keylivetv.R;
+import com.keyliveapp.keylivetv.classify.zxh.ClassifyClickInActivity;
 
 import java.util.ArrayList;
 
@@ -49,12 +51,25 @@ public class ChannelsAdapter extends RecyclerView.Adapter{
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         ChannelsViewHolder channelsViewHolder = (ChannelsViewHolder) holder;
         channelsViewHolder.tvChannels.setText(channelsName.get(position));
         Glide.with(context)
                 .load(chennelsIcon.get(position))
                 .into(channelsViewHolder.imgChannels);
+
+        final String title = channelsName.get(position);
+
+        channelsViewHolder.imgChannels.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, ClassifyClickInActivity.class);
+                intent.putExtra("gameId", channelsId.get(position));
+                intent.putExtra("name", title);
+                context.startActivity(intent);
+            }
+        });
+
 
     }
 
