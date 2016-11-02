@@ -14,7 +14,6 @@ import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.bean.HomeBean;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeContentClickListener;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeTitleClickListener;
-import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnLiveRecChannelListener;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnLiveRecItemClickListener;
 
 import java.util.List;

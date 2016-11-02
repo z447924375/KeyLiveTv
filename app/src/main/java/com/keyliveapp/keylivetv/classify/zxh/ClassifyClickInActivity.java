@@ -23,7 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClassifyClickInActivity extends BaseActivity {
-    private TextView title;
+    private TextView topTitle;
     private RecyclerView mRecyclerView;
     private PullToRefreshListView lvPull;
 
@@ -56,7 +56,7 @@ public class ClassifyClickInActivity extends BaseActivity {
     protected void initView() {
 
         classi_ff = bindView(R.id.classify_ff);
-        title = bindView(R.id.classify_clickin_title);
+        topTitle = bindView(R.id.classify_clickin_title);
         lvPull = bindView(R.id.lv_classify);
         imgLoading = bindView(R.id.img_classify_loading);
         tvLoading = bindView(R.id.tv_classify_loading);
@@ -96,8 +96,10 @@ public class ClassifyClickInActivity extends BaseActivity {
     protected void inidate() {
         Intent intent = getIntent();
 
+        gameId = intent.getExtras().getString("gameId");
+
         String titleStr = (String) intent.getExtras().get("name");
-        title.setText(titleStr);
+        topTitle.setText(titleStr);
 
         pullToRefreshAdapter = null;
 

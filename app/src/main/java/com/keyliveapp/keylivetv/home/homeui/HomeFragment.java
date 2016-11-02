@@ -20,7 +20,6 @@ import com.keyliveapp.keylivetv.classify.zxh.ClassifyClickInActivity;
 import com.keyliveapp.keylivetv.home.homepresenter.HomePresenter;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeContentClickListener;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeTitleClickListener;
-import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnLiveRecChannelListener;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnLiveRecItemClickListener;
 import com.keyliveapp.keylivetv.values.URLvalues;
 import com.youth.banner.Banner;
@@ -118,8 +117,9 @@ public class HomeFragment extends BaseFragment implements IHomeView {
                     Toast.makeText(mContext, "i:" + finalI, Toast.LENGTH_SHORT).show();
                     String url = URLvalues.CLASSIFY_URL_FRONT + homeBean.getData().getQuickbutton()
                             .get(finalI).getHrefTarget() + URLvalues.CLASSIFY_URL_BEHIND;
+                    String title = homeBean.getData().getQuickbutton().get(finalI).getTitle();
 
-                    jumpToClassifyClickIn(url);
+                    jumpToClassifyClickIn(title, url);
 
                 }
 
@@ -129,13 +129,8 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
     }
 
-    private void jumpToClassifyClickIn(String url) {
-        Intent intent = new Intent(getActivity(), ClassifyClickInActivity.class);
-        intent.putExtra("url", url);
-        startActivity(intent);
-    }
 
-    private void showBanner(HomeBean homeBean) {
+    private void showBanner(final HomeBean homeBean) {
 
         ArrayList<String> bannerImgSrc = new ArrayList<>();
 //        ArrayList<String> bannerTitle=new ArrayList<>();
@@ -152,13 +147,14 @@ public class HomeFragment extends BaseFragment implements IHomeView {
             @Override
             public void OnBannerClick(int position) {
                 Toast.makeText(mContext, "position:" + position, Toast.LENGTH_SHORT).show();
+
             }
         });
 
 
     }
 
-    private void showRecyclerView(HomeBean homeBean) {
+    private void showRecyclerView(final HomeBean homeBean) {
 
         List<HomeBean.DataBean.ColumnsBean> columnsBean;
         columnsBean = homeBean.getData().getColumns();
@@ -182,6 +178,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
             @Override
             public void liveRecChannelClicked() {
                 Log.d("liveTitleClicked", "channel");
+                jumpToClassifyClickIn("正在直播", "https://a4.plu.cn/api/streams?start-index=0&max-results=30&game=0&sort-by=views&version=3.7.0&device=4&packageId=1");
             }
         });
         //liveitem  点击
@@ -194,8 +191,27 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         //title点击
         adapter.setTitleClickListener(new OnHomeTitleClickListener() {
             @Override
-            public void titleClicked(int position) {
-                Log.d("titlePosition", "position:" + position + "channel++");
+            public void titleClicked(int titlePosition) {
+                switch (titlePosition) {
+                    case 1://随拍
+                        jumpToClassifyClickIn("龙珠随拍", "https://a4.plu.cn/api/streams?start-index=0&max-results=30&game=119&sort-by=weight&version=3.7.0&device=4&packageId=1");
+                        break;
+                    case 2://女神
+                        jumpToClassifyClickIn("龙珠女神", "https://a4.plu.cn/api/streams?start-index=0&max-results=30&game=0&sort-by=belle&version=3.7.0&device=4&packageId=1");
+                        break;
+                    case 3://手游
+                        jumpToClassifyClickIn("手机游戏", "https://a4.plu.cn/api/streams?start-index=0&max-results=30&game=88&sort-by=views&version=3.7.0&device=4&packageId=1");
+                        break;
+                    case 4://单机
+                        jumpToClassifyClickIn("单机主机", "https://a4.plu.cn/api/streams?start-index=0&max-results=30&game=90&sort-by=views&version=3.7.0&device=4&packageId=1");
+                        break;
+                    case 5://竞技
+                        jumpToClassifyClickIn("竞技游戏", "https://a4.plu.cn/api/streams?start-index=0&max-results=30&game=149&sort-by=views&version=3.7.0&device=4&packageId=1");
+                        break;
+                    case 6://网络
+                        jumpToClassifyClickIn("网络游戏", "https://a4.plu.cn/api/streams?start-index=0&max-results=30&game=150&sort-by=views&version=3.7.0&device=4&packageId=1");
+                        break;
+                }
             }
         });
         //content点击
@@ -204,9 +220,21 @@ public class HomeFragment extends BaseFragment implements IHomeView {
             public void contentClicked(int titlePosition, int contentPosition) {
                 Log.d("contentClicked", "titlePosition:" + titlePosition);
                 Log.d("contentClicked", "contentPosition:" + contentPosition);
+//                homeBean.getData().getColumns().get(titlePosition).getRooms()
+
+
+//                homeBean.getData().getColumns().get(titlePosition).getRooms()
+
             }
         });
 
+    }
 
+
+    private void jumpToClassifyClickIn(String title, String url) {
+        Intent intent = new Intent(getActivity(), ClassifyClickInActivity.class);
+        intent.putExtra("url", url);
+        intent.putExtra("title", title);
+        startActivity(intent);
     }
 }
