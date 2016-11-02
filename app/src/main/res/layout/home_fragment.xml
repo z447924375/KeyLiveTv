@@ -40,7 +40,8 @@
     </android.support.v7.widget.RecyclerView>
 
     <RelativeLayout
-        style="@style/titleStyle">
+        style="@style/titleStyle"
+        >
 
         <ImageView
             android:layout_width="80dp"

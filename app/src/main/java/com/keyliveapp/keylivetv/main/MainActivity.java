@@ -8,7 +8,7 @@ import android.support.v4.view.ViewPager;
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseActivity;
 import com.keyliveapp.keylivetv.classify.pyh.ClassifyFragment;
-import com.keyliveapp.keylivetv.discovery.DiscoveryFragment;
+import com.keyliveapp.keylivetv.discovery.main.DiscoveryFragment;
 import com.keyliveapp.keylivetv.home.homeui.HomeFragment;
 import com.keyliveapp.keylivetv.mine.MineFragment;
 
@@ -42,7 +42,7 @@ public class MainActivity extends BaseActivity {
         fragments.add(new DiscoveryFragment());
         fragments.add(new MineFragment());
 
-        MainVpAdapter adapter=new MainVpAdapter(getSupportFragmentManager(),fragments);
+        MainVpAdapter adapter = new MainVpAdapter(getSupportFragmentManager(),fragments);
         lzViewPager.setAdapter(adapter);
         lzTabLayout.setupWithViewPager(lzViewPager);
 
