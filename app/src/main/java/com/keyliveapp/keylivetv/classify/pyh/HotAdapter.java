@@ -69,9 +69,19 @@ public class HotAdapter extends RecyclerView.Adapter{
             public void onClick(View v) {
 //                Toast.makeText(context, hotTitle, Toast.LENGTH_SHORT).show();
 //                Toast.makeText(context, recommendsId.get(position), Toast.LENGTH_SHORT).show();
+                String URL_BEFORE1 = "https://a4.plu.cn/api/streams?start-index=";
+                String URL_BEFORE2 = "&max-results=30&game=";
+                String URL_BEHIND = "&version=3.7.0&device=4&packageId=1";
+                doIntent(URL_BEFORE1, URL_BEFORE2, URL_BEHIND);
+            }
+
+            private void doIntent(String URL_BEFORE1, String URL_BEFORE2, String URL_BEHIND) {
                 Intent intent = new Intent(context, ClassifyClickInActivity.class);
-                intent.putExtra("gameId", recommendsId.get(position));
-                intent.putExtra("name", hotTitle);
+                intent.putExtra("urlbefore1", URL_BEFORE1);
+                intent.putExtra("urlbefore2", URL_BEFORE2);
+                intent.putExtra("urlbehind", URL_BEHIND);
+                intent.putExtra("gameid", recommendsId.get(position));
+                intent.putExtra("title", hotTitle);
                 context.startActivity(intent);
             }
         });
