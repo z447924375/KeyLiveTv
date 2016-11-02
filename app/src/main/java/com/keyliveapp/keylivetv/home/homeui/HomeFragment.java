@@ -20,6 +20,7 @@ import com.keyliveapp.keylivetv.classify.zxh.ClassifyClickInActivity;
 import com.keyliveapp.keylivetv.home.homepresenter.HomePresenter;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeContentClickListener;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeTitleClickListener;
+import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnLiveRecChannelListener;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnLiveRecItemClickListener;
 import com.keyliveapp.keylivetv.values.URLvalues;
 import com.youth.banner.Banner;
