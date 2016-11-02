@@ -72,11 +72,18 @@ public class ClassifyClickInActivity extends BaseActivity {
             }
 
             @Override
-            public void onPullUpToRefresh(PullToRefreshBase<ListView> refreshView) {
+            public void onPullUpToRefresh(final PullToRefreshBase<ListView> refreshView) {
 
                 startIndes += 30;
                 if (startIndes - endIndes > 0) {
 
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            Toast.makeText(ClassifyClickInActivity.this, "无资源", Toast.LENGTH_SHORT).show();
+                            refreshView.onRefreshComplete();
+                        }
+                    },2000);
                     lvPull.destroyDrawingCache();
 
                 } else {
@@ -118,6 +125,7 @@ public class ClassifyClickInActivity extends BaseActivity {
     }
 
     private void setOrChangeAdapter(String url) {
+
         HttpManager.getInstance().getRequest(url, ClassfyAllBean.class, new OnCompletedListener<ClassfyAllBean>() {
             @Override
             public void onCompleted(ClassfyAllBean result) {
