@@ -95,7 +95,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         ProgressDialog dialog = new ProgressDialog(getContext());
         dialog.setTitle("loading...");
         dialog.setMessage("please waiting for a moment");
-        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         return dialog;
 
 

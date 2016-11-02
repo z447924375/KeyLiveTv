@@ -1,3 +1,2 @@
-include ':app'
+include ':app', ':vitamio'
 include ':library'
-include ':vitamioBundle30'
