@@ -234,6 +234,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     private void jumpToClassifyClickIn(String title, String url) {
         Intent intent = new Intent(getActivity(), ClassifyClickInActivity.class);
         intent.putExtra("url", url);
+        intent.putExtra("style",1);
         intent.putExtra("title", title);
         startActivity(intent);
     }
