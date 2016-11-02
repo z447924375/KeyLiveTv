@@ -27,6 +27,6 @@
         android:text="dddddddd"
         android:textSize="20sp"
         android:layout_alignTop="@+id/imageButton"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerInParent="true"/>
 
 </RelativeLayout>
