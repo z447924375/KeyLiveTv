@@ -27,11 +27,11 @@ public class ClassifyClickInActivity extends BaseActivity {
     private RecyclerView mRecyclerView;
     private PullToRefreshListView lvPull;
 
-    private String URL_BEFORE1 = "https://a4.plu.cn/api/streams?start-index=";
     private int startIndes = 0;
     private int endIndes = 0;
-    private String URL_BEFORE2 = "&max-results=30&game=";
-    private String URL_BEHIND = "&version=3.7.0&device=4&packageId=1";
+    private String URL_BEFORE1 = "";
+    private String URL_BEFORE2 = "";
+    private String URL_BEHIND = "";
 
     private ArrayList<String> previews;
     private ArrayList<String> viewers;
@@ -103,18 +103,37 @@ public class ClassifyClickInActivity extends BaseActivity {
     protected void inidate() {
         Intent intent = getIntent();
 
-        String titleStr = (String) intent.getExtras().get("name");
+        String titleStr = (String) intent.getExtras().get("title");
         title.setText(titleStr);
 
         pullToRefreshAdapter = null;
 
+        /**
+         * 动画
+         */
         imgLoading.setImageResource(R.drawable.classif_loading);
         animationDrawable = (AnimationDrawable) imgLoading.getDrawable();
         animationDrawable.start();
 
-        gameId = intent.getExtras().getString("gameId");
-        String url = URL_BEFORE1 + startIndes + URL_BEFORE2 + gameId + URL_BEHIND;
-        setOrChangeAdapter(url);
+        /**
+         * 接收Url
+         */
+        gameId =
+                intent.getExtras().getString("gameid");
+        URL_BEFORE1 =
+                intent.getExtras().getString("urlbefore1");
+        URL_BEFORE2 =
+                intent.getExtras().getString("urlbefore2");
+        URL_BEHIND =
+                intent.getExtras().getString("urlbehind");
+        String url = "";
+        if (null == URL_BEFORE1 || null == URL_BEFORE2 || null == URL_BEHIND) {
+            url = "https://a4.plu.cn/api/matches?start-index=0&max-results=200&version=3.7.0&device=4&packageId=1";
+        } else {
+            url =
+                    URL_BEFORE1 + startIndes + URL_BEFORE2 + gameId + URL_BEHIND;
+        }
+        setOrChangeAdapter(url);    // 开启网络请求
 
     }
 

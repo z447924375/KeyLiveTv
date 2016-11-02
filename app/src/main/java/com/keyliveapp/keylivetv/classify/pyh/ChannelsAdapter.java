@@ -19,7 +19,7 @@ import java.util.ArrayList;
 /**
  * Created by dllo on 16/10/24.
  */
-public class ChannelsAdapter extends RecyclerView.Adapter{
+public class ChannelsAdapter extends RecyclerView.Adapter {
 
     private ArrayList<String> channelsId;
     private ArrayList<String> channelsName;
@@ -63,9 +63,37 @@ public class ChannelsAdapter extends RecyclerView.Adapter{
         channelsViewHolder.imgChannels.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String URL_BEFORE1 = "";
+                String URL_BEFORE2 = "";
+                String URL_BEHIND = "";
+                String gameId = channelsId.get(position);
+
+                if (position == 0) {
+                    URL_BEFORE1 = "https://a4.plu.cn/api/streams?start-index=";
+                    URL_BEFORE2 = "&max-results=30&game=";
+                    URL_BEHIND = "&sort-by=views&version=3.7.0&device=4&packageId=1";
+                } else if (position == 1) {
+                    URL_BEFORE1 = null;
+                    URL_BEFORE2 = null;
+                    URL_BEHIND = null;
+                } else {
+                    URL_BEFORE1 = "https://a4.plu.cn/api/streams?start-index=";
+                    URL_BEFORE2 = "&max-results=30&game=";
+                    URL_BEHIND = "&version=3.7.0&device=4&packageId=1";
+                }
+
+                doIntent(URL_BEFORE1, URL_BEFORE2, URL_BEHIND, gameId);
+
+            }
+
+            private void doIntent(String URL_BEFORE1, String URL_BEFORE2, String URL_BEHIND, String gameId) {
                 Intent intent = new Intent(context, ClassifyClickInActivity.class);
-                intent.putExtra("gameId", channelsId.get(position));
-                intent.putExtra("name", title);
+                intent.putExtra("urlbefore1", URL_BEFORE1);
+                intent.putExtra("urlbefore2", URL_BEFORE2);
+                intent.putExtra("urlbehind", URL_BEHIND);
+                intent.putExtra("gameid", gameId);
+                intent.putExtra("title", title);
                 context.startActivity(intent);
             }
         });
