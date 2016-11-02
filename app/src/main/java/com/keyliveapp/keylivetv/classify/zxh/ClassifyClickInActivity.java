@@ -103,14 +103,9 @@ public class ClassifyClickInActivity extends BaseActivity {
     protected void inidate() {
         Intent intent = getIntent();
 
-
         gameId = intent.getExtras().getString("gameid");
-
-
         String titleStr = (String) intent.getExtras().get("title");
         topTitle.setText(titleStr);
->>>>>>> 94eddf16a6ddbcce66008795a3e3ad5f40a433b7
-
         pullToRefreshAdapter = null;
 
         /**

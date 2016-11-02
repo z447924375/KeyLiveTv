@@ -7,17 +7,33 @@ The following files were *not* copied into the new Gradle project; you
 should evaluate whether these are still needed in your project and if
 so manually move them:
 
-* LICENSE
-* pom.xml
+* .DS_Store
+* .gitignore
+* .idea/
+* .idea/VitamioBundle-3.0.iml
+* .idea/compiler.xml
+* .idea/copyright/
+* .idea/copyright/profiles_settings.xml
+* .idea/encodings.xml
+* .idea/misc.xml
+* .idea/modules.xml
+* .idea/workspace.xml
+* README.md
+* build.xml
+* ic_launcher-web.png
+* proguard-project.txt
 
 Moved Files:
 ------------
 Android Gradle projects use a different directory structure than ADT
 Eclipse projects. Here's how the projects were restructured:
 
-* AndroidManifest.xml => library/src/main/AndroidManifest.xml
-* res/ => library/src/main/res/
-* src/ => library/src/main/java/
+* AndroidManifest.xml => vitamioBundle30/src/main/AndroidManifest.xml
+* libs/armeabi-v7a/libvinit.so => vitamioBundle30/src/main/jniLibs/armeabi-v7a/libvinit.so
+* libs/armeabi/libvinit.so => vitamioBundle30/src/main/jniLibs/armeabi/libvinit.so
+* libs/vitamio.jar => vitamioBundle30/libs/vitamio.jar
+* res/ => vitamioBundle30/src/main/res/
+* src/ => vitamioBundle30/src/main/java/
 
 Next Steps:
 -----------

@@ -1,2 +1,3 @@
-include ':app', ':InitActivity'
+include ':app'
 include ':library'
+include ':vitamioBundle30'
