@@ -53,6 +53,10 @@ public class PullToRefreshAdapter extends BaseAdapter{
         notifyDataSetChanged();
     }
 
+    public void refresh() {
+
+    }
+
     @Override
     public int getCount() {
         int count;
