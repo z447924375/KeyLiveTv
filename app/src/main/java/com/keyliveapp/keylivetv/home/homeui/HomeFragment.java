@@ -189,7 +189,9 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         adapter.setLiveRecItemClickListener(new OnLiveRecItemClickListener() {
             @Override
             public void liveItemClicked(int i) {
-                Log.d("liveItemPosition", "i:" + i);
+                String domain = homeBean.getData().getColumns().get(0).getRooms().get(i).getChannel().getDomain();
+               startLiveTv(domain);
+
             }
 
         });

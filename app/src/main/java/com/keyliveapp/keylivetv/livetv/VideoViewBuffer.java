@@ -16,21 +16,25 @@
 
 package com.keyliveapp.keylivetv.livetv;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
-import android.view.View;
+import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.keyliveapp.keylivetv.R;
+import com.keyliveapp.keylivetv.baseclass.BaseActivity;
+import com.keyliveapp.keylivetv.bean.DomainBean;
+import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
+import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
+import com.keyliveapp.keylivetv.values.URLvalues;
 
-import io.vov.vitamio.MediaPlayer;
+import io.reactivex.Observable;
+import io.reactivex.functions.Function;
 import io.vov.vitamio.Vitamio;
-import io.vov.vitamio.widget.MediaController;
 import io.vov.vitamio.widget.VideoView;
 
-public class VideoViewBuffer extends Activity implements MediaPlayer.OnInfoListener, MediaPlayer.OnBufferingUpdateListener {
+public class VideoViewBuffer extends BaseActivity {
 
     /**
      * TODO: Set the path variable to a streaming video URL or a local media file
@@ -41,71 +45,78 @@ public class VideoViewBuffer extends Activity implements MediaPlayer.OnInfoListe
     private VideoView mVideoView;
     private ProgressBar pb;
     private TextView downloadRateView, loadRateView;
+    private String mStreamUrl;
+
 
     @Override
-    public void onCreate(Bundle icicle) {
-        super.onCreate(icicle);
+    protected int setLayout() {
+        return R.layout.videobuffer;
+    }
 
+    @Override
+    protected void initView() {
         Vitamio.isInitialized(getApplicationContext());
-
-        setContentView(R.layout.videobuffer);
         mVideoView = (VideoView) findViewById(R.id.buffer);
         pb = (ProgressBar) findViewById(R.id.probar);
         downloadRateView = (TextView) findViewById(R.id.download_rate);
         loadRateView = (TextView) findViewById(R.id.load_rate);
+    }
 
+    //  compile 'eu.the4thfloor.volley:com.android.volley:2015.05.28'
+    @Override
+    protected void inidate() {
+        Intent intent = getIntent();
+        String domain = intent.getExtras().getString("domain");
+        String domainUrl = URLvalues.DOMAIN_URL_FRONT + domain + URLvalues.DOMAIN_URL_BEHIND;
+        Observable.just(domainUrl).map(new Function<String, String>() {
+            private String mRoomid;
 
-//        mVideoView.setVideoURI(Uri.parse(path));
-//        mVideoView.setMediaController(new MediaController(this));
-//        mVideoView.requestFocus();
-
-        uri = Uri.parse(path);
-        mVideoView.setVideoURI(uri);
-        mVideoView.setMediaController(new MediaController(this));
-        mVideoView.requestFocus();
-        mVideoView.setOnInfoListener(this);
-        mVideoView.setOnBufferingUpdateListener(this);
-        mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
             @Override
-            public void onPrepared(MediaPlayer mp) {
-                mp.setPlaybackSpeed(1.0f);
+            public String apply(String s) throws Exception {
+
+
+                HttpManager.getInstance().getRequest(s, DomainBean.class, new OnCompletedListener<DomainBean>() {
+                    @Override
+                    public void onCompleted(DomainBean result) {
+                        mRoomid = result.getBroadcast().getRoomId() + "";
+
+                    }
+
+                    @Override
+                    public void onFailed() {
+
+                    }
+                });
+
+                return mRoomid;
+
             }
-        });
+        }).map(new Function<String, String>() {
+            @Override
+            public String apply(String s) throws Exception {
+                Log.d("kind", s);
 
+                return null;
+            }
+        })
+
+
+//        if (uri != null) {
+//            mVideoView.setVideoURI(uri);
+//            mVideoView.setMediaController(new MediaController(this));
+//            mVideoView.requestFocus();
+//
+//            mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+//                @Override
+//                public void onPrepared(MediaPlayer mp) {
+//                    mp.setPlaybackSpeed(1.0f);
+//                }
+//            });
+//        } else {
+//            Log.d("VideoViewBuffer", "链接不存在");
+//        }
 
     }
 
-
-    @Override
-    public boolean onInfo(MediaPlayer mp, int what, int extra) {
-        switch (what) {
-            case MediaPlayer.MEDIA_INFO_BUFFERING_START:
-                if (mVideoView.isPlaying()) {
-                    mVideoView.pause();
-                    pb.setVisibility(View.VISIBLE);
-                    downloadRateView.setText("");
-                    loadRateView.setText("");
-                    downloadRateView.setVisibility(View.VISIBLE);
-                    loadRateView.setVisibility(View.VISIBLE);
-
-                }
-                break;
-            case MediaPlayer.MEDIA_INFO_BUFFERING_END:
-                mVideoView.start();
-                pb.setVisibility(View.GONE);
-                downloadRateView.setVisibility(View.GONE);
-                loadRateView.setVisibility(View.GONE);
-                break;
-            case MediaPlayer.MEDIA_INFO_DOWNLOAD_RATE_CHANGED:
-                downloadRateView.setText("" + extra + "kb/s" + "  ");
-                break;
-        }
-        return true;
-    }
-
-    @Override
-    public void onBufferingUpdate(MediaPlayer mp, int percent) {
-        loadRateView.setText(percent + "%");
-    }
 
 }

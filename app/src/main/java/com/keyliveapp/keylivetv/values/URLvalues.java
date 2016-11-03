@@ -23,6 +23,14 @@ public class URLvalues {
     public static final String
             DISCOVERY_URL_NEWEST = "https://a4.plu.cn/api/discover/recommend?tab=newest&version=3.7.0&device=4&packageId=1";
 
-
+    //home中的domian 的拼接前后
+    public static final String
+            DOMAIN_URL_FRONT = "http://roomapicdn.plu.cn/room/RoomAppStatusV2?domain=";
+    public static final String
+            DOMAIN_URL_BEHIND = "&version=3.7.0&device=4&packageId=1";
+    public static final String
+            STREAM_URL_FRONT = "http://livestream.plu.cn/live/GetLivePlayUrl?roomId=";
+    public static final String
+            STREAN_URL_BEHIND = "&appId=4001&version=3.7.0&device=4&packageId=1";
 
 }
