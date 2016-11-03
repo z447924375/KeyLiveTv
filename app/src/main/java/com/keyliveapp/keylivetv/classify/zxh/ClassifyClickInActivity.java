@@ -71,6 +71,7 @@ public class ClassifyClickInActivity extends BaseActivity {
 
                 startIndes = 0;
                 endIndes = 0;
+                int xxx = 0;
 
                 String url =
                         URL_BEFORE1 + startIndes + URL_BEFORE2 + gameId + URL_BEHIND;
