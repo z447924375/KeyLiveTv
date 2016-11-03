@@ -67,7 +67,23 @@ public class ClassifyClickInActivity extends BaseActivity {
         lvPull.setMode(PullToRefreshBase.Mode.BOTH);
         lvPull.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
-            public void onPullDownToRefresh(PullToRefreshBase<ListView> refreshView) {
+            public void onPullDownToRefresh(final PullToRefreshBase<ListView> refreshView) {
+
+                startIndes = 0;
+                endIndes = 0;
+
+                String url =
+                        URL_BEFORE1 + startIndes + URL_BEFORE2 + gameId + URL_BEHIND;
+
+                pullToRefreshAdapter = null;
+
+                setOrChangeAdapter(url);
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        refreshView.onRefreshComplete();
+                    }
+                },1000);
 
             }
 
@@ -103,9 +119,11 @@ public class ClassifyClickInActivity extends BaseActivity {
     protected void inidate() {
         Intent intent = getIntent();
 
+
         gameId = intent.getExtras().getString("gameid");
         String titleStr = (String) intent.getExtras().get("title");
         topTitle.setText(titleStr);
+
         pullToRefreshAdapter = null;
 
         /**
