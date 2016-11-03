@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
+import com.keyliveapp.keylivetv.bean.DomainBean;
 import com.keyliveapp.keylivetv.bean.HomeBean;
 import com.keyliveapp.keylivetv.classify.zxh.ClassifyClickInActivity;
 import com.keyliveapp.keylivetv.home.homepresenter.HomePresenter;
@@ -23,6 +24,8 @@ import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeTitleClickLi
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnLiveRecChannelListener;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnLiveRecItemClickListener;
 import com.keyliveapp.keylivetv.livetv.VideoViewBuffer;
+import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
+import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
 import com.keyliveapp.keylivetv.values.URLvalues;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerClickListener;
@@ -190,7 +193,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
             @Override
             public void liveItemClicked(int i) {
                 String domain = homeBean.getData().getColumns().get(0).getRooms().get(i).getChannel().getDomain();
-               startLiveTv(domain);
+                startLiveTv(domain);
 
             }
 
@@ -237,9 +240,24 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     }
 
     private void startLiveTv(String domain) {
-        Intent intent = new Intent(getActivity(), VideoViewBuffer.class);
-        intent.putExtra("domain", domain);
-        startActivity(intent);
+        String domainUrl = URLvalues.DOMAIN_URL_FRONT + domain + URLvalues.DOMAIN_URL_BEHIND;
+        HttpManager.getInstance().getRequest(domainUrl, DomainBean.class, new OnCompletedListener<DomainBean>() {
+            @Override
+            public void onCompleted(DomainBean result) {
+                String roomid = result.getBroadcast().getRoomId() + "";
+
+                Intent intent = new Intent(getActivity(), VideoViewBuffer.class);
+                intent.putExtra("roomid", roomid);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailed() {
+
+            }
+        });
+
+
     }
 
 

@@ -9,10 +9,44 @@ import java.util.List;
 public class DomainBean {
 
 
-
+    /**
+     * CityId : 0
+     * BaseRoomInfo : {"Name":"情久-糖糖","Avatar":"http://img2.plures.net/7a5d/ebf9/25e7/d56b/1e08/3bb0/9260/7e8d.jpg","Domain":"153157","Game":103,"GameName":"王者荣耀","UserId":35709560,"UserTitle":"MasterStar","Desc":"主播QQ群596266882","Type":1,"AnchorCertification":"","AnchorCategory":0,"BoardCastTitle":"新货求订阅","BoardCastAddress":"http://longzhu.com/streaming?id=452414","VerifiedInformation":"","SubscribeCount":11164,"DailyPlayHourConfig":2,"WriteTime":"/Date(1477144378000-0000)/","VideoPermission":1,"LivePermission":383,"Status":1,"Id":452414}
+     * FlowerCount : 9109
+     * OnlineCount : 28570
+     * IsBroadcasting : true
+     * Vid :
+     * CollegeId : 0
+     * Contribution : 561520
+     * AppChatStatus : 0
+     * Broadcast : {"LiveSource":12,"LiveStreamType":12,"PlayId":16788889,"RoomId":452414,"BeginTime":"/Date(1478167642573+0800)/","GameId":103,"GameName":"王者荣耀","ParentGameId":88,"ParentGameName":"手机游戏（综合）","Title":"新货求订阅","Html":"http://longzhu.com/streaming?id=452414","Channels":[{"Name":"龙珠直播","Code":"http://longzhu.com/streaming?id=452414"}],"UserId":35709560,"Cover":"","UpStreamUrl":"http://longzhu.com/streaming?id=452414","Longitude":0,"Latitude":0,"Address":"","LiveSourceType":16,"OS":1,"LiveType":1}
+     * RoomGrade : 10
+     */
 
     private int CityId;
-
+    /**
+     * Name : 情久-糖糖
+     * Avatar : http://img2.plures.net/7a5d/ebf9/25e7/d56b/1e08/3bb0/9260/7e8d.jpg
+     * Domain : 153157
+     * Game : 103
+     * GameName : 王者荣耀
+     * UserId : 35709560
+     * UserTitle : MasterStar
+     * Desc : 主播QQ群596266882
+     * Type : 1
+     * AnchorCertification :
+     * AnchorCategory : 0
+     * BoardCastTitle : 新货求订阅
+     * BoardCastAddress : http://longzhu.com/streaming?id=452414
+     * VerifiedInformation :
+     * SubscribeCount : 11164
+     * DailyPlayHourConfig : 2
+     * WriteTime : /Date(1477144378000-0000)/
+     * VideoPermission : 1
+     * LivePermission : 383
+     * Status : 1
+     * Id : 452414
+     */
 
     private BaseRoomInfoBean BaseRoomInfo;
     private int FlowerCount;
@@ -22,6 +56,29 @@ public class DomainBean {
     private int CollegeId;
     private int Contribution;
     private int AppChatStatus;
+    /**
+     * LiveSource : 12
+     * LiveStreamType : 12
+     * PlayId : 16788889
+     * RoomId : 452414
+     * BeginTime : /Date(1478167642573+0800)/
+     * GameId : 103
+     * GameName : 王者荣耀
+     * ParentGameId : 88
+     * ParentGameName : 手机游戏（综合）
+     * Title : 新货求订阅
+     * Html : http://longzhu.com/streaming?id=452414
+     * Channels : [{"Name":"龙珠直播","Code":"http://longzhu.com/streaming?id=452414"}]
+     * UserId : 35709560
+     * Cover :
+     * UpStreamUrl : http://longzhu.com/streaming?id=452414
+     * Longitude : 0
+     * Latitude : 0
+     * Address :
+     * LiveSourceType : 16
+     * OS : 1
+     * LiveType : 1
+     */
 
     private BroadcastBean Broadcast;
     private int RoomGrade;
@@ -321,15 +378,16 @@ public class DomainBean {
         private int UserId;
         private String Cover;
         private String UpStreamUrl;
-        private double Longitude;
-        private double Latitude;
+        private int Longitude;
+        private int Latitude;
         private String Address;
-        private String Model;
         private int LiveSourceType;
-        private String WatchDirections;
         private int OS;
         private int LiveType;
-
+        /**
+         * Name : 龙珠直播
+         * Code : http://longzhu.com/streaming?id=452414
+         */
 
         private List<ChannelsBean> Channels;
 
@@ -445,19 +503,19 @@ public class DomainBean {
             this.UpStreamUrl = UpStreamUrl;
         }
 
-        public double getLongitude() {
+        public int getLongitude() {
             return Longitude;
         }
 
-        public void setLongitude(double Longitude) {
+        public void setLongitude(int Longitude) {
             this.Longitude = Longitude;
         }
 
-        public double getLatitude() {
+        public int getLatitude() {
             return Latitude;
         }
 
-        public void setLatitude(double Latitude) {
+        public void setLatitude(int Latitude) {
             this.Latitude = Latitude;
         }
 
@@ -469,28 +527,12 @@ public class DomainBean {
             this.Address = Address;
         }
 
-        public String getModel() {
-            return Model;
-        }
-
-        public void setModel(String Model) {
-            this.Model = Model;
-        }
-
         public int getLiveSourceType() {
             return LiveSourceType;
         }
 
         public void setLiveSourceType(int LiveSourceType) {
             this.LiveSourceType = LiveSourceType;
-        }
-
-        public String getWatchDirections() {
-            return WatchDirections;
-        }
-
-        public void setWatchDirections(String WatchDirections) {
-            this.WatchDirections = WatchDirections;
         }
 
         public int getOS() {

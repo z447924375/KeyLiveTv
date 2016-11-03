@@ -21,17 +21,18 @@ import android.net.Uri;
 import android.util.Log;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseActivity;
-import com.keyliveapp.keylivetv.bean.DomainBean;
+import com.keyliveapp.keylivetv.bean.LiveStreamBean;
 import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
 import com.keyliveapp.keylivetv.values.URLvalues;
 
-import io.reactivex.Observable;
-import io.reactivex.functions.Function;
+import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.Vitamio;
+import io.vov.vitamio.widget.MediaController;
 import io.vov.vitamio.widget.VideoView;
 
 public class VideoViewBuffer extends BaseActivity {
@@ -57,48 +58,48 @@ public class VideoViewBuffer extends BaseActivity {
     protected void initView() {
         Vitamio.isInitialized(getApplicationContext());
         mVideoView = (VideoView) findViewById(R.id.buffer);
-        pb = (ProgressBar) findViewById(R.id.probar);
-        downloadRateView = (TextView) findViewById(R.id.download_rate);
-        loadRateView = (TextView) findViewById(R.id.load_rate);
+//        pb = (ProgressBar) findViewById(R.id.probar);
+//        downloadRateView = (TextView) findViewById(R.id.download_rate);
+//        loadRateView = (TextView) findViewById(R.id.load_rate);
     }
 
-    //  compile 'eu.the4thfloor.volley:com.android.volley:2015.05.28'
     @Override
     protected void inidate() {
         Intent intent = getIntent();
-        String domain = intent.getExtras().getString("domain");
-        String domainUrl = URLvalues.DOMAIN_URL_FRONT + domain + URLvalues.DOMAIN_URL_BEHIND;
-        Observable.just(domainUrl).map(new Function<String, String>() {
-            private String mRoomid;
-
-            @Override
-            public String apply(String s) throws Exception {
-
-
-                HttpManager.getInstance().getRequest(s, DomainBean.class, new OnCompletedListener<DomainBean>() {
-                    @Override
-                    public void onCompleted(DomainBean result) {
-                        mRoomid = result.getBroadcast().getRoomId() + "";
-
+        String roomid = intent.getExtras().getString("roomid");
+        if (roomid != null) {
+            String streamInfo = URLvalues.STREAM_URL_FRONT + roomid + URLvalues.STREAN_URL_BEHIND;
+            HttpManager.getInstance().getRequest(streamInfo, LiveStreamBean.class, new OnCompletedListener<LiveStreamBean>() {
+                @Override
+                public void onCompleted(LiveStreamBean result) {
+                    String streamUrl = result.getPlayLines().get(0).getUrls().get(2).getSecurityUrl();
+                    Log.d("dfddfdfdf", streamUrl);
+                    if (streamUrl!=null) {
+                        mVideoView.setVideoURI(Uri.parse(streamUrl));
+                        mVideoView.setMediaController(new MediaController(getApplicationContext()));
+                        mVideoView.requestFocus();
+                        mVideoView.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                            @Override
+                            public void onPrepared(MediaPlayer mp) {
+                                mp.setPlaybackSpeed(1.0f);
+                            }
+                        });
+                    }else {
+                        Toast.makeText(VideoViewBuffer.this, "链接无效", Toast.LENGTH_SHORT).show();
                     }
 
-                    @Override
-                    public void onFailed() {
 
-                    }
-                });
 
-                return mRoomid;
+                }
 
-            }
-        }).map(new Function<String, String>() {
-            @Override
-            public String apply(String s) throws Exception {
-                Log.d("kind", s);
+                @Override
+                public void onFailed() {
 
-                return null;
-            }
-        })
+                }
+            });
+
+
+        }
 
 
 //        if (uri != null) {

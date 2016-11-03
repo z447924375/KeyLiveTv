@@ -8,13 +8,30 @@ import java.util.List;
 
 public class LiveStreamBean {
 
+
+    /**
+     * liveUrl : http://star.longzhu.com/153157/
+     * inbandwidth : 1577.71875
+     * isTransfer : 0
+     * playLines : [{"lineType":0,"urls":[{"rateLevel":3,"securityUrl":"http://flvtx.plu.cn/onlive/afc94a9c44d04a82a7ff77398cd8b531.flv?txSecret=fd08fba3f5bdbdbe026c68c94e37c9b8&txTime=581b1eb0","resolution":"1920x1080","timeMove":false,"ext":"flv"},{"rateLevel":3,"securityUrl":"rtmp://rtmptx.plu.cn/onlive/afc94a9c44d04a82a7ff77398cd8b531?txSecret=fd08fba3f5bdbdbe026c68c94e37c9b8&txTime=581b1eb0","resolution":"1920x1080","timeMove":false,"ext":"rtmp"},{"rateLevel":3,"securityUrl":"http://hlstx.plu.cn/onlive/afc94a9c44d04a82a7ff77398cd8b531.m3u8?txSecret=90417df9acf5cdb97fcc05ceeb879492&txTime=581c6dd8","resolution":"1920x1080","timeMove":false,"ext":"m3u8"}],"playLiveStreamType":12}]
+     * pushLiveStreamType : 12
+     * liveSourceType : 16
+     * defaultLine : 0
+     * defaultRateLevel : 3
+     */
+
     private String liveUrl;
-    private int inbandwidth;
+    private double inbandwidth;
     private int isTransfer;
     private int pushLiveStreamType;
     private int liveSourceType;
     private int defaultLine;
     private int defaultRateLevel;
+    /**
+     * lineType : 0
+     * urls : [{"rateLevel":3,"securityUrl":"http://flvtx.plu.cn/onlive/afc94a9c44d04a82a7ff77398cd8b531.flv?txSecret=fd08fba3f5bdbdbe026c68c94e37c9b8&txTime=581b1eb0","resolution":"1920x1080","timeMove":false,"ext":"flv"},{"rateLevel":3,"securityUrl":"rtmp://rtmptx.plu.cn/onlive/afc94a9c44d04a82a7ff77398cd8b531?txSecret=fd08fba3f5bdbdbe026c68c94e37c9b8&txTime=581b1eb0","resolution":"1920x1080","timeMove":false,"ext":"rtmp"},{"rateLevel":3,"securityUrl":"http://hlstx.plu.cn/onlive/afc94a9c44d04a82a7ff77398cd8b531.m3u8?txSecret=90417df9acf5cdb97fcc05ceeb879492&txTime=581c6dd8","resolution":"1920x1080","timeMove":false,"ext":"m3u8"}]
+     * playLiveStreamType : 12
+     */
 
     private List<PlayLinesBean> playLines;
 
@@ -26,11 +43,11 @@ public class LiveStreamBean {
         this.liveUrl = liveUrl;
     }
 
-    public int getInbandwidth() {
+    public double getInbandwidth() {
         return inbandwidth;
     }
 
-    public void setInbandwidth(int inbandwidth) {
+    public void setInbandwidth(double inbandwidth) {
         this.inbandwidth = inbandwidth;
     }
 
@@ -85,6 +102,13 @@ public class LiveStreamBean {
     public static class PlayLinesBean {
         private int lineType;
         private int playLiveStreamType;
+        /**
+         * rateLevel : 3
+         * securityUrl : http://flvtx.plu.cn/onlive/afc94a9c44d04a82a7ff77398cd8b531.flv?txSecret=fd08fba3f5bdbdbe026c68c94e37c9b8&txTime=581b1eb0
+         * resolution : 1920x1080
+         * timeMove : false
+         * ext : flv
+         */
 
         private List<UrlsBean> urls;
 
