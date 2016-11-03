@@ -1,4 +1,4 @@
-package com.keyliveapp.keylivetv.classify.zxh;
+package com.keyliveapp.keylivetv.bean;
 
 import java.util.List;
 
@@ -33,13 +33,7 @@ public class ClassfyAllBean {
         private int offset;
         private int limit;
         private String sort;
-        /**
-         * preview : http://img2.plures.net/live/screenshots/15939/d145/277d/ec51/0ec7/424f/8262/3ccf/bc50_1477899360.jpg
-         * preview2 : http://qnstatic.plures.net/snapshots/z1.longzhu.df2c4a153720444d89672873172453d5/15939_1477469570.jpg?imageView2/1/w/320/h/320/q/75
-         * game : {"Id":"4","id":"4","Name":"英雄联盟","name":"英雄联盟","tag":"lol"}
-         * channel : {"id":"15939","name":"❤女情兽丶梦楠❤","avatar":"http://img2.plures.net/d17f/99a9/30ef/cc37/f80a/1d55/e932/66d4.jpg","grade":28,"url":"101303","status":"做鬼也风流~万圣节happy~","broadcast_begin":"1477893304","broadcast_duration":"6357","videos":"0","_type":"1","_subtype":"4","belle":"1","domain":"101303","flowers":"7853952","followers":"435549","glamours":"230773810","tag":"性感俏佳人","vid":0,"weight":0,"live_source":16,"stream_types":12}
-         * viewers : 381296
-         */
+
 
         private List<ItemsBean> items;
 
