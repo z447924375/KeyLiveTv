@@ -6,6 +6,7 @@ import android.os.Message;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -22,11 +23,11 @@ import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ClassifyClickInActivity extends BaseActivity {
+public class ClassifyClickInActivity extends BaseActivity implements View.OnClickListener {
     private TextView topTitle;
     private RecyclerView mRecyclerView;
     private PullToRefreshListView lvPull;
-
+    private ImageButton btnBack;
     private int startIndes = 0;
     private int endIndes = 0;
     private String URL_BEFORE1 = "";
@@ -60,6 +61,7 @@ public class ClassifyClickInActivity extends BaseActivity {
         lvPull = bindView(R.id.lv_classify);
         imgLoading = bindView(R.id.img_classify_loading);
         tvLoading = bindView(R.id.tv_classify_loading);
+        btnBack = bindView(R.id.btn_back);
 
 
 //        lvPull.setMode(PullToRefreshBase.Mode.BOTH);
@@ -102,7 +104,6 @@ public class ClassifyClickInActivity extends BaseActivity {
     @Override
     protected void inidate() {
         Intent intent = getIntent();
-
         gameId = intent.getExtras().getString("gameid");
         String titleStr = (String) intent.getExtras().get("title");
         topTitle.setText(titleStr);
@@ -135,13 +136,9 @@ public class ClassifyClickInActivity extends BaseActivity {
         }
         setOrChangeAdapter(url);    // 开启网络请求
 
+        btnBack.setOnClickListener(this);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-//        Log.d("ClassifyClickInActivity", "onResume");
-    }
 
     private void setOrChangeAdapter(String url) {
 
@@ -150,9 +147,7 @@ public class ClassifyClickInActivity extends BaseActivity {
             public void onCompleted(ClassfyAllBean result) {
 
                 setData(result);
-
             }
-
 
             @Override
             public void onFailed() {
@@ -221,4 +216,8 @@ public class ClassifyClickInActivity extends BaseActivity {
         });
     }
 
+    @Override
+    public void onClick(View v) {
+        this.finish();
+    }
 }

@@ -22,6 +22,7 @@ import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeContentClick
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeTitleClickListener;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnLiveRecChannelListener;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnLiveRecItemClickListener;
+import com.keyliveapp.keylivetv.livetv.VideoViewBuffer;
 import com.keyliveapp.keylivetv.values.URLvalues;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerClickListener;
@@ -40,6 +41,8 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     private ImageButton homeSearch;
     private ProgressDialog mDialog;
     private HomePresenter mPresenter;
+    public static final String URL_BEFORE1 = "https://a4.plu.cn/api/streams?start-index=";
+    public static final String URL_BEFORE2 = "&max-results=30&game=";
 
     @Override
     protected int setLayout() {
@@ -115,12 +118,11 @@ public class HomeFragment extends BaseFragment implements IHomeView {
             view.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext, "i:" + finalI, Toast.LENGTH_SHORT).show();
-                    String url = URLvalues.CLASSIFY_URL_FRONT + homeBean.getData().getQuickbutton()
-                            .get(finalI).getHrefTarget() + URLvalues.CLASSIFY_URL_BEHIND;
-                    String title = homeBean.getData().getQuickbutton().get(finalI).getTitle();
 
-                    jumpToClassifyClickIn(title, url);
+                    String gameid = homeBean.getData().getQuickbutton().get(finalI).getHrefTarget();
+                    String title = homeBean.getData().getQuickbutton().get(finalI).getTitle();
+                    Toast.makeText(mContext, title, Toast.LENGTH_SHORT).show();
+                    jumpToClassifyClickIn(title, gameid, URLvalues.CLASSIFY_URL_BEHIND);
 
                 }
 
@@ -179,7 +181,8 @@ public class HomeFragment extends BaseFragment implements IHomeView {
             @Override
             public void liveRecChannelClicked() {
                 Log.d("liveTitleClicked", "channel");
-                jumpToClassifyClickIn("正在直播", "https://a4.plu.cn/api/streams?start-index=0&max-results=30&game=0&sort-by=views&version=3.7.0&device=4&packageId=1");
+                jumpToClassifyClickIn("正在直播", "0", "&sort-by=views&version=3.7.0&device=4&packageId=1");
+
             }
         });
         //liveitem  点击
@@ -188,6 +191,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
             public void liveItemClicked(int i) {
                 Log.d("liveItemPosition", "i:" + i);
             }
+
         });
         //title点击
         adapter.setTitleClickListener(new OnHomeTitleClickListener() {
@@ -195,22 +199,24 @@ public class HomeFragment extends BaseFragment implements IHomeView {
             public void titleClicked(int titlePosition) {
                 switch (titlePosition) {
                     case 1://随拍
-                        jumpToClassifyClickIn("龙珠随拍", "https://a4.plu.cn/api/streams?start-index=0&max-results=30&game=119&sort-by=weight&version=3.7.0&device=4&packageId=1");
+                        jumpToClassifyClickIn("龙珠随拍", "119", "&sort-by=views&version=3.7.0&device=4&packageId=1");
+
                         break;
                     case 2://女神
-                        jumpToClassifyClickIn("龙珠女神", "https://a4.plu.cn/api/streams?start-index=0&max-results=30&game=0&sort-by=belle&version=3.7.0&device=4&packageId=1");
+                        jumpToClassifyClickIn("龙珠女神", "0", "&sort-by=belle&version=3.7.0&device=4&packageId=1");
+
                         break;
                     case 3://手游
-                        jumpToClassifyClickIn("手机游戏", "https://a4.plu.cn/api/streams?start-index=0&max-results=30&game=88&sort-by=views&version=3.7.0&device=4&packageId=1");
+                        jumpToClassifyClickIn("手机游戏", "88", "&sort-by=views&version=3.7.0&device=4&packageId=1");
                         break;
                     case 4://单机
-                        jumpToClassifyClickIn("单机主机", "https://a4.plu.cn/api/streams?start-index=0&max-results=30&game=90&sort-by=views&version=3.7.0&device=4&packageId=1");
+                        jumpToClassifyClickIn("单机主机", "90", "&sort-by=views&version=3.7.0&device=4&packageId=1");
                         break;
                     case 5://竞技
-                        jumpToClassifyClickIn("竞技游戏", "https://a4.plu.cn/api/streams?start-index=0&max-results=30&game=149&sort-by=views&version=3.7.0&device=4&packageId=1");
+                        jumpToClassifyClickIn("竞技游戏", "149", "&sort-by=views&version=3.7.0&device=4&packageId=1");
                         break;
                     case 6://网络
-                        jumpToClassifyClickIn("网络游戏", "https://a4.plu.cn/api/streams?start-index=0&max-results=30&game=150&sort-by=views&version=3.7.0&device=4&packageId=1");
+                        jumpToClassifyClickIn("网络游戏", "150", "&sort-by=views&version=3.7.0&device=4&packageId=1");
                         break;
                 }
             }
@@ -219,24 +225,30 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         adapter.setContentClickListener(new OnHomeContentClickListener() {
             @Override
             public void contentClicked(int titlePosition, int contentPosition) {
-                Log.d("contentClicked", "titlePosition:" + titlePosition);
-                Log.d("contentClicked", "contentPosition:" + contentPosition);
-//                homeBean.getData().getColumns().get(titlePosition).getRooms()
 
-
-//                homeBean.getData().getColumns().get(titlePosition).getRooms()
-
+                String domain = homeBean.getData().getColumns().get(titlePosition).getRooms().get(contentPosition)
+                        .getChannel().getDomain();
+                startLiveTv(domain);
             }
         });
 
     }
 
+    private void startLiveTv(String domain) {
+        Intent intent = new Intent(getActivity(), VideoViewBuffer.class);
+        intent.putExtra("domain", domain);
+        startActivity(intent);
+    }
 
-    private void jumpToClassifyClickIn(String title, String url) {
+
+    private void jumpToClassifyClickIn(String title, String gameid
+            , String urlbehind) {
         Intent intent = new Intent(getActivity(), ClassifyClickInActivity.class);
-        intent.putExtra("url", url);
-        intent.putExtra("style",1);
         intent.putExtra("title", title);
+        intent.putExtra("urlbefore1", URL_BEFORE1);
+        intent.putExtra("gameid", gameid);
+        intent.putExtra("urlbefore2", URL_BEFORE2);
+        intent.putExtra("urlbehind", urlbehind);
         startActivity(intent);
     }
 }
