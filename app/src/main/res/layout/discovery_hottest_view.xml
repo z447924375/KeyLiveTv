@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="wrap_content"
-              android:layout_height="220dp">
+                android:layout_width="wrap_content"
+                android:layout_height="220dp">
     <ImageView
-        android:id="@+id/discovery_nearby_pic"
+        android:id="@+id/discovery_hottest_pic"
         android:layout_width="170dp"
         android:layout_height="200dp"
         android:layout_gravity="center"
         android:src="@mipmap/default_live_ic"
         android:layout_alignParentTop="true"
-        android:layout_alignLeft="@+id/discovery_nearby_zhubo"
-        android:layout_alignStart="@+id/discovery_nearby_zhubo"/>
+        android:layout_alignLeft="@+id/discovery_hottest_zhubo"
+        android:layout_alignStart="@+id/discovery_hottest_zhubo"/>
 
 
     <ImageView
@@ -18,15 +18,14 @@
         android:layout_height="10dp"
         android:src="@mipmap/ic_zhibo_box_zhubo"
         android:layout_marginLeft="18dp"
-
-        android:id="@+id/discovery_nearby_zhubo"
+        android:id="@+id/discovery_hottest_zhubo"
         android:layout_marginStart="18dp"
-        android:layout_below="@id/discovery_nearby_pic"
+        android:layout_below="@id/discovery_hottest_pic"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"/>
 
     <TextView
-        android:id="@+id/discovery_nearby_text"
+        android:id="@+id/discovery_hottest_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -34,18 +33,18 @@
         android:textSize="10sp"
         android:layout_marginLeft="11dp"
         android:layout_marginStart="11dp"
-        android:layout_below="@+id/discovery_nearby_pic"
-        android:layout_toRightOf="@+id/discovery_nearby_zhubo"
-        android:layout_toEndOf="@+id/discovery_nearby_zhubo"/>
+        android:layout_below="@id/discovery_hottest_pic"
+        android:layout_toRightOf="@id/discovery_hottest_zhubo"
+        android:layout_toEndOf="@id/discovery_hottest_zhubo"/>
 
     <ImageView
         android:layout_width="10dp"
         android:layout_height="10dp"
-        android:src="@mipmap/icon_location_grey"
-        android:id="@+id/discovery_newaby_grey"
-        android:layout_alignBottom="@+id/discovery_nearby_text"
-        android:layout_toRightOf="@+id/discovery_nearby_text"
-        android:layout_toEndOf="@+id/discovery_nearby_text"
+        android:src="@mipmap/ic_zhibo_box_zhubo_renqis"
+        android:id="@+id/discovery_hottest_grey"
+        android:layout_alignBottom="@id/discovery_hottest_text"
+        android:layout_toRightOf="@id/discovery_hottest_text"
+        android:layout_toEndOf="@id/discovery_hottest_text"
         android:layout_marginLeft="20dp"
         android:layout_marginStart="20dp"/>
 
@@ -53,14 +52,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="那美克星"
         android:textSize="10sp"
-        android:id="@+id/discovery_nearby_location"
+        android:id="@+id/discovery_hottest_viewer"
         android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp"
-        android:layout_below="@+id/discovery_nearby_pic"
-        android:layout_toRightOf="@+id/discovery_newaby_grey"
-        android:layout_toEndOf="@+id/discovery_newaby_grey"/>
+        android:layout_below="@id/discovery_hottest_pic"
+        android:layout_toRightOf="@id/discovery_hottest_grey"
+        android:layout_toEndOf="@id/discovery_hottest_grey"/>
+
 
 
 </RelativeLayout>

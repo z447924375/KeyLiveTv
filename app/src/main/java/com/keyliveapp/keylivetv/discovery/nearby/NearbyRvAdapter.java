@@ -37,10 +37,10 @@ public class NearbyRvAdapter extends RecyclerView.Adapter {
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        MyViewHolder myViewHolder = null;
+        MyViewHolder myViewHolder= (MyViewHolder) holder;
         Glide.with(mContext).load(bean.getData().getStreams().getItems().get(position).getPreview()).into(myViewHolder.pic);
-        myViewHolder.tv.setText(bean.getData().getStreams().getItems().get(position).getUser().getName());
-
+        myViewHolder.name.setText(bean.getData().getStreams().getItems().get(position).getUser().getName());
+//        myViewHolder.location.setText(bean.getData().getStreams().getItems().get(position).getLocation().getName());
     }
 
     @Override
@@ -48,15 +48,17 @@ public class NearbyRvAdapter extends RecyclerView.Adapter {
         return bean.getData().getStreams().getItems().size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder{
 
-        private  ImageView pic;
-        private  TextView tv;
+        private ImageView pic;
+        private TextView name;
+        private TextView location;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             pic = (ImageView) itemView.findViewById(R.id.discovery_nearby_pic);
-            tv = (TextView) itemView.findViewById(R.id.discovery_nearby_text);
+            name = (TextView) itemView.findViewById(R.id.discovery_nearby_text);
+            location = (TextView) itemView.findViewById(R.id.discovery_nearby_location);
         }
     }
 
