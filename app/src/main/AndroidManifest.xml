@@ -30,7 +30,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".classify.zxh.ClassifyClickInActivity"></activity>
-        <activity android:name=".livetv.VideoViewBuffer">
+        <activity android:name=".livetv.VideoViewBuffer"
+            android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation">
 
         </activity>
 

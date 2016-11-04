@@ -108,12 +108,14 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     }
 
 
+
     private void showHoriScrollView(final HomeBean homeBean) {
 
         for (int i = 0; i < homeBean.getData().getQuickbutton().size(); i++) {
 
             View view = LayoutInflater.from(getContext()).inflate(R.layout.home_scrollview_imgs, homeScrollView, false);
             ImageView imgs = (ImageView) view.findViewById(R.id.home_scrollview_pic);
+
             imgs.setAdjustViewBounds(true);
             Glide.with(getContext()).load(homeBean.getData().getQuickbutton().get(i).getImage()).into(imgs);
             homeScrollView.addView(view);
@@ -138,8 +140,8 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
     private void showBanner(final HomeBean homeBean) {
 
-        ArrayList<String> bannerImgSrc = new ArrayList<>();
-//        ArrayList<String> bannerTitle=new ArrayList<>();
+        List<String> bannerImgSrc = new ArrayList<>();
+//        List<String> bannerTitle=new ArrayList<>();
         for (int i = 0; i < homeBean.getData().getBanner().size(); i++) {
             bannerImgSrc.add(homeBean.getData().getBanner().get(i).getImage());
 //            bannerTitle.add(homeBean.getData().getBanner().get(i).getTitle());
