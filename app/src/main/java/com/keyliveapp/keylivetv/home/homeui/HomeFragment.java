@@ -233,7 +233,12 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
                 String domain = homeBean.getData().getColumns().get(titlePosition).getRooms().get(contentPosition)
                         .getChannel().getDomain();
-                startLiveTv(domain);
+                if (domain!=null) {
+                    startLiveTv(domain);
+                }else {
+                    Toast.makeText(mContext, "链接不存在或网络数据错误", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
 
