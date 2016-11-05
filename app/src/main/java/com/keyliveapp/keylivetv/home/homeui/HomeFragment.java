@@ -33,6 +33,8 @@ import com.youth.banner.listener.OnBannerClickListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 /**
  * Created by dllo on 16/10/22.
  */
@@ -117,7 +119,10 @@ public class HomeFragment extends BaseFragment implements IHomeView {
             ImageView imgs = (ImageView) view.findViewById(R.id.home_scrollview_pic);
 
             imgs.setAdjustViewBounds(true);
-            Glide.with(getContext()).load(homeBean.getData().getQuickbutton().get(i).getImage()).into(imgs);
+            Glide.with(getContext())
+                    .load(homeBean.getData().getQuickbutton().get(i).getImage())
+                    .bitmapTransform(new RoundedCornersTransformation(getContext(),30,0, RoundedCornersTransformation.CornerType.ALL))
+                    .into(imgs);
             homeScrollView.addView(view);
             final int finalI = i;
             view.setOnClickListener(new View.OnClickListener() {

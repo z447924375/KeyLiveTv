@@ -4,6 +4,7 @@ package com.keyliveapp.keylivetv.livetv;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,11 +19,12 @@ import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.Vitamio;
 import io.vov.vitamio.widget.VideoView;
 
-public class VideoViewBuffer extends BaseActivity implements MediaPlayer.OnInfoListener, MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnPreparedListener {
+public class VideoViewBuffer extends BaseActivity implements MediaPlayer.OnInfoListener, MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnPreparedListener{
 
 
     private VideoView mVideoView;
     private TextView downloadRateView, loadRateView;
+    private ImageButton btnBack, btnShare, btnFull;
 
 
     @Override
@@ -36,6 +38,9 @@ public class VideoViewBuffer extends BaseActivity implements MediaPlayer.OnInfoL
         mVideoView = (VideoView) findViewById(R.id.buffer);
         downloadRateView = (TextView) findViewById(R.id.download_rate);
         loadRateView = (TextView) findViewById(R.id.load_rate);
+//        btnBack = (ImageButton) findViewById(R.id.live_back);
+//        btnShare = (ImageButton) findViewById(R.id.live_share);
+//        btnFull = (ImageButton) findViewById(R.id.live_fullscreen);
     }
 
     @Override
@@ -56,6 +61,7 @@ public class VideoViewBuffer extends BaseActivity implements MediaPlayer.OnInfoL
                         Toast.makeText(VideoViewBuffer.this, "链接无效", Toast.LENGTH_SHORT).show();
                     }
                 }
+
                 @Override
                 public void onFailed() {
                     Toast.makeText(VideoViewBuffer.this, "解析错误", Toast.LENGTH_SHORT).show();
@@ -67,10 +73,29 @@ public class VideoViewBuffer extends BaseActivity implements MediaPlayer.OnInfoL
         mVideoView.setOnBufferingUpdateListener(this);
         mVideoView.setOnInfoListener(this);
         mVideoView.setOnPreparedListener(this);
-
-
+//
+//        btnFull.setOnClickListener(this);
+//        btnShare.setOnClickListener(this);
+//        btnBack.setOnClickListener(this);
 
     }
+
+//    @Override
+//    public void onClick(View v) {
+//        switch (v.getId()) {
+//            case R.id.live_back:
+//                this.finish();
+//                break;
+//            case R.id.live_fullscreen:
+//
+//
+//                break;
+//            case R.id.live_share:
+//                Toast.makeText(this, "share", Toast.LENGTH_SHORT).show();
+//                break;
+//        }
+//
+//    }
 
     @Override
     public void onPrepared(MediaPlayer mp) {
@@ -105,7 +130,7 @@ public class VideoViewBuffer extends BaseActivity implements MediaPlayer.OnInfoL
 
     @Override
     public void onBufferingUpdate(MediaPlayer mp, int percent) {
-            loadRateView.setText(percent + "%");
+        loadRateView.setText(percent + "%");
     }
 
 
