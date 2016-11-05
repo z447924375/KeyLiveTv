@@ -12,3 +12,16 @@
 
 RecyclerView的适配器是不是没有进行封装    
 
+-------------
+
+ChannelsAdapter,里面的集合声明为List类型.
+
+ClassifyFragment类里面的数据整理的什么玩意,重新写
+
+ClassifyFragmentAdapter里面一样,还有HotAdapter,都改
+
+ClassifyClickInActivity,写的什么玩意
+
+总体来说代码写的少,界面需要美化,抓紧速度!
+
+
