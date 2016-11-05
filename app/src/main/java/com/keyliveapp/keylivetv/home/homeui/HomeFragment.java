@@ -2,6 +2,7 @@ package com.keyliveapp.keylivetv.home.homeui;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -46,6 +48,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     private ImageButton homeSearch;
     private ProgressDialog mDialog;
     private HomePresenter mPresenter;
+    private TextView bannerTitle;
     public static final String URL_BEFORE1 = "https://a4.plu.cn/api/streams?start-index=";
     public static final String URL_BEFORE2 = "&max-results=30&game=";
 
@@ -62,6 +65,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         homeBanner = getViewLayout(R.id.home_banner);
         homeScrollView = getViewLayout(R.id.home_quickbtn_scrollview);
         homeSearch = getViewLayout(R.id.home_search);
+        bannerTitle = getViewLayout(R.id.banner_title);
 
     }
 
@@ -110,7 +114,6 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     }
 
 
-
     private void showHoriScrollView(final HomeBean homeBean) {
 
         for (int i = 0; i < homeBean.getData().getQuickbutton().size(); i++) {
@@ -121,7 +124,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
             imgs.setAdjustViewBounds(true);
             Glide.with(getContext())
                     .load(homeBean.getData().getQuickbutton().get(i).getImage())
-                    .bitmapTransform(new RoundedCornersTransformation(getContext(),30,0, RoundedCornersTransformation.CornerType.ALL))
+                    .bitmapTransform(new RoundedCornersTransformation(getContext(), 30, 0, RoundedCornersTransformation.CornerType.ALL))
                     .into(imgs);
             homeScrollView.addView(view);
             final int finalI = i;
@@ -146,15 +149,31 @@ public class HomeFragment extends BaseFragment implements IHomeView {
     private void showBanner(final HomeBean homeBean) {
 
         List<String> bannerImgSrc = new ArrayList<>();
-//        List<String> bannerTitle=new ArrayList<>();
         for (int i = 0; i < homeBean.getData().getBanner().size(); i++) {
             bannerImgSrc.add(homeBean.getData().getBanner().get(i).getImage());
-//            bannerTitle.add(homeBean.getData().getBanner().get(i).getTitle());
+            Log.d("HomeFragment", homeBean.getData().getBanner().get(i).getTitle());
         }
-//        homeBanner.setBannerTitleList(bannerTitle);
+//        homeBanner.setBannerAnimation(Transformer.Tablet);
         homeBanner.setImages(bannerImgSrc);
         homeBanner.setBannerStyle(Banner.SCROLL_INDICATOR_BOTTOM);
         homeBanner.setDelayTime(3500);
+        homeBanner.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                bannerTitle.setText(homeBean.getData().getBanner().get((position - 1) % 5).getTitle());
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
 
         homeBanner.setOnBannerClickListener(new OnBannerClickListener() {
             @Override
@@ -212,11 +231,9 @@ public class HomeFragment extends BaseFragment implements IHomeView {
                 switch (titlePosition) {
                     case 1://随拍
                         jumpToClassifyClickIn("龙珠随拍", "119", "&sort-by=views&version=3.7.0&device=4&packageId=1");
-
                         break;
                     case 2://女神
                         jumpToClassifyClickIn("龙珠女神", "0", "&sort-by=belle&version=3.7.0&device=4&packageId=1");
-
                         break;
                     case 3://手游
                         jumpToClassifyClickIn("手机游戏", "88", "&sort-by=views&version=3.7.0&device=4&packageId=1");
@@ -240,9 +257,9 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
                 String domain = homeBean.getData().getColumns().get(titlePosition).getRooms().get(contentPosition)
                         .getChannel().getDomain();
-                if (domain!=null) {
+                if (domain != null) {
                     startLiveTv(domain);
-                }else {
+                } else {
                     Toast.makeText(mContext, "链接不存在或网络数据错误", Toast.LENGTH_SHORT).show();
                 }
 

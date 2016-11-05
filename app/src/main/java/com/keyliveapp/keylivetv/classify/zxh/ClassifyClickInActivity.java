@@ -2,8 +2,8 @@ package com.keyliveapp.keylivetv.classify.zxh;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.Handler;
 import android.os.Message;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -18,15 +18,17 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseActivity;
 import com.keyliveapp.keylivetv.bean.ClassfyAllBean;
+import com.keyliveapp.keylivetv.bean.DomainBean;
+import com.keyliveapp.keylivetv.livetv.VideoViewBuffer;
 import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
+import com.keyliveapp.keylivetv.values.URLvalues;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ClassifyClickInActivity extends BaseActivity implements View.OnClickListener {
     private TextView topTitle;
-    private RecyclerView mRecyclerView;
     private PullToRefreshListView lvPull;
     private ImageButton btnBack;
     private int startIndes = 0;
@@ -35,6 +37,7 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
     private String URL_BEFORE2 = "";
     private String URL_BEHIND = "";
 
+    private ArrayList<ClassfyAllBean> mClassfyAllBeen= new ArrayList<>();
     private ArrayList<String> previews;
     private ArrayList<String> viewers;
     private ArrayList<String> names;
@@ -56,7 +59,6 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
 
     @Override
     protected void initView() {
-
         classi_ff = bindView(R.id.classify_ff);
         topTitle = bindView(R.id.classify_clickin_title);
         lvPull = bindView(R.id.lv_classify);
@@ -75,8 +77,7 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
                 startIndes = 0;
                 endIndes = 0;
 
-                String url =
-                        URL_BEFORE1 + startIndes + URL_BEFORE2 + gameId + URL_BEHIND;
+                String url = URL_BEFORE1 + startIndes + URL_BEFORE2 + gameId + URL_BEHIND;
 
                 pullToRefreshAdapter = null;
 
@@ -86,7 +87,7 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
                     public void run() {
                         refreshView.onRefreshComplete();
                     }
-                },1000);
+                }, 1000);
 
             }
 
@@ -102,7 +103,7 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
                             Toast.makeText(ClassifyClickInActivity.this, "无资源", Toast.LENGTH_SHORT).show();
                             refreshView.onRefreshComplete();
                         }
-                    },2000);
+                    }, 2000);
                     lvPull.destroyDrawingCache();
 
                 } else {
@@ -115,6 +116,7 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
 
             }
         });
+
 
     }
 
@@ -150,12 +152,12 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
         if (null == URL_BEFORE1 || null == URL_BEFORE2 || null == URL_BEHIND) {
             url = "https://a4.plu.cn/api/matches?start-index=0&max-results=200&version=3.7.0&device=4&packageId=1";
         } else {
-            url =
-                    URL_BEFORE1 + startIndes + URL_BEFORE2 + gameId + URL_BEHIND;
+            url = URL_BEFORE1 + startIndes + URL_BEFORE2 + gameId + URL_BEHIND;
         }
         setOrChangeAdapter(url);    // 开启网络请求
 
         btnBack.setOnClickListener(this);
+
     }
 
 
@@ -164,7 +166,7 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
         HttpManager.getInstance().getRequest(url, ClassfyAllBean.class, new OnCompletedListener<ClassfyAllBean>() {
             @Override
             public void onCompleted(ClassfyAllBean result) {
-
+               mClassfyAllBeen.add(mClassfyAllBeen.size(),result);
                 setData(result);
             }
 
@@ -174,21 +176,15 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
             }
 
 
-            private void setData(ClassfyAllBean result) {
+            private void setData(final ClassfyAllBean result) {
 
                 endIndes = result.getData().getTotalItems();
-                Log.d("ClassifyClickInActivity", "endIndes:" + endIndes);
 
                 if (previews == null) {
                     previews = new ArrayList<>();
                     names = new ArrayList<>();
                     titles = new ArrayList<>();
                     viewers = new ArrayList<>();
-                } else {
-                    previews.clear();
-                    names.clear();
-                    titles.clear();
-                    viewers.clear();
                 }
 
                 List<ClassfyAllBean.DataBean.ItemsBean> itemsBeans = result.getData().getItems();
@@ -227,16 +223,65 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
                     handler.sendEmptyMessageDelayed(endIndes, 0);
 
                 } else {
-                    pullToRefreshAdapter.setAll(previews, names, titles, viewers);
+//                    pullToRefreshAdapter.setAll(previews, names, titles, viewers);
+                    pullToRefreshAdapter.notifyDataSetChanged();
+
                     lvPull.onRefreshComplete();
                 }
+                pullToRefreshAdapter.setClicked(new PullToRefreshAdapter.Clicked() {
+                    @Override
+                    public void click(final int position) {
+                        Log.d("ClassifyClickInActivity", "position:" + position);
+                        Handler handler = new Handler();
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+
+
+                                String domain = mClassfyAllBeen.get(position/30).getData().getItems().get(position%30).getChannel().getDomain();
+                                startLiveTv(domain);
+                            }
+                        });
+                    }
+                });
+
             }
 
         });
+
+    }
+
+
+    private void startLiveTv(String domain) {
+        String domainUrl = URLvalues.DOMAIN_URL_FRONT + domain + URLvalues.DOMAIN_URL_BEHIND;
+        HttpManager.getInstance().getRequest(domainUrl, DomainBean.class, new OnCompletedListener<DomainBean>() {
+            @Override
+            public void onCompleted(DomainBean result) {
+                String roomid = result.getBroadcast().getRoomId() + "";
+
+                Intent intent = new Intent(getApplicationContext(), VideoViewBuffer.class);
+                intent.putExtra("roomid", roomid);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailed() {
+
+            }
+        });
+
+
     }
 
     @Override
     public void onClick(View v) {
         this.finish();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
+
+
 }

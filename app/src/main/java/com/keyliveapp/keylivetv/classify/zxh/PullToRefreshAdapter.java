@@ -1,6 +1,6 @@
 package com.keyliveapp.keylivetv.classify.zxh;
 
-import android.support.v4.util.ArrayMap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +16,12 @@ import java.util.ArrayList;
 /**
  * Created by dllo on 16/10/31.
  */
-public class PullToRefreshAdapter extends BaseAdapter{
+public class PullToRefreshAdapter extends BaseAdapter {
+    Clicked mClicked;
+
+    public void setClicked(Clicked clicked) {
+        mClicked = clicked;
+    }
 
     private ArrayList<String> previews;
     private ArrayList<String> viewers;
@@ -50,7 +55,7 @@ public class PullToRefreshAdapter extends BaseAdapter{
         names.addAll(namess);
         viewers.addAll(viewerss);
         titles.addAll(titless);
-        notifyDataSetChanged();
+        notifyDataSetInvalidated();
     }
 
     public void refresh() {
@@ -75,7 +80,7 @@ public class PullToRefreshAdapter extends BaseAdapter{
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         MyViewHolder myViewHolder = null;
 
@@ -97,6 +102,19 @@ public class PullToRefreshAdapter extends BaseAdapter{
             Glide.with(parent.getContext())
                     .load(previews.get(position * 2 + 1))
                     .into(myViewHolder.imageViewRight);
+            myViewHolder.imageViewLeft.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mClicked.click(position * 2);
+                }
+            });
+            myViewHolder.imageViewRight.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    mClicked.click(position*2+1);
+                }
+            });
+
 
             myViewHolder.tvNameLeft.setText(names.get(position * 2));
             myViewHolder.tvNameRight.setText(names.get(position * 2 + 1));
@@ -139,4 +157,23 @@ public class PullToRefreshAdapter extends BaseAdapter{
             tvTitlesRight = (TextView) convertView.findViewById(R.id.tv_title_right);
         }
     }
+
+
+    public class SendPullRvClickEvent {
+        private int position;
+
+        public int getPosition() {
+            return position;
+        }
+
+        public void setPosition(int position) {
+            this.position = position;
+        }
+    }
+
+    public interface Clicked {
+        void click(int position);
+    }
+
+
 }

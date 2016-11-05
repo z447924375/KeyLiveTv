@@ -6,7 +6,7 @@
     android:layout_gravity="center">
 
     <ImageView
-        android:background="@drawable/circlecornershape"
+        android:layout_margin="5dp"
         android:id="@+id/home_scrollview_pic"
         android:scaleType="fitXY"
         android:layout_width="match_parent"
