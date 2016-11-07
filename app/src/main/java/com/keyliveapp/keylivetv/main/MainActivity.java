@@ -7,7 +7,7 @@ import android.support.v4.view.ViewPager;
 
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseActivity;
-import com.keyliveapp.keylivetv.classify.pyh.ClassifyFragment;
+import com.keyliveapp.keylivetv.classify.ClassifyFragment;
 import com.keyliveapp.keylivetv.discovery.main.DiscoveryFragment;
 import com.keyliveapp.keylivetv.home.homeui.HomeFragment;
 import com.keyliveapp.keylivetv.mine.MineFragment;
