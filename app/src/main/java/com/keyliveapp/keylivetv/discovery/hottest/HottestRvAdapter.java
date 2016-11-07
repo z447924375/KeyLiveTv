@@ -41,7 +41,7 @@ public class HottestRvAdapter extends RecyclerView.Adapter{
         MyViewHolder myViewHolder = (MyViewHolder) holder;
         Glide.with(mContext).load(bean.getData().getItems().get(position).getPreview()).into(myViewHolder.pic);
         myViewHolder.name.setText(bean.getData().getItems().get(position).getUser().getName());
-//        myViewHolder.viewer.setText(bean.getData().getItems().get(position).getViewers());
+        myViewHolder.num.setText(Integer.toString(bean.getData().getItems().get(position).getViewers()));
 
 
     }
@@ -50,19 +50,20 @@ public class HottestRvAdapter extends RecyclerView.Adapter{
     public int getItemCount() {
         return bean.getData().getItems().size();
     }
+
     class MyViewHolder extends RecyclerView.ViewHolder{
 
 
         private ImageView pic;
         private TextView name;
-        private TextView viewer;
+        private TextView num;
+
 
         public MyViewHolder(View itemView) {
             super(itemView);
             pic = (ImageView) itemView.findViewById(R.id.discovery_hottest_pic);
             name = (TextView) itemView.findViewById(R.id.discovery_hottest_text);
-            viewer = (TextView) itemView.findViewById(R.id.discovery_hottest_viewer);
-
+            num = (TextView) itemView.findViewById(R.id.discovery_hottest_num);
         }
     }
 }

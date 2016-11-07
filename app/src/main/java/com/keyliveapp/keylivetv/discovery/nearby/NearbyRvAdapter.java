@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.keyliveapp.keylivetv.R;
-import com.keyliveapp.keylivetv.bean.NearbyBean;
+import com.keyliveapp.keylivetv.bean.DiscoveryBean;
 
 /**
  * Created by dllo on 16/10/28.
@@ -18,13 +18,13 @@ import com.keyliveapp.keylivetv.bean.NearbyBean;
 
 public class NearbyRvAdapter extends RecyclerView.Adapter {
     private Context mContext;
-    private NearbyBean bean;
+    private DiscoveryBean bean;
 
     public NearbyRvAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-    public void setBean(NearbyBean bean) {
+    public void setBean(DiscoveryBean bean) {
         this.bean = bean;
     }
 

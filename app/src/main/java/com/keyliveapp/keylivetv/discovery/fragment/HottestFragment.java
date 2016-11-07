@@ -1,13 +1,13 @@
-package com.keyliveapp.keylivetv.discovery.hottest;
+package com.keyliveapp.keylivetv.discovery.fragment;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
 import com.keyliveapp.keylivetv.bean.HottestBean;
+import com.keyliveapp.keylivetv.discovery.hottest.HottestRvAdapter;
 import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
 import com.keyliveapp.keylivetv.values.URLvalues;
@@ -41,8 +41,6 @@ public class HottestFragment extends BaseFragment {
                 HottestRvAdapter hottestRvAdapter = new HottestRvAdapter(getActivity());
                 hottestRvAdapter.setBean(bean);
                 rv.setAdapter(hottestRvAdapter);
-                Log.d("呵呵", bean.getData().getItems().get(9).getPreview());
-                Log.d("哈哈", "bean.getData().getItems().get(0).getViewers():" + bean.getData().getItems().get(0).getViewers());
                 GridLayoutManager manager = new GridLayoutManager(getActivity(), 2);
                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                 rv.setLayoutManager(manager);
