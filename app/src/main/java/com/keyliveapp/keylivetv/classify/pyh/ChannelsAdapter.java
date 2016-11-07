@@ -15,26 +15,27 @@ import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.classify.zxh.ClassifyClickInActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by dllo on 16/10/24.
  */
 public class ChannelsAdapter extends RecyclerView.Adapter {
 
-    private ArrayList<String> channelsId;
-    private ArrayList<String> channelsName;
-    private ArrayList<String> chennelsIcon;
+    private List<String> channelsId;
+    private List<String> channelsName;
+    private List<String> chennelsIcon;
     private Context context;
 
-    public void setChannelsId(ArrayList<String> channelsId) {
+    public void setChannelsId(List<String> channelsId) {
         this.channelsId = channelsId;
     }
 
-    public void setChannelsName(ArrayList<String> channelsName) {
+    public void setChannelsName(List<String> channelsName) {
         this.channelsName = channelsName;
     }
 
-    public void setChennelsIcon(ArrayList<String> chennelsIcon) {
+    public void setChennelsIcon(List<String> chennelsIcon) {
         this.chennelsIcon = chennelsIcon;
     }
 

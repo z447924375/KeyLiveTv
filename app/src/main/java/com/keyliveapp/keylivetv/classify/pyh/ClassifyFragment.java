@@ -20,12 +20,12 @@ public class ClassifyFragment extends BaseFragment {
     private RecyclerView recyclerView;
 
     private String URL_CLASSIFY = "https://a4.plu.cn/api/games/all?version=3.7.0&device=4&packageId=1";
-    private ArrayList<String> chennelsIcon;
-    private ArrayList<String> channelsName;
-    private ArrayList<String> channelsId;
-    private ArrayList<String> recommendsIcon;
-    private ArrayList<String> recommendsName;
-    private ArrayList<String> recommendsId;
+    private List<String> chennelsIcon;
+    private List<String> channelsName;
+    private List<String> channelsId;
+    private List<String> recommendsIcon;
+    private List<String> recommendsName;
+    private List<String> recommendsId;
 
     @Override
     protected int setLayout() {

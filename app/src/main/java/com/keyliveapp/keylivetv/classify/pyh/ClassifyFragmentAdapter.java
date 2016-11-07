@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.keyliveapp.keylivetv.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by dllo on 16/10/24.
@@ -19,40 +20,40 @@ public class ClassifyFragmentAdapter extends RecyclerView.Adapter {
 
     private Context context;
 
-    private ArrayList<String> recommendsId;
-    private ArrayList<String> recommendsName;
-    private ArrayList<String> recommendsIcon;
+    private List<String> recommendsId;
+    private List<String> recommendsName;
+    private List<String> recommendsIcon;
 
-    private ArrayList<String> channelsId;
-    private ArrayList<String> channelsName;
-    private ArrayList<String> chennelsIcon;
+    private List<String> channelsId;
+    private List<String> channelsName;
+    private List<String> chennelsIcon;
 
     private String URL_BEFORE = "https://a4.plu.cn/api/streams?start-index=0&max-results=30&game=";
     private String URL_BEHIND = "&version=3.7.0&device=4&packageId=1";
     private String URL_ALL = "https://a4.plu.cn/api/streams?start-index=0&max-results=30&game=0&sort-by=views&version=3.7.0&device=4&packageId=1";
     private String URL_ALLMATCH = "https://a4.plu.cn/api/matches?start-index=0&max-results=200&version=3.7.0&device=4&packageId=1";
 
-    public void setRecommendsId(ArrayList<String> recommendsId) {
+    public void setRecommendsId(List<String> recommendsId) {
         this.recommendsId = recommendsId;
     }
 
-    public void setRecommendsName(ArrayList<String> recommendsName) {
+    public void setRecommendsName(List<String> recommendsName) {
         this.recommendsName = recommendsName;
     }
 
-    public void setRecommendsIcon(ArrayList<String> recommendsIcon) {
+    public void setRecommendsIcon(List<String> recommendsIcon) {
         this.recommendsIcon = recommendsIcon;
     }
 
-    public void setChannelsId(ArrayList<String> channelsId) {
+    public void setChannelsId(List<String> channelsId) {
         this.channelsId = channelsId;
     }
 
-    public void setChannelsName(ArrayList<String> channelsName) {
+    public void setChannelsName(List<String> channelsName) {
         this.channelsName = channelsName;
     }
 
-    public void setChennelsIcon(ArrayList<String> chennelsIcon) {
+    public void setChennelsIcon(List<String> chennelsIcon) {
         this.chennelsIcon = chennelsIcon;
     }
 

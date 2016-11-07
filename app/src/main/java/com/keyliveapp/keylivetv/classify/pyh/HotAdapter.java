@@ -14,27 +14,28 @@ import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.classify.zxh.ClassifyClickInActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by dllo on 16/10/24.
  */
 public class HotAdapter extends RecyclerView.Adapter{
 
-    private ArrayList<String> recommendsId;
-    private ArrayList<String> recommendsName;
-    private ArrayList<String> recommendsIcon;
+    private List<String> recommendsId;
+    private List<String> recommendsName;
+    private List<String> recommendsIcon;
     private Context context;
 
 
-    public void setRecommendsId(ArrayList<String> recommendsId) {
+    public void setRecommendsId(List<String> recommendsId) {
         this.recommendsId = recommendsId;
     }
 
-    public void setRecommendsName(ArrayList<String> recommendsName) {
+    public void setRecommendsName(List<String> recommendsName) {
         this.recommendsName = recommendsName;
     }
 
-    public void setRecommendsIcon(ArrayList<String> recommendsIcon) {
+    public void setRecommendsIcon(List<String> recommendsIcon) {
         this.recommendsIcon = recommendsIcon;
     }
 

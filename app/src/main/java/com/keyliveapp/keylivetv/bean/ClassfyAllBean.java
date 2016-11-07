@@ -1,4 +1,4 @@
-package com.keyliveapp.keylivetv.classify.zxh;
+package com.keyliveapp.keylivetv.bean;
 
 import java.util.List;
 
