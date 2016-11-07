@@ -30,6 +30,7 @@ import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
 import com.keyliveapp.keylivetv.values.URLvalues;
 import com.youth.banner.Banner;
+import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerClickListener;
 
 import java.util.ArrayList;
@@ -153,7 +154,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
             bannerImgSrc.add(homeBean.getData().getBanner().get(i).getImage());
             Log.d("HomeFragment", homeBean.getData().getBanner().get(i).getTitle());
         }
-//        homeBanner.setBannerAnimation(Transformer.Tablet);
+        homeBanner.setBannerAnimation(Transformer.CubeIn);
         homeBanner.setImages(bannerImgSrc);
         homeBanner.setBannerStyle(Banner.SCROLL_INDICATOR_BOTTOM);
         homeBanner.setDelayTime(3500);
@@ -165,7 +166,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
             @Override
             public void onPageSelected(int position) {
-                bannerTitle.setText(homeBean.getData().getBanner().get((position - 1) % 5).getTitle());
+                bannerTitle.setText(homeBean.getData().getBanner().get( Math.abs(position - 1)%5).getTitle());
             }
 
             @Override
