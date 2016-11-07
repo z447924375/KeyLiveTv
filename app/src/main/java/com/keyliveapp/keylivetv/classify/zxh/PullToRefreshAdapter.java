@@ -1,12 +1,15 @@
 package com.keyliveapp.keylivetv.classify.zxh;
 
+import android.content.Context;
 import android.support.v4.util.ArrayMap;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.keyliveapp.keylivetv.R;
@@ -22,6 +25,7 @@ public class PullToRefreshAdapter extends BaseAdapter{
     private ArrayList<String> viewers;
     private ArrayList<String> names;
     private ArrayList<String> titles;
+    private Context mContext;
 
     public void setViewers(ArrayList<String> viewers) {
         this.viewers = viewers;
@@ -29,6 +33,7 @@ public class PullToRefreshAdapter extends BaseAdapter{
 
     public void setNames(ArrayList<String> names) {
         this.names = names;
+        Log.d("PullToRefreshAdapter", "names:" + names);
     }
 
     public void setTitles(ArrayList<String> titles) {
@@ -47,10 +52,14 @@ public class PullToRefreshAdapter extends BaseAdapter{
 
     public void setAll(ArrayList<String> previewss, ArrayList<String> namess, ArrayList<String> titless, ArrayList<String> viewerss) {
         previews.addAll(previewss);
+        Toast.makeText(mContext, "previews.size():" + previews.size(), Toast.LENGTH_SHORT).show();
+        Log.d("PullToRefreshAdapter", "names:" + names);
+        Log.d("PullToRefreshAdapter", "namess:" + namess);
         names.addAll(namess);
+        Log.d("PullToRefreshAdapter", "names:" + names);
         viewers.addAll(viewerss);
         titles.addAll(titless);
-        notifyDataSetChanged();
+//        notifyDataSetChanged();
     }
 
     public void refresh() {
@@ -75,9 +84,19 @@ public class PullToRefreshAdapter extends BaseAdapter{
     }
 
     @Override
+    public void notifyDataSetChanged() {
+        Log.d("PullToRefreshAdapter", "names:" + names);
+        super.notifyDataSetChanged();
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
 
         MyViewHolder myViewHolder = null;
+
+        if (mContext == null) {
+            mContext = parent.getContext();
+        }
 
         if (convertView == null) {
             convertView = LayoutInflater.from(parent.getContext()).inflate(R.layout.classify_all, parent, false);

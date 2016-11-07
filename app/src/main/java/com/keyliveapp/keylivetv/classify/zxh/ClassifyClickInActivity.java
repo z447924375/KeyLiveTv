@@ -69,21 +69,21 @@ public class ClassifyClickInActivity extends BaseActivity {
             @Override
             public void onPullDownToRefresh(final PullToRefreshBase<ListView> refreshView) {
 
-                startIndes = 0;
-                endIndes = 0;
-
-                String url =
-                        URL_BEFORE1 + startIndes + URL_BEFORE2 + gameId + URL_BEHIND;
-
-                pullToRefreshAdapter = null;
-
-                setOrChangeAdapter(url);
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        refreshView.onRefreshComplete();
-                    }
-                },1000);
+//                startIndes = 0;
+//                endIndes = 0;
+//
+//                String url =
+//                        URL_BEFORE1 + startIndes + URL_BEFORE2 + gameId + URL_BEHIND;
+//
+//                pullToRefreshAdapter = null;
+//
+//                setOrChangeAdapter(url);
+//                handler.postDelayed(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        refreshView.onRefreshComplete();
+//                    }
+//                },1000);
 
             }
 
@@ -106,6 +106,7 @@ public class ClassifyClickInActivity extends BaseActivity {
 
                     String url = URL_BEFORE1 + startIndes + URL_BEFORE2 + gameId + URL_BEHIND;
 
+                    Log.d("ClassifyClickInActivity", url);
                     setOrChangeAdapter(url);
 
                 }
@@ -189,10 +190,14 @@ public class ClassifyClickInActivity extends BaseActivity {
                     titles = new ArrayList<>();
                     viewers = new ArrayList<>();
                 } else {
-                    previews.clear();
-                    names.clear();
-                    titles.clear();
-                    viewers.clear();
+//                    previews.clear();
+//                    names.clear();
+//                    titles.clear();
+//                    viewers.clear();
+//                    previews = new ArrayList<>();
+//                    names = new ArrayList<>();
+//                    titles = new ArrayList<>();
+//                    viewers = new ArrayList<>();
                 }
 
                 List<ClassfyAllBean.DataBean.ItemsBean> itemsBeans = result.getData().getItems();
@@ -231,7 +236,8 @@ public class ClassifyClickInActivity extends BaseActivity {
                     handler.sendEmptyMessageDelayed(endIndes, 0);
 
                 } else {
-                    pullToRefreshAdapter.setAll(previews, names, titles, viewers);
+//                    pullToRefreshAdapter.setAll(previews, names, titles, viewers);
+                    pullToRefreshAdapter.notifyDataSetChanged();
                     lvPull.onRefreshComplete();
                 }
             }
