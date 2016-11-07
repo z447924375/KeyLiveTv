@@ -29,7 +29,7 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".classify.zxh.ClassifyClickInActivity"></activity>
+        <activity android:name=".classify.ClassifyClickInActivity"></activity>
         <activity android:name=".livetv.VideoViewBuffer">
 
         </activity>

@@ -1,8 +1,7 @@
-package com.keyliveapp.keylivetv.classify.pyh;
+package com.keyliveapp.keylivetv.classify;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.keyliveapp.keylivetv.R;
-import com.keyliveapp.keylivetv.classify.zxh.ClassifyClickInActivity;
 
 import java.util.ArrayList;
 import java.util.List;
