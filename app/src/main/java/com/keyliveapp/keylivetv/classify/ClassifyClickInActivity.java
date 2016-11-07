@@ -1,4 +1,4 @@
-package com.keyliveapp.keylivetv.classify.zxh;
+package com.keyliveapp.keylivetv.classify;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;

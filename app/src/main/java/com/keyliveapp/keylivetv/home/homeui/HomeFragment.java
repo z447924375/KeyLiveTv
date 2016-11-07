@@ -19,7 +19,7 @@ import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
 import com.keyliveapp.keylivetv.bean.DomainBean;
 import com.keyliveapp.keylivetv.bean.HomeBean;
-import com.keyliveapp.keylivetv.classify.zxh.ClassifyClickInActivity;
+import com.keyliveapp.keylivetv.classify.ClassifyClickInActivity;
 import com.keyliveapp.keylivetv.home.homepresenter.HomePresenter;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeContentClickListener;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeTitleClickListener;

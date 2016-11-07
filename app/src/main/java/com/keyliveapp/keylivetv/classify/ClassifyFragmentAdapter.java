@@ -1,4 +1,4 @@
-package com.keyliveapp.keylivetv.classify.pyh;
+package com.keyliveapp.keylivetv.classify;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;

@@ -1,6 +1,5 @@
-package com.keyliveapp.keylivetv.classify.zxh;
+package com.keyliveapp.keylivetv.classify;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,9 +57,7 @@ public class PullToRefreshAdapter extends BaseAdapter {
         notifyDataSetInvalidated();
     }
 
-    public void refresh() {
 
-    }
 
     @Override
     public int getCount() {
@@ -155,19 +152,6 @@ public class PullToRefreshAdapter extends BaseAdapter {
             tvViewRigth = (TextView) convertView.findViewById(R.id.tv_viewers_right);
             tvTitlesLeft = (TextView) convertView.findViewById(R.id.tv_title_left);
             tvTitlesRight = (TextView) convertView.findViewById(R.id.tv_title_right);
-        }
-    }
-
-
-    public class SendPullRvClickEvent {
-        private int position;
-
-        public int getPosition() {
-            return position;
-        }
-
-        public void setPosition(int position) {
-            this.position = position;
         }
     }
 
