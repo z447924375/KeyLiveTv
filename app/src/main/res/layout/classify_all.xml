@@ -4,7 +4,6 @@
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:background="#23FF0000"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -53,7 +52,6 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:background="#23FF0000"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
