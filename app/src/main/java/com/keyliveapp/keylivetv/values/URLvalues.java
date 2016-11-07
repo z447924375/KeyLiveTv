@@ -28,6 +28,8 @@ public class URLvalues {
             DOMAIN_URL_FRONT = "http://roomapicdn.plu.cn/room/RoomAppStatusV2?domain=";
     public static final String
             DOMAIN_URL_BEHIND = "&version=3.7.0&device=4&packageId=1";
+
+    //直播流拼接 roomid   的拼接前后
     public static final String
             STREAM_URL_FRONT = "http://livestream.plu.cn/live/GetLivePlayUrl?roomId=";
     public static final String

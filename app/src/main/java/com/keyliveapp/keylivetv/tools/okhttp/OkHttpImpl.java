@@ -6,6 +6,7 @@ import android.os.Looper;
 import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 
 import java.io.File;
 import java.io.IOException;
@@ -76,7 +77,11 @@ public class OkHttpImpl implements IHttpRequest {
         mHandler.post(new Runnable() {
             @Override
             public void run() {
-                listener.onCompleted(result);
+                try {
+                    listener.onCompleted(result);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         });
     }
@@ -98,11 +103,17 @@ public class OkHttpImpl implements IHttpRequest {
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
-                if (response.isSuccessful()) {
-                    final T result = mGson.fromJson(response.body().string(), clazz);
-                    postResponse(result, listener);
-                } else {
-                    postError(listener);
+                try {
+                    if (response.isSuccessful()) {
+                        final T result = mGson.fromJson(response.body().string(), clazz);
+                        postResponse(result, listener);
+                    } else {
+                        postError(listener);
+                    }
+                } catch (JsonSyntaxException e) {
+                    e.printStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
             }
         });

@@ -1,4 +1,4 @@
-package com.keyliveapp.keylivetv.classify.pyh;
+package com.keyliveapp.keylivetv.classify;
 
 import android.graphics.Rect;
 import android.support.v7.widget.RecyclerView;
