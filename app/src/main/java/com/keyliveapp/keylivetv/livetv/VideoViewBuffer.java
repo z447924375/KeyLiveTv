@@ -3,6 +3,10 @@ package com.keyliveapp.keylivetv.livetv;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -15,6 +19,8 @@ import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
 import com.keyliveapp.keylivetv.values.URLvalues;
 
+import java.util.ArrayList;
+
 import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.Vitamio;
 import io.vov.vitamio.widget.VideoView;
@@ -26,6 +32,8 @@ public class VideoViewBuffer extends BaseActivity implements MediaPlayer.OnInfoL
     private VideoView mVideoView;
     private TextView downloadRateView, loadRateView;
     private ImageButton btnBack, btnFull;
+    private TabLayout liveTab;
+    private ViewPager liveVp;
 
 
     @Override
@@ -40,8 +48,9 @@ public class VideoViewBuffer extends BaseActivity implements MediaPlayer.OnInfoL
         downloadRateView = (TextView) findViewById(R.id.download_rate);
         loadRateView = (TextView) findViewById(R.id.load_rate);
         btnBack = (ImageButton) findViewById(R.id.live_back);
-
         btnFull = (ImageButton) findViewById(R.id.live_full);
+        liveTab = (TabLayout) findViewById(R.id.live_tab);
+        liveVp = (ViewPager) findViewById(R.id.live_vp);
     }
 
     @Override
@@ -74,9 +83,23 @@ public class VideoViewBuffer extends BaseActivity implements MediaPlayer.OnInfoL
         mVideoView.setOnBufferingUpdateListener(this);
         mVideoView.setOnInfoListener(this);
         mVideoView.setOnPreparedListener(this);
-
         btnFull.setOnClickListener(this);
         btnBack.setOnClickListener(this);
+
+
+
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        LiveBoardFragment liveBoardFragment = new LiveBoardFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("roomid",roomid);
+        liveBoardFragment.setArguments(bundle);
+        fragments.add(new LiveChatFragment());
+        fragments.add(new LiveAnchorFragment());
+        fragments.add(liveBoardFragment);
+
+        VideoViewVpAdapter adapter = new VideoViewVpAdapter(getSupportFragmentManager(),fragments);
+        liveVp.setAdapter(adapter);
+        liveTab.setupWithViewPager(liveVp);
 
     }
 

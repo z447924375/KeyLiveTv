@@ -10,6 +10,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
+
 /**
  * Created by dllo on 16/10/19.
  */
@@ -48,18 +50,23 @@ public class BaseViewHolder {
         return (T) view;
     }
 
-    public BaseViewHolder setText(int viewId, String string){
+    public BaseViewHolder setText(int viewId, String string) {
         TextView tv = getView(viewId);
         tv.setText(string);
         return this;
     }
 
-    public BaseViewHolder setImage(int viewId, String imgUrl){
+    public BaseViewHolder setImage(int viewId, String imgUrl) {
         ImageView iv = getView(viewId);
         Glide.with(mContext).load(imgUrl).into(iv);
         return this;
     }
 
+    public BaseViewHolder setCirImage(int viewId, String imgUrl) {
+        ImageView iv = getView(viewId);
+        Glide.with(mContext).load(imgUrl).bitmapTransform(new CropCircleTransformation(mContext)).into(iv);
+        return this;
+    }
 
 
     public View getConvertView() {
