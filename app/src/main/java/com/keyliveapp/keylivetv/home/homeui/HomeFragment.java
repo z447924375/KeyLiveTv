@@ -166,7 +166,8 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
             @Override
             public void onPageSelected(int position) {
-                bannerTitle.setText(homeBean.getData().getBanner().get( Math.abs(position - 1)%5).getTitle());
+                bannerTitle.setText(homeBean.getData().getBanner()
+                        .get( Math.abs(position - 1)%homeBean.getData().getBanner().size()).getTitle());
             }
 
             @Override

@@ -35,4 +35,12 @@ public class URLvalues {
     public static final String
             STREAN_URL_BEHIND = "&appId=4001&version=3.7.0&device=4&packageId=1";
 
+    //周榜 日榜 roomid 拼接前后
+    public static final String
+            WEEK_URL_FRONT = "http://roomapicdn.plu.cn/ranklist/getweeklyranklist?roomId=";
+    public static final String
+            DAY_URL_FRONT = "http://roomapicdn.plu.cn/ranklist/getdailyranklist?roomId=";
+    public static final String
+            BOARD_URL_BEHIND = "&version=3.7.0&device=4&packageId=1";
+
 }

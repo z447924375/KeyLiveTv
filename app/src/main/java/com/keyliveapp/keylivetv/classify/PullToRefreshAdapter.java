@@ -1,5 +1,6 @@
 package com.keyliveapp.keylivetv.classify;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,14 @@ import com.keyliveapp.keylivetv.R;
 
 import java.util.ArrayList;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 /**
  * Created by dllo on 16/10/31.
  */
 public class PullToRefreshAdapter extends BaseAdapter {
-    Clicked mClicked;
-
+   private Clicked mClicked;
+private Context mContext;
     public void setClicked(Clicked clicked) {
         mClicked = clicked;
     }
@@ -95,9 +98,11 @@ public class PullToRefreshAdapter extends BaseAdapter {
         try {
             Glide.with(parent.getContext())
                     .load(previews.get(position * 2))
+                    .bitmapTransform(new RoundedCornersTransformation(mContext, 10, 0, RoundedCornersTransformation.CornerType.ALL))
                     .into(myViewHolder.imageViewLeft);
             Glide.with(parent.getContext())
                     .load(previews.get(position * 2 + 1))
+                    .bitmapTransform(new RoundedCornersTransformation(mContext, 10, 0, RoundedCornersTransformation.CornerType.ALL))
                     .into(myViewHolder.imageViewRight);
             myViewHolder.imageViewLeft.setOnClickListener(new View.OnClickListener() {
                 @Override
