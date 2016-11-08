@@ -1,4 +1,4 @@
-package com.keyliveapp.keylivetv.discovery.fragment;
+package com.keyliveapp.keylivetv.discovery.newest;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -6,8 +6,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
-import com.keyliveapp.keylivetv.bean.HottestBean;
-import com.keyliveapp.keylivetv.discovery.hottest.HottestRvAdapter;
+import com.keyliveapp.keylivetv.bean.DiscoveryBean;
 import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
 import com.keyliveapp.keylivetv.values.URLvalues;
@@ -15,36 +14,35 @@ import com.keyliveapp.keylivetv.values.URLvalues;
 /**
  * Created by dllo on 16/10/28.
  */
-public class HottestFragment extends BaseFragment {
+public class NewestFragment extends BaseFragment {
     private RecyclerView rv;
-    private String url;
-    private HottestBean bean;
     @Override
     protected int setLayout() {
-        return R.layout.discovery_hottest;
+        return R.layout.discovery_newest;
     }
 
     @Override
     protected void initView() {
-        rv = getViewLayout(R.id.rv_discovery_hottest);
+        rv = getViewLayout(R.id.rv_discovery_newest);
 
     }
 
     @Override
     protected void initDate() {
-        url = URLvalues.DISCOVERY_URL_HOTTEST;
+        HttpManager.getInstance().getRequest(URLvalues.DISCOVERY_URL_NEWEST, DiscoveryBean.class, new OnCompletedListener<DiscoveryBean>() {
 
-        HttpManager.getInstance().getRequest(url, HottestBean.class, new OnCompletedListener<HottestBean>() {
+            private DiscoveryBean bean;
+
             @Override
-            public void onCompleted(HottestBean result) {
+            public void onCompleted(DiscoveryBean result) {
                 bean = result;
-                HottestRvAdapter hottestRvAdapter = new HottestRvAdapter(getActivity());
-                hottestRvAdapter.setBean(bean);
-                rv.setAdapter(hottestRvAdapter);
-                GridLayoutManager manager = new GridLayoutManager(getActivity(), 2);
+                NewestRvAdapter adapter = new NewestRvAdapter(getActivity());
+                adapter.setBean(bean);
+                rv.setAdapter(adapter );
+                adapter.setBean(bean);
+                GridLayoutManager manager = new GridLayoutManager(getActivity(), 3);
                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                 rv.setLayoutManager(manager);
-
             }
 
             @Override

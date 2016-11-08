@@ -6,9 +6,9 @@ import android.support.v4.view.ViewPager;
 
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
-import com.keyliveapp.keylivetv.discovery.fragment.HottestFragment;
-import com.keyliveapp.keylivetv.discovery.fragment.NearbyFragment;
-import com.keyliveapp.keylivetv.discovery.fragment.NewestFragment;
+import com.keyliveapp.keylivetv.discovery.hottest.HottestFragment;
+import com.keyliveapp.keylivetv.discovery.nearby.NearbyFragment;
+import com.keyliveapp.keylivetv.discovery.newest.NewestFragment;
 
 import java.util.ArrayList;
 

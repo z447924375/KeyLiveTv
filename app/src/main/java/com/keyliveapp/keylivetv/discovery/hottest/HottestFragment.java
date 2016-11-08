@@ -1,4 +1,4 @@
-package com.keyliveapp.keylivetv.discovery.fragment;
+package com.keyliveapp.keylivetv.discovery.hottest;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -6,8 +6,8 @@ import android.support.v7.widget.RecyclerView;
 
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
-import com.keyliveapp.keylivetv.bean.DiscoveryBean;
-import com.keyliveapp.keylivetv.discovery.nearby.NearbyRvAdapter;
+import com.keyliveapp.keylivetv.bean.HottestBean;
+import com.keyliveapp.keylivetv.discovery.hottest.HottestRvAdapter;
 import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
 import com.keyliveapp.keylivetv.values.URLvalues;
@@ -15,31 +15,32 @@ import com.keyliveapp.keylivetv.values.URLvalues;
 /**
  * Created by dllo on 16/10/28.
  */
-public class NearbyFragment extends BaseFragment{
+public class HottestFragment extends BaseFragment {
     private RecyclerView rv;
-    private DiscoveryBean bean;
     private String url;
+    private HottestBean bean;
     @Override
     protected int setLayout() {
-        return R.layout.discovery_nearby;
+        return R.layout.discovery_hottest;
     }
 
     @Override
     protected void initView() {
-        rv = getViewLayout(R.id.rv_discovery_nearby);
+        rv = getViewLayout(R.id.rv_discovery_hottest);
 
     }
 
     @Override
     protected void initDate() {
-        url = URLvalues.DISCOVERY_URL_NEARBY;
-        HttpManager.getInstance().getRequest(url, DiscoveryBean.class, new OnCompletedListener<DiscoveryBean>() {
+        url = URLvalues.DISCOVERY_URL_HOTTEST;
+
+        HttpManager.getInstance().getRequest(url, HottestBean.class, new OnCompletedListener<HottestBean>() {
             @Override
-            public void onCompleted(DiscoveryBean result) {
+            public void onCompleted(HottestBean result) {
                 bean = result;
-                NearbyRvAdapter nearbyRvAdapter = new NearbyRvAdapter(getActivity());
-                nearbyRvAdapter.setBean(bean);
-                rv.setAdapter(nearbyRvAdapter);
+                HottestRvAdapter hottestRvAdapter = new HottestRvAdapter(getActivity());
+                hottestRvAdapter.setBean(bean);
+                rv.setAdapter(hottestRvAdapter);
                 GridLayoutManager manager = new GridLayoutManager(getActivity(), 2);
                 manager.setOrientation(LinearLayoutManager.VERTICAL);
                 rv.setLayoutManager(manager);
@@ -53,8 +54,5 @@ public class NearbyFragment extends BaseFragment{
         });
 
 
-
     }
-
-
 }
