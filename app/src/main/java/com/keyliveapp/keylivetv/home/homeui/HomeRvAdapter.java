@@ -19,6 +19,8 @@ import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnLiveRecItemClick
 
 import java.util.List;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 /**
  * Created by dllo on 16/10/24.
  */
@@ -126,8 +128,9 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
                 for (int i = 0; i < 6; i++) {
                     sixViewHolder.homeLiveTexts[i].setText(mColumnsBeen.get(0).
                             getRooms().get(i).getChannel().getStatus());
-                    Glide.with(context).load(mColumnsBeen.get(0).getRooms().get(i)
-                            .getPreview()).into(sixViewHolder.homeLivePics[i]);
+                    Glide.with(context).load(mColumnsBeen.get(0).getRooms().get(i).getPreview())
+                            .bitmapTransform(new RoundedCornersTransformation(context, 10, 0, RoundedCornersTransformation.CornerType.ALL))
+                            .into(sixViewHolder.homeLivePics[i]);
 
                     final int finalI = i;
                     sixViewHolder.homeLivePics[i].setOnClickListener(new View.OnClickListener() {
@@ -164,8 +167,9 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
                 contentViewHolder.contentNum.setText(mColumnsBeen.get(titlePosition).getRooms()
                         .get(contentPosition).getViewers() + "");
 
-                Glide.with(context).load(mColumnsBeen.get(titlePosition).getRooms()
-                        .get(contentPosition).getPreview()).into(contentViewHolder.contentPic);
+                Glide.with(context).load(mColumnsBeen.get(titlePosition).getRooms().get(contentPosition).getPreview())
+                        .bitmapTransform(new RoundedCornersTransformation(context, 10, 0, RoundedCornersTransformation.CornerType.ALL))
+                        .into(contentViewHolder.contentPic);
                 contentViewHolder.contentPic.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {

@@ -1,6 +1,7 @@
 package com.keyliveapp.keylivetv.livetv;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.widget.ListView;
 
@@ -37,7 +38,14 @@ public class LiveBoardWeekFragment extends BaseFragment {
         String boardurl = bundle.getString("url");
         String stream = apply(boardurl);
 
+        Handler handler = new Handler();
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
 
+
+            }
+        });
         Log.d("sss", stream);
 
 
