@@ -1,6 +1,4 @@
-package com.keyliveapp.keylivetv.livetv;
-
-import android.widget.ListView;
+package com.keyliveapp.keylivetv.livetv.normal;
 
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
@@ -8,17 +6,15 @@ import com.keyliveapp.keylivetv.baseclass.BaseFragment;
 /**
  * Created by dllo on 16/11/7.
  */
-public class LiveChatFragment extends BaseFragment {
-    private ListView liveChatLv;
-
+public class LiveAnchorFragment extends BaseFragment {
     @Override
     protected int setLayout() {
-        return R.layout.live_chat;
+        return R.layout.live_anchor;
     }
 
     @Override
     protected void initView() {
-        liveChatLv = getViewLayout(R.id.live_chat_lv);
+
     }
 
     @Override

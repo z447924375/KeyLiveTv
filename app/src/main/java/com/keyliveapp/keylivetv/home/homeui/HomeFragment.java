@@ -25,7 +25,7 @@ import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeContentClick
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeTitleClickListener;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnLiveRecChannelListener;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnLiveRecItemClickListener;
-import com.keyliveapp.keylivetv.livetv.VideoViewBuffer;
+import com.keyliveapp.keylivetv.livetv.normal.LiveVideoNormalActivity;
 import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
 import com.keyliveapp.keylivetv.values.URLvalues;
@@ -277,7 +277,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
             public void onCompleted(DomainBean result) {
                 String roomid = result.getBroadcast().getRoomId() + "";
 
-                Intent intent = new Intent(getActivity(), VideoViewBuffer.class);
+                Intent intent = new Intent(getActivity(), LiveVideoNormalActivity.class);
                 intent.putExtra("roomid", roomid);
                 startActivity(intent);
             }

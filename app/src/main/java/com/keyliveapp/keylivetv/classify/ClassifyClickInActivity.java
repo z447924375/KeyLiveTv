@@ -19,7 +19,7 @@ import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseActivity;
 import com.keyliveapp.keylivetv.bean.ClassfyAllBean;
 import com.keyliveapp.keylivetv.bean.DomainBean;
-import com.keyliveapp.keylivetv.livetv.VideoViewBuffer;
+import com.keyliveapp.keylivetv.livetv.normal.LiveVideoNormalActivity;
 import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
 import com.keyliveapp.keylivetv.values.URLvalues;
@@ -260,7 +260,7 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
             public void onCompleted(DomainBean result) {
                 String roomid = result.getBroadcast().getRoomId() + "";
 
-                Intent intent = new Intent(getApplicationContext(), VideoViewBuffer.class);
+                Intent intent = new Intent(getApplicationContext(), LiveVideoNormalActivity.class);
                 intent.putExtra("roomid", roomid);
                 startActivity(intent);
             }

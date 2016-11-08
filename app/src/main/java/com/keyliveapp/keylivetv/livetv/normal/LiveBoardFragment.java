@@ -1,4 +1,4 @@
-package com.keyliveapp.keylivetv.livetv;
+package com.keyliveapp.keylivetv.livetv.normal;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;

@@ -1,5 +1,5 @@
 
-package com.keyliveapp.keylivetv.livetv;
+package com.keyliveapp.keylivetv.livetv.normal;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -25,7 +25,7 @@ import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.Vitamio;
 import io.vov.vitamio.widget.VideoView;
 
-public class VideoViewBuffer extends BaseActivity implements MediaPlayer.OnInfoListener,
+public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer.OnInfoListener,
         MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnPreparedListener, View.OnClickListener {
 
 
@@ -68,13 +68,13 @@ public class VideoViewBuffer extends BaseActivity implements MediaPlayer.OnInfoL
                         mVideoView.setVideoURI(Uri.parse(streamUrl));
 
                     } else {
-                        Toast.makeText(VideoViewBuffer.this, "链接无效", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LiveVideoNormalActivity.this, "链接无效", Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailed() {
-                    Toast.makeText(VideoViewBuffer.this, "解析错误", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LiveVideoNormalActivity.this, "解析错误", Toast.LENGTH_SHORT).show();
                 }
             });
         }

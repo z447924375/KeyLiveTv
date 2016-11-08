@@ -1,4 +1,4 @@
-package com.keyliveapp.keylivetv.livetv;
+package com.keyliveapp.keylivetv.livetv.normal;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;

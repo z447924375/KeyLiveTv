@@ -43,13 +43,6 @@
         style="@style/titleStyle"
         >
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="30dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:src="@mipmap/btn_home_top_zhubobang"/>
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

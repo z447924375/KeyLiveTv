@@ -11,41 +11,41 @@ public class DomainBean {
 
     /**
      * CityId : 0
-     * BaseRoomInfo : {"Name":"情久-糖糖","Avatar":"http://img2.plures.net/7a5d/ebf9/25e7/d56b/1e08/3bb0/9260/7e8d.jpg","Domain":"153157","Game":103,"GameName":"王者荣耀","UserId":35709560,"UserTitle":"MasterStar","Desc":"主播QQ群596266882","Type":1,"AnchorCertification":"","AnchorCategory":0,"BoardCastTitle":"新货求订阅","BoardCastAddress":"http://longzhu.com/streaming?id=452414","VerifiedInformation":"","SubscribeCount":11164,"DailyPlayHourConfig":2,"WriteTime":"/Date(1477144378000-0000)/","VideoPermission":1,"LivePermission":383,"Status":1,"Id":452414}
-     * FlowerCount : 9109
-     * OnlineCount : 28570
+     * BaseRoomInfo : {"Name":" 苗苗是个小可爱","Avatar":"http://img2.plures.net/b38c/87ef/d719/cfe7/a272/49d8/9a32/9605.jpg","Domain":"x101309","Game":127,"GameName":"御宅","UserId":56206112,"UserTitle":"LongZhuUGC","Desc":"校园主播~","Type":1,"AnchorCertification":"吉林农业科技学院","AnchorCategory":0,"BoardCastTitle":"哈哈哈哈哈哈哈哈","BoardCastAddress":"","VerifiedInformation":"","SubscribeCount":62,"DailyPlayHourConfig":2,"WriteTime":"/Date(1478358634000-0000)/","VideoPermission":3,"LivePermission":383,"Status":1,"Id":1650615}
+     * FlowerCount : 430
+     * OnlineCount : 1316
      * IsBroadcasting : true
      * Vid :
      * CollegeId : 0
-     * Contribution : 561520
+     * Contribution : 13140
      * AppChatStatus : 0
-     * Broadcast : {"LiveSource":12,"LiveStreamType":12,"PlayId":16788889,"RoomId":452414,"BeginTime":"/Date(1478167642573+0800)/","GameId":103,"GameName":"王者荣耀","ParentGameId":88,"ParentGameName":"手机游戏（综合）","Title":"新货求订阅","Html":"http://longzhu.com/streaming?id=452414","Channels":[{"Name":"龙珠直播","Code":"http://longzhu.com/streaming?id=452414"}],"UserId":35709560,"Cover":"","UpStreamUrl":"http://longzhu.com/streaming?id=452414","Longitude":0,"Latitude":0,"Address":"","LiveSourceType":16,"OS":1,"LiveType":1}
-     * RoomGrade : 10
+     * Broadcast : {"LiveSource":11,"LiveStreamType":11,"PlayId":16952084,"RoomId":1650615,"BeginTime":"/Date(1478597681896+0800)/","GameId":127,"GameName":"御宅","ParentGameId":119,"ParentGameName":"随拍","Title":"哈哈哈哈哈哈哈哈","Html":"rtmp://rtmpup3.plu.cn/live/ba04452ef2314380b9c052cebfd3cc86?signature=Jyxza8fc5Zn%2fDkom3EyFXr2V1r0%3d&accesskey=yX5ga7SZ%2fKoMV97kiihh&expire=1479202481&nonce=43ef995602de427b93d31f3775d1eae9&public=0&vdoid=1615502_3071367","Channels":[{"Name":"龙珠直播","Code":"http://longzhu.com/streaming?id=1650615"}],"UserId":56206112,"Cover":"","UpStreamUrl":"rtmp://rtmpup3.plu.cn/live/ba04452ef2314380b9c052cebfd3cc86?signature=Jyxza8fc5Zn%2fDkom3EyFXr2V1r0%3d&accesskey=yX5ga7SZ%2fKoMV97kiihh&expire=1479202481&nonce=43ef995602de427b93d31f3775d1eae9&public=0&vdoid=1615502_3071367","Longitude":126.4764,"Latitude":43.95753,"Address":"吉林省吉林市昌邑区哈大公路","Model":"n5207","LiveSourceType":2,"WatchDirections":"portrait","OS":4,"LiveType":1}
+     * RoomGrade : 4
      */
 
     private int CityId;
     /**
-     * Name : 情久-糖糖
-     * Avatar : http://img2.plures.net/7a5d/ebf9/25e7/d56b/1e08/3bb0/9260/7e8d.jpg
-     * Domain : 153157
-     * Game : 103
-     * GameName : 王者荣耀
-     * UserId : 35709560
-     * UserTitle : MasterStar
-     * Desc : 主播QQ群596266882
+     * Name :  苗苗是个小可爱
+     * Avatar : http://img2.plures.net/b38c/87ef/d719/cfe7/a272/49d8/9a32/9605.jpg
+     * Domain : x101309
+     * Game : 127
+     * GameName : 御宅
+     * UserId : 56206112
+     * UserTitle : LongZhuUGC
+     * Desc : 校园主播~
      * Type : 1
-     * AnchorCertification :
+     * AnchorCertification : 吉林农业科技学院
      * AnchorCategory : 0
-     * BoardCastTitle : 新货求订阅
-     * BoardCastAddress : http://longzhu.com/streaming?id=452414
+     * BoardCastTitle : 哈哈哈哈哈哈哈哈
+     * BoardCastAddress :
      * VerifiedInformation :
-     * SubscribeCount : 11164
+     * SubscribeCount : 62
      * DailyPlayHourConfig : 2
-     * WriteTime : /Date(1477144378000-0000)/
-     * VideoPermission : 1
+     * WriteTime : /Date(1478358634000-0000)/
+     * VideoPermission : 3
      * LivePermission : 383
      * Status : 1
-     * Id : 452414
+     * Id : 1650615
      */
 
     private BaseRoomInfoBean BaseRoomInfo;
@@ -57,26 +57,28 @@ public class DomainBean {
     private int Contribution;
     private int AppChatStatus;
     /**
-     * LiveSource : 12
-     * LiveStreamType : 12
-     * PlayId : 16788889
-     * RoomId : 452414
-     * BeginTime : /Date(1478167642573+0800)/
-     * GameId : 103
-     * GameName : 王者荣耀
-     * ParentGameId : 88
-     * ParentGameName : 手机游戏（综合）
-     * Title : 新货求订阅
-     * Html : http://longzhu.com/streaming?id=452414
-     * Channels : [{"Name":"龙珠直播","Code":"http://longzhu.com/streaming?id=452414"}]
-     * UserId : 35709560
+     * LiveSource : 11
+     * LiveStreamType : 11
+     * PlayId : 16952084
+     * RoomId : 1650615
+     * BeginTime : /Date(1478597681896+0800)/
+     * GameId : 127
+     * GameName : 御宅
+     * ParentGameId : 119
+     * ParentGameName : 随拍
+     * Title : 哈哈哈哈哈哈哈哈
+     * Html : rtmp://rtmpup3.plu.cn/live/ba04452ef2314380b9c052cebfd3cc86?signature=Jyxza8fc5Zn%2fDkom3EyFXr2V1r0%3d&accesskey=yX5ga7SZ%2fKoMV97kiihh&expire=1479202481&nonce=43ef995602de427b93d31f3775d1eae9&public=0&vdoid=1615502_3071367
+     * Channels : [{"Name":"龙珠直播","Code":"http://longzhu.com/streaming?id=1650615"}]
+     * UserId : 56206112
      * Cover :
-     * UpStreamUrl : http://longzhu.com/streaming?id=452414
-     * Longitude : 0
-     * Latitude : 0
-     * Address :
-     * LiveSourceType : 16
-     * OS : 1
+     * UpStreamUrl : rtmp://rtmpup3.plu.cn/live/ba04452ef2314380b9c052cebfd3cc86?signature=Jyxza8fc5Zn%2fDkom3EyFXr2V1r0%3d&accesskey=yX5ga7SZ%2fKoMV97kiihh&expire=1479202481&nonce=43ef995602de427b93d31f3775d1eae9&public=0&vdoid=1615502_3071367
+     * Longitude : 126.4764
+     * Latitude : 43.95753
+     * Address : 吉林省吉林市昌邑区哈大公路
+     * Model : n5207
+     * LiveSourceType : 2
+     * WatchDirections : portrait
+     * OS : 4
      * LiveType : 1
      */
 
@@ -378,15 +380,17 @@ public class DomainBean {
         private int UserId;
         private String Cover;
         private String UpStreamUrl;
-        private int Longitude;
-        private int Latitude;
+        private double Longitude;
+        private double Latitude;
         private String Address;
+        private String Model;
         private int LiveSourceType;
+        private String WatchDirections;
         private int OS;
         private int LiveType;
         /**
          * Name : 龙珠直播
-         * Code : http://longzhu.com/streaming?id=452414
+         * Code : http://longzhu.com/streaming?id=1650615
          */
 
         private List<ChannelsBean> Channels;
@@ -503,19 +507,19 @@ public class DomainBean {
             this.UpStreamUrl = UpStreamUrl;
         }
 
-        public int getLongitude() {
+        public double getLongitude() {
             return Longitude;
         }
 
-        public void setLongitude(int Longitude) {
+        public void setLongitude(double Longitude) {
             this.Longitude = Longitude;
         }
 
-        public int getLatitude() {
+        public double getLatitude() {
             return Latitude;
         }
 
-        public void setLatitude(int Latitude) {
+        public void setLatitude(double Latitude) {
             this.Latitude = Latitude;
         }
 
@@ -527,12 +531,28 @@ public class DomainBean {
             this.Address = Address;
         }
 
+        public String getModel() {
+            return Model;
+        }
+
+        public void setModel(String Model) {
+            this.Model = Model;
+        }
+
         public int getLiveSourceType() {
             return LiveSourceType;
         }
 
         public void setLiveSourceType(int LiveSourceType) {
             this.LiveSourceType = LiveSourceType;
+        }
+
+        public String getWatchDirections() {
+            return WatchDirections;
+        }
+
+        public void setWatchDirections(String WatchDirections) {
+            this.WatchDirections = WatchDirections;
         }
 
         public int getOS() {

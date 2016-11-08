@@ -1,4 +1,4 @@
-package com.keyliveapp.keylivetv.discovery.nearby;
+package com.keyliveapp.keylivetv.discovery.newest;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -15,19 +15,19 @@ import com.keyliveapp.keylivetv.bean.DiscoveryBean;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
- * Created by dllo on 16/10/28.
+ * Created by dllo on 16/11/3.
  */
 
-public class NearbyRvAdapter extends RecyclerView.Adapter {
+public class NewestRvAdapter extends RecyclerView.Adapter {
     private Context mContext;
     private DiscoveryBean bean;
-    private OnNearbyItemClickListener mNearbyItemClickListener;
+    private OnNewestItemClickListener mNewestItemClickListener;
 
-    public void setNearbyItemClickListener(OnNearbyItemClickListener nearbyItemClickListener) {
-        mNearbyItemClickListener = nearbyItemClickListener;
+    public void setNewestItemClickListener(OnNewestItemClickListener newestItemClickListener) {
+        mNewestItemClickListener = newestItemClickListener;
     }
 
-    public NearbyRvAdapter(Context mContext) {
+    public NewestRvAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
@@ -37,50 +37,49 @@ public class NearbyRvAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.discovery_nearby_view,parent, false);
-        MyViewHolder viewHolder = new MyViewHolder(view);
-        return viewHolder;
+        View view = LayoutInflater.from(mContext).inflate(R.layout.discovery_newest_view, parent, false);
+        MyViewHolder myViewHolder = new MyViewHolder(view);
+        return myViewHolder;
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
-        MyViewHolder myViewHolder= (MyViewHolder) holder;
+        MyViewHolder myViewHolder = (MyViewHolder) holder;
         Glide.with(mContext).load(bean.getData().getStreams().getItems().get(position).getPreview())
                 .bitmapTransform(new RoundedCornersTransformation(mContext, 10, 0, RoundedCornersTransformation.CornerType.ALL))
                 .into(myViewHolder.pic);
+
         myViewHolder.pic.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mNearbyItemClickListener.nearbyClick(position);
+                mNewestItemClickListener.newestClick(position);
             }
         });
 
-
         myViewHolder.name.setText(bean.getData().getStreams().getItems().get(position).getUser().getName());
+
     }
 
     @Override
     public int getItemCount() {
         return bean.getData().getStreams().getItems().size();
     }
-
-    class MyViewHolder extends RecyclerView.ViewHolder{
-
+    class MyViewHolder extends RecyclerView.ViewHolder {
         private ImageView pic;
         private TextView name;
-        private TextView location;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            pic = (ImageView) itemView.findViewById(R.id.discovery_nearby_pic);
-            name = (TextView) itemView.findViewById(R.id.discovery_nearby_text);
-            location = (TextView) itemView.findViewById(R.id.discovery_nearby_location);
+            pic = (ImageView) itemView.findViewById(R.id.discovery_newest_pic);
+            name = (TextView) itemView.findViewById(R.id.discovery_hottest_name);
         }
     }
 
-    public interface OnNearbyItemClickListener{
-        void nearbyClick(int position);
+    public interface OnNewestItemClickListener{
+        void newestClick(int position);
     }
+
+
 
 
 }

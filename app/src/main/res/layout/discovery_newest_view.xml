@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_margin="2dp"
+              android:layout_width="match_parent"
+              android:layout_height="120dp">
+    <ImageView
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:id="@+id/discovery_newest_pic"
+        android:src="@mipmap/default_live_ic"
+        android:layout_centerInParent="true"/>
+
+    <ImageView
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:src="@mipmap/ic_zhibo_box_zhubo_bai"
+        android:layout_alignBottom="@+id/discovery_newest_pic"
+        android:layout_alignLeft="@+id/discovery_newest_pic"
+        android:layout_alignStart="@+id/discovery_newest_pic"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:id="@+id/discovery_hottest_bai"
+        android:layout_marginBottom="5dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="adfasd"
+        android:textSize="10sp"
+        android:textColor="#fff"
+        android:id="@+id/discovery_hottest_name"
+        android:layout_alignBottom="@+id/discovery_hottest_bai"
+        android:layout_toRightOf="@+id/discovery_hottest_bai"
+        android:layout_toEndOf="@+id/discovery_hottest_bai"/>
+
+
+</RelativeLayout>
