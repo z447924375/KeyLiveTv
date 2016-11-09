@@ -6,7 +6,9 @@
     <color name="colorGray">#7c7c7c</color>
     <color name="colorOrange">#d78300</color>
     <color name="colorWhite">#ffffff</color>
-    <color name="colorLight">#f1ffffff</color>
+    <color name="colorLight">#e1ffffff</color>
     <color name="colorAlpha">#00000000</color>
     <color name="colorBlack">#000000</color>
+    <color name="colorLightGray">#6b000000</color>
+    <color name="colorAlphaBackground">#40000000</color>
 </resources>

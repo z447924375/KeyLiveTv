@@ -1,13 +1,15 @@
 package com.keyliveapp.keylivetv.home.homeui;
 
-import android.app.ProgressDialog;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -41,13 +43,13 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 /**
  * Created by dllo on 16/10/22.
  */
-public class HomeFragment extends BaseFragment implements IHomeView {
+public class HomeFragment extends BaseFragment implements IHomeView, View.OnClickListener {
 
     private RecyclerView mHomeRecycler;
     private Banner homeBanner;
     private LinearLayout homeScrollView;
-    private ImageButton homeSearch;
-    private ProgressDialog mDialog;
+    private ImageButton homeSearch,btnRefresh;
+    private Dialog mDialog;
     private HomePresenter mPresenter;
     private TextView bannerTitle;
     public static final String URL_BEFORE1 = "https://a4.plu.cn/api/streams?start-index=";
@@ -66,6 +68,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         homeBanner = getViewLayout(R.id.home_banner);
         homeScrollView = getViewLayout(R.id.home_quickbtn_scrollview);
         homeSearch = getViewLayout(R.id.home_search);
+        btnRefresh = getViewLayout(R.id.btn_refresh);
         bannerTitle = getViewLayout(R.id.banner_title);
 
     }
@@ -76,8 +79,25 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         mPresenter = new HomePresenter(this);
         mPresenter.startPresenterRequest(URLvalues.HOME_PAGE_URL);
 
+        btnRefresh.setOnClickListener(this);
+        homeSearch.setOnClickListener(this);
+
     }
 
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.btn_refresh:
+
+                mPresenter.startPresenterRequest(URLvalues.HOME_PAGE_URL);
+
+                break;
+            case R.id.home_search:
+                break;
+        }
+
+    }
     @Override
     public void showDialog() {
         mDialog.show();
@@ -103,13 +123,20 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         Toast.makeText(mContext, "loading mistake", Toast.LENGTH_SHORT).show();
     }
 
-    private ProgressDialog createDialog() {
+    private Dialog createDialog() {
 
-        ProgressDialog dialog = new ProgressDialog(getContext());
-        dialog.setTitle("loading...");
-        dialog.setMessage("please waiting for a moment");
-        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        return dialog;
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.loading_dialog_view,null);
+        LinearLayout layout = (LinearLayout) view.findViewById(R.id.dialog_view);
+        ImageView img = (ImageView) layout.findViewById(R.id.loading_img);
+        img.setImageResource(R.drawable.home_loading);
+        AnimationDrawable animationDrawable = (AnimationDrawable) img.getDrawable();
+        animationDrawable.start();
+
+        Dialog loadingDialog = new Dialog(getContext(), R.style.loading_dialog);
+        loadingDialog.setContentView(layout,new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
+                , ViewGroup.LayoutParams.MATCH_PARENT));
+
+        return loadingDialog;
 
 
     }
@@ -302,4 +329,5 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         intent.putExtra("urlbehind", urlbehind);
         startActivity(intent);
     }
+
 }

@@ -1,12 +1,13 @@
 package com.keyliveapp.keylivetv.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by dllo on 16/11/3.
  */
 
-public class DomainBean {
+public class DomainBean implements Serializable{
 
 
     /**
@@ -16,7 +17,7 @@ public class DomainBean {
      * OnlineCount : 1316
      * IsBroadcasting : true
      * Vid :
-     * CollegeId : 0
+     * CollegeId :
      * Contribution : 13140
      * AppChatStatus : 0
      * Broadcast : {"LiveSource":11,"LiveStreamType":11,"PlayId":16952084,"RoomId":1650615,"BeginTime":"/Date(1478597681896+0800)/","GameId":127,"GameName":"御宅","ParentGameId":119,"ParentGameName":"随拍","Title":"哈哈哈哈哈哈哈哈","Html":"rtmp://rtmpup3.plu.cn/live/ba04452ef2314380b9c052cebfd3cc86?signature=Jyxza8fc5Zn%2fDkom3EyFXr2V1r0%3d&accesskey=yX5ga7SZ%2fKoMV97kiihh&expire=1479202481&nonce=43ef995602de427b93d31f3775d1eae9&public=0&vdoid=1615502_3071367","Channels":[{"Name":"龙珠直播","Code":"http://longzhu.com/streaming?id=1650615"}],"UserId":56206112,"Cover":"","UpStreamUrl":"rtmp://rtmpup3.plu.cn/live/ba04452ef2314380b9c052cebfd3cc86?signature=Jyxza8fc5Zn%2fDkom3EyFXr2V1r0%3d&accesskey=yX5ga7SZ%2fKoMV97kiihh&expire=1479202481&nonce=43ef995602de427b93d31f3775d1eae9&public=0&vdoid=1615502_3071367","Longitude":126.4764,"Latitude":43.95753,"Address":"吉林省吉林市昌邑区哈大公路","Model":"n5207","LiveSourceType":2,"WatchDirections":"portrait","OS":4,"LiveType":1}
@@ -173,7 +174,7 @@ public class DomainBean {
         this.RoomGrade = RoomGrade;
     }
 
-    public static class BaseRoomInfoBean {
+    public static class BaseRoomInfoBean implements Serializable{
         private String Name;
         private String Avatar;
         private String Domain;
@@ -365,7 +366,7 @@ public class DomainBean {
         }
     }
 
-    public static class BroadcastBean {
+    public static class BroadcastBean implements Serializable{
         private int LiveSource;
         private int LiveStreamType;
         private int PlayId;
@@ -579,7 +580,7 @@ public class DomainBean {
             this.Channels = Channels;
         }
 
-        public static class ChannelsBean {
+        public static class ChannelsBean implements Serializable{
             private String Name;
             private String Code;
 

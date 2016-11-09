@@ -76,8 +76,8 @@ public class NearbyFragment extends BaseFragment{
 
 
     }
-    private void startFullLiveTv(String domain) {
-        String domainUrl = URLvalues.DOMAIN_URL_FRONT + domain + URLvalues.DOMAIN_URL_BEHIND;
+    private void startFullLiveTv(final String domain) {
+        final String domainUrl = URLvalues.DOMAIN_URL_FRONT + domain + URLvalues.DOMAIN_URL_BEHIND;
         HttpManager.getInstance().getRequest(domainUrl, DomainBean.class, new OnCompletedListener<DomainBean>() {
             @Override
             public void onCompleted(DomainBean result) {
@@ -85,6 +85,7 @@ public class NearbyFragment extends BaseFragment{
 
                 Intent intent = new Intent(getActivity(), LiveVideoFullActivity.class);
                 intent.putExtra("roomid", roomid);
+                intent.putExtra("domain",result);
                 startActivity(intent);
             }
 

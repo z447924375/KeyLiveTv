@@ -37,6 +37,64 @@
         </LinearLayout>
     </io.vov.vitamio.widget.CenterLayout>
 
+    <RelativeLayout
+        android:background="@drawable/shadowback"
+        android:layout_marginBottom="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true">
 
 
+        <ImageView
+            android:id="@+id/full_pic"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:textColor="@color/colorLight"
+            android:id="@+id/full_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/full_pic"/>
+
+        <TextView
+            android:textColor="@color/colorLight"
+            android:id="@+id/full_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/full_name"
+            android:layout_toRightOf="@+id/full_pic"
+            android:textSize="10sp"/>
+
+
+
+
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/full_btn_back"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_margin="10dp"
+        android:background="@mipmap/btn_zhibo_fangjian_back_normal"/>
+
+    <TextView
+        android:id="@+id/full_room_num"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/colorLight"/>
+
+    <ImageButton
+        android:layout_margin="20dp"
+        android:id="@+id/full_btn_like"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/like"/>
 </RelativeLayout>

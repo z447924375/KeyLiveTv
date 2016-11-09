@@ -80,13 +80,20 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
 
                 String url = URL_BEFORE1 + startIndes + URL_BEFORE2 + gameId + URL_BEHIND;
 
+//                pullToRefreshAdapter = null;
+
                 pullToRefreshAdapter = null;
 
+                previews.clear();
+                names.clear();
+                titles.clear();
+                viewers.clear();
                 setOrChangeAdapter(url);
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         refreshView.onRefreshComplete();
+
                     }
                 }, 1000);
 
