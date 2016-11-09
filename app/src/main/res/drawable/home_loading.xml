@@ -3,31 +3,31 @@
                 android:oneshot="false">
 
     <item
-        android:drawable="@drawable/xl1"
+        android:drawable="@mipmap/xl1"
         android:duration="100"/>
     <item
-        android:drawable="@drawable/xl2"
+        android:drawable="@mipmap/xl2"
         android:duration="100"/>
     <item
-        android:drawable="@drawable/xl3"
+        android:drawable="@mipmap/xl3"
         android:duration="100"/>
     <item
-        android:drawable="@drawable/xl4"
+        android:drawable="@mipmap/xl4"
         android:duration="100"/>
     <item
-        android:drawable="@drawable/xl5"
+        android:drawable="@mipmap/xl5"
         android:duration="100"/>
     <item
-        android:drawable="@drawable/xl6"
+        android:drawable="@mipmap/xl6"
         android:duration="100"/>
     <item
-        android:drawable="@drawable/xl7"
+        android:drawable="@mipmap/xl7"
         android:duration="100"/>
     <item
-        android:drawable="@drawable/xl8"
+        android:drawable="@mipmap/xl8"
         android:duration="100"/>
     <item
-        android:drawable="@drawable/xl9"
+        android:drawable="@mipmap/xl9"
         android:duration="100"/>
 
 

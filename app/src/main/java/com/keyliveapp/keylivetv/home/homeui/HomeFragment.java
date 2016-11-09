@@ -222,7 +222,6 @@ public class HomeFragment extends BaseFragment implements IHomeView, View.OnClic
         HomeRvAdapter adapter = new HomeRvAdapter(getContext(), columnsBean);
         mHomeRecycler.setAdapter(adapter);
 
-
         GridLayoutManager manager = new GridLayoutManager(getContext(), 2);
 
         manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
@@ -232,6 +231,8 @@ public class HomeFragment extends BaseFragment implements IHomeView, View.OnClic
             }
         });
         mHomeRecycler.setLayoutManager(manager);
+
+
 
 
         //livechannel点击
