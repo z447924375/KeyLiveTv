@@ -37,6 +37,7 @@ dependencies {
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'io.reactivex.rxjava2:rxjava:2.0.0-RC5'
     compile 'io.reactivex.rxjava2:rxandroid:2.0.0-RC1'
+    compile 'com.bartoszlipinski.recyclerviewheader:library:1.2.0'
     compile project(':library')
     compile project(':vitamio')
 

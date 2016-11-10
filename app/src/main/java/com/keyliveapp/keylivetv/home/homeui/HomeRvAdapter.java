@@ -59,6 +59,16 @@ public class HomeRvAdapter extends RecyclerView.Adapter {
         mColumnsBeen = columnsBeen;
         this.context = context;
         mInflater = LayoutInflater.from(context);
+
+        for (int i = 0; i < columnsBeen.size(); i++) {
+            count++;
+            for (int j = 0; j < columnsBeen.get(i).getRooms().size(); j++) {
+                count++;
+            }
+        }
+
+
+
         count = (this.mColumnsBeen.size() - 1) * 5 + 1;
 
     }
