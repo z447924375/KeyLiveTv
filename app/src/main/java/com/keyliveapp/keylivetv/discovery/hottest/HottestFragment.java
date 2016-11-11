@@ -88,6 +88,7 @@ public class HottestFragment extends BaseFragment {
 
                 Intent intent = new Intent(getActivity(), LiveVideoFullActivity.class);
                 intent.putExtra("roomid", roomid);
+                intent.putExtra("domain",result);
                 startActivity(intent);
             }
 

@@ -4,11 +4,17 @@ package com.keyliveapp.keylivetv.livetv.full;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseActivity;
+import com.keyliveapp.keylivetv.bean.DomainBean;
 import com.keyliveapp.keylivetv.bean.LiveStreamBean;
 import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
@@ -17,13 +23,17 @@ import com.keyliveapp.keylivetv.values.URLvalues;
 import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.Vitamio;
 import io.vov.vitamio.widget.VideoView;
+import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
 public class LiveVideoFullActivity extends BaseActivity implements MediaPlayer.OnInfoListener,
-        MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnPreparedListener {
+        MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnPreparedListener, View.OnClickListener {
 
 
     private VideoView mVideoView;
-    private TextView downloadRateView, loadRateView;
+    private TextView downloadRateView, loadRateView, fullName, fullNum, roomNum;
+    private ImageView fullPic;
+    private ImageButton btnBack;
+    private CheckBox fullLike;
 
 
     @Override
@@ -37,12 +47,25 @@ public class LiveVideoFullActivity extends BaseActivity implements MediaPlayer.O
         mVideoView = (VideoView) findViewById(R.id.live_video_full);
         downloadRateView = (TextView) findViewById(R.id.download_rate_infull);
         loadRateView = (TextView) findViewById(R.id.load_rate_infull);
+        fullName = bindView(R.id.full_name);
+        fullNum = bindView(R.id.full_num);
+        fullPic = bindView(R.id.full_pic);
+        btnBack = bindView(R.id.full_btn_back);
+        roomNum = bindView(R.id.full_room_num);
+        fullLike = bindView(R.id.full_btn_like);
     }
 
     @Override
     protected void inidate() {
         Intent intent = getIntent();
         String roomid = intent.getExtras().getString("roomid");
+        DomainBean bean = (DomainBean) intent.getSerializableExtra("domain");
+
+        roomNum.setText("龙珠直播房间号" + roomid);
+        fullName.setText(bean.getBaseRoomInfo().getName());
+        fullNum.setText(bean.getOnlineCount() + "");
+        Glide.with(this).load(bean.getBaseRoomInfo().getAvatar())
+                .bitmapTransform(new CropCircleTransformation(this)).into(fullPic);
 
         if (roomid != null) {
             String streamInfo = URLvalues.STREAM_URL_FRONT + roomid + URLvalues.STREAN_URL_BEHIND;
@@ -70,8 +93,17 @@ public class LiveVideoFullActivity extends BaseActivity implements MediaPlayer.O
         mVideoView.setOnInfoListener(this);
         mVideoView.setOnPreparedListener(this);
 
-
-
+        btnBack.setOnClickListener(this);
+        fullLike.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    Toast.makeText(LiveVideoFullActivity.this, "已收藏", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(LiveVideoFullActivity.this, "已取消收藏", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
 
     }
@@ -114,4 +146,8 @@ public class LiveVideoFullActivity extends BaseActivity implements MediaPlayer.O
     }
 
 
+    @Override
+    public void onClick(View v) {
+        this.finish();
+    }
 }
