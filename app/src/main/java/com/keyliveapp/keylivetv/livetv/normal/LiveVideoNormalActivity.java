@@ -22,6 +22,7 @@ import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
 import com.keyliveapp.keylivetv.values.URLvalues;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.Vitamio;
@@ -60,7 +61,7 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
     @Override
     protected void inidate() {
         Intent intent = getIntent();
-        String roomid = intent.getExtras().getString("roomid");
+        final String roomid = intent.getExtras().getString("roomid");
 
         if (roomid != null) {
             String streamInfo = URLvalues.STREAM_URL_FRONT + roomid + URLvalues.STREAN_URL_BEHIND;
@@ -93,8 +94,19 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
+                    List<String> listRoomId = new ArrayList<String>();
+                    listRoomId.add(roomid);
+//                    DBTools.getInstance().insert(listRoomId);
+//                    DBTools.getInstance().getAll(new DBTools.QueryListener<String>() {
+//                        @Override
+//                        public void onQuery(ArrayList<String> str) {
+//                            Log.d("LiveVideoNormalActivity", "str:" + str);
+//                        }
+//                    },null);
+
                     Toast.makeText(LiveVideoNormalActivity.this, "已收藏", Toast.LENGTH_SHORT).show();
                 }else {
+//                    DBTools.getInstance().delete(roomid);
                     Toast.makeText(LiveVideoNormalActivity.this, "已取消收藏", Toast.LENGTH_SHORT).show();
                 }
             }

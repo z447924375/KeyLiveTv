@@ -2,22 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="80dp"
-              android:background="@color/colorWhite"
-              android:orientation="vertical">
+              android:background="@color/colorWhite">
 
-    <HorizontalScrollView
-        android:scrollbars="none"
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/home_horizontal_btns_recycler"
         android:layout_width="match_parent"
-        android:layout_height="80dp">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:id="@+id/home_quickbtn_scrollview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-        </LinearLayout>
-
-    </HorizontalScrollView>
-
+    </android.support.v7.widget.RecyclerView>
 </LinearLayout>

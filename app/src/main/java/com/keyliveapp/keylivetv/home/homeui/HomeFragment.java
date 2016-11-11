@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +17,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
 import com.keyliveapp.keylivetv.bean.DomainBean;
@@ -25,6 +24,7 @@ import com.keyliveapp.keylivetv.bean.HomeBean;
 import com.keyliveapp.keylivetv.classify.ClassifyClickInActivity;
 import com.keyliveapp.keylivetv.home.homepresenter.HomePresenter;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeContentClickListener;
+import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeHoriItemClickListner;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeTitleClickListener;
 import com.keyliveapp.keylivetv.livetv.full.LiveVideoFullActivity;
 import com.keyliveapp.keylivetv.livetv.normal.LiveVideoNormalActivity;
@@ -38,8 +38,6 @@ import com.youth.banner.listener.OnBannerClickListener;
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
-
 /**
  * Created by dllo on 16/10/22.
  */
@@ -47,13 +45,13 @@ public class HomeFragment extends BaseFragment implements IHomeView, View.OnClic
 
     private RecyclerView mHomeRecycler;
     private Banner homeBanner;
-    private LinearLayout homeScrollView;
     private ImageButton homeSearch, btnRefresh;
     private Dialog mDialog;
     private HomePresenter mPresenter;
     private TextView bannerTitle;
     public static final String URL_BEFORE1 = "https://a4.plu.cn/api/streams?start-index=";
     public static final String URL_BEFORE2 = "&max-results=30&game=";
+    private RecyclerView horizontalRecycler;
 
 
     @Override
@@ -67,11 +65,10 @@ public class HomeFragment extends BaseFragment implements IHomeView, View.OnClic
         mDialog = createDialog();
         mHomeRecycler = getViewLayout(R.id.home_recyclerview);
         homeBanner = getViewLayout(R.id.home_banner);
-        homeScrollView = getViewLayout(R.id.home_quickbtn_scrollview);
         homeSearch = getViewLayout(R.id.home_search);
         btnRefresh = getViewLayout(R.id.btn_refresh);
         bannerTitle = getViewLayout(R.id.banner_title);
-
+        horizontalRecycler = getViewLayout(R.id.home_horizontal_btns_recycler);
 
     }
 
@@ -150,33 +147,22 @@ public class HomeFragment extends BaseFragment implements IHomeView, View.OnClic
 
     private void showHoriScrollView(final HomeBean homeBean) {
 
-        for (int i = 0; i < homeBean.getData().getQuickbutton().size(); i++) {
-            Log.d("zzz", "homeBean.getData().getQuickbutton().size():" + homeBean.getData().getQuickbutton().size());
+        HomeHoriRecyclerAdapter adapter = new HomeHoriRecyclerAdapter(getContext());
+        adapter.setHomeBean(homeBean);
+        horizontalRecycler.setAdapter(adapter);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        horizontalRecycler.setLayoutManager(manager);
 
-            View view = LayoutInflater.from(getContext()).inflate(R.layout.home_scrollview_imgs, homeScrollView, false);
-            ImageView imgs = (ImageView) view.findViewById(R.id.home_scrollview_pic);
-
-            imgs.setAdjustViewBounds(true);
-            Glide.with(getContext())
-                    .load(homeBean.getData().getQuickbutton().get(i).getImage())
-                    .bitmapTransform(new RoundedCornersTransformation(getContext(), 30, 0, RoundedCornersTransformation.CornerType.ALL))
-                    .into(imgs);
-            homeScrollView.addView(view);
-            final int finalI = i;
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    String gameid = homeBean.getData().getQuickbutton().get(finalI).getHrefTarget();
-                    String title = homeBean.getData().getQuickbutton().get(finalI).getTitle();
-                    Toast.makeText(mContext, title, Toast.LENGTH_SHORT).show();
-                    jumpToClassifyClickIn(title, gameid, URLvalues.CLASSIFY_URL_BEHIND);
-
-                }
-
-            });
-
-        }
+        adapter.setHoriItemClickListner(new OnHomeHoriItemClickListner() {
+            @Override
+            public void horiItemClick(int position) {
+                String gameid = homeBean.getData().getQuickbutton().get(position).getHrefTarget();
+                String title = homeBean.getData().getQuickbutton().get(position).getTitle();
+                Toast.makeText(mContext, title, Toast.LENGTH_SHORT).show();
+                jumpToClassifyClickIn(title, gameid, URLvalues.CLASSIFY_URL_BEHIND);
+            }
+        });
 
     }
 
@@ -199,7 +185,7 @@ public class HomeFragment extends BaseFragment implements IHomeView, View.OnClic
 
             @Override
             public void onPageSelected(int position) {
-                bannerTitle.setText( "   " + homeBean.getData().getBanner()
+                bannerTitle.setText("   " + homeBean.getData().getBanner()
                         .get(Math.abs(position - 1) % homeBean.getData().getBanner().size()).getTitle() + "   ");
             }
 
@@ -267,9 +253,9 @@ public class HomeFragment extends BaseFragment implements IHomeView, View.OnClic
                 String domain = homeBean.getData().getColumns().get(titlePosition).getRooms().get(contentPosition)
                         .getChannel().getDomain();
                 if (domain != null) {
-                    if (titlePosition == 1){
+                    if (titlePosition == 1) {
                         startFullLiveTv(domain);
-                    }else {
+                    } else {
                         startLiveTv(domain);
                     }
                 } else {
@@ -309,7 +295,7 @@ public class HomeFragment extends BaseFragment implements IHomeView, View.OnClic
 
                 Intent intent = new Intent(getActivity(), LiveVideoFullActivity.class);
                 intent.putExtra("roomid", roomid);
-                intent.putExtra("domain",result);
+                intent.putExtra("domain", result);
                 startActivity(intent);
             }
 
