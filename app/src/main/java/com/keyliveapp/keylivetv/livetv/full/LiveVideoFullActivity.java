@@ -4,6 +4,8 @@ package com.keyliveapp.keylivetv.livetv.full;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,6 +33,7 @@ public class LiveVideoFullActivity extends BaseActivity implements MediaPlayer.O
     private TextView downloadRateView, loadRateView, fullName, fullNum, roomNum;
     private ImageView fullPic;
     private ImageButton btnBack;
+    private CheckBox fullLike;
 
 
     @Override
@@ -49,6 +52,7 @@ public class LiveVideoFullActivity extends BaseActivity implements MediaPlayer.O
         fullPic = bindView(R.id.full_pic);
         btnBack = bindView(R.id.full_btn_back);
         roomNum = bindView(R.id.full_room_num);
+        fullLike = bindView(R.id.full_btn_like);
     }
 
     @Override
@@ -90,6 +94,16 @@ public class LiveVideoFullActivity extends BaseActivity implements MediaPlayer.O
         mVideoView.setOnPreparedListener(this);
 
         btnBack.setOnClickListener(this);
+        fullLike.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    Toast.makeText(LiveVideoFullActivity.this, "已收藏", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(LiveVideoFullActivity.this, "已取消收藏", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
 
     }

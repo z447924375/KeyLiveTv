@@ -1,4 +1,4 @@
-package com.keyliveapp.keylivetv.home.homeui.homeclickcallback;
+package com.keyliveapp.keylivetv.home.homeui;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -13,6 +13,8 @@ import com.bumptech.glide.Glide;
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseExpandableAdapter;
 import com.keyliveapp.keylivetv.bean.HomeBean;
+import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeContentClickListener;
+import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeTitleClickListener;
 
 import java.util.List;
 
@@ -22,8 +24,17 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
  * Created by dllo on 16/11/10.
  */
 
-public class HomeRecyclerAdapter extends BaseExpandableAdapter<HomeRecyclerAdapter.HeadViewHolder,HomeRecyclerAdapter.ContentViewHolder> {
+public class HomeRecyclerAdapter extends BaseExpandableAdapter<HomeRecyclerAdapter.TitleViewHolder,HomeRecyclerAdapter.ContentViewHolder> {
+    public void setHomeTitleClickListener(OnHomeTitleClickListener homeTitleClickListener) {
+        mTitleClickListener = homeTitleClickListener;
+    }
+    private OnHomeContentClickListener mContentClickListener;
 
+    public void setContentClickListener(OnHomeContentClickListener contentClickListener) {
+        mContentClickListener = contentClickListener;
+    }
+
+    private OnHomeTitleClickListener mTitleClickListener;
 
     private List<HomeBean.DataBean.ColumnsBean> mColumnsBeen;
     private LayoutInflater mInflater;
@@ -37,10 +48,10 @@ public class HomeRecyclerAdapter extends BaseExpandableAdapter<HomeRecyclerAdapt
     }
 
     @Override
-    protected HeadViewHolder createGroupHolder(ViewGroup parent) {
+    protected TitleViewHolder createGroupHolder(ViewGroup parent) {
         View headView = mInflater.inflate(R.layout.home_header_view, parent, false);
-        HeadViewHolder headViewHolder = new HeadViewHolder(headView);
-        return headViewHolder;
+        TitleViewHolder titleViewHolder = new TitleViewHolder(headView);
+        return titleViewHolder;
     }
 
     @Override
@@ -51,21 +62,21 @@ public class HomeRecyclerAdapter extends BaseExpandableAdapter<HomeRecyclerAdapt
     }
 
     @Override
-    protected void onBindGroupHolder(HeadViewHolder groupHolder, int groupPosition) {
+    protected void onBindGroupHolder(TitleViewHolder groupHolder, final int groupPosition) {
         HomeBean.DataBean.ColumnsBean columnsBean = mColumnsBeen.get(groupPosition);
         groupHolder.headTitle.setText(columnsBean.getGame().getTitle());
         groupHolder.btnHeadChannel.setText(columnsBean.getChannelsText());
-//        groupHolder.btnHeadChannel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mTitleClickListener.titleClicked(titlePosition);
-//            }
-//        });
+        groupHolder.btnHeadChannel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mTitleClickListener.titleClicked(groupPosition);
+            }
+        });
 
     }
 
     @Override
-    protected void onBindChildHolder(ContentViewHolder childHolder, int groupPosition, int childPosition) {
+    protected void onBindChildHolder(ContentViewHolder childHolder, final int groupPosition, final int childPosition) {
         HomeBean.DataBean.ColumnsBean.RoomsBean roomsBean = mColumnsBeen.get(groupPosition).getRooms().get(childPosition);
         childHolder.contentTitle.setText(roomsBean.getChannel().getStatus());
 
@@ -76,12 +87,12 @@ public class HomeRecyclerAdapter extends BaseExpandableAdapter<HomeRecyclerAdapt
         Glide.with(mContext).load(roomsBean.getPreview())
                 .bitmapTransform(new RoundedCornersTransformation(mContext, 10, 0, RoundedCornersTransformation.CornerType.ALL))
                 .into(childHolder.contentPic);
-//        childHolder.contentPic.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mContentClickListener.contentClicked(titlePosition, contentPosition);
-//            }
-//        });
+        childHolder.contentPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContentClickListener.contentClicked(groupPosition, childPosition);
+            }
+        });
     }
 
     @Override
@@ -104,12 +115,12 @@ public class HomeRecyclerAdapter extends BaseExpandableAdapter<HomeRecyclerAdapt
         return mColumnsBeen.get(groupPosition).getRooms().size();
     }
 
-    class HeadViewHolder extends RecyclerView.ViewHolder {
+    class TitleViewHolder extends RecyclerView.ViewHolder {
 
         private TextView headTitle;
         private Button btnHeadChannel;
 
-        public HeadViewHolder(View itemView) {
+        public TitleViewHolder(View itemView) {
             super(itemView);
             headTitle = (TextView) itemView.findViewById(R.id.home_head_title);
             btnHeadChannel = (Button) itemView.findViewById(R.id.home_btn_channel);
@@ -132,7 +143,6 @@ public class HomeRecyclerAdapter extends BaseExpandableAdapter<HomeRecyclerAdapt
             contentTag = (TextView) itemView.findViewById(R.id.home_content_tag);
             contentNum = (TextView) itemView.findViewById(R.id.home_content_num);
         }
-
 
     }
 }

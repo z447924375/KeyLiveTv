@@ -17,7 +17,6 @@ public class VideoViewVpAdapter extends FragmentPagerAdapter{
     public VideoViewVpAdapter(FragmentManager fm, ArrayList<Fragment> fragments) {
         super(fm);
         this.fragments = fragments;
-        titles.add("聊天");
         titles.add("主播");
         titles.add("排行");
 

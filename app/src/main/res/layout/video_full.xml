@@ -89,12 +89,12 @@
         android:layout_marginTop="20dp"
         android:textColor="@color/colorLight"/>
 
-    <ImageButton
+    <CheckBox
         android:layout_margin="20dp"
         android:id="@+id/full_btn_like"
-        android:layout_width="25dp"
-        android:layout_height="25dp"
+        android:layout_width="38dp"
+        android:layout_height="38dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:background="@drawable/like"/>
+        android:button="@drawable/like"/>
 </RelativeLayout>

@@ -8,6 +8,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,13 +34,14 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
     private VideoView mVideoView;
     private TextView downloadRateView, loadRateView;
     private ImageButton btnBack, btnFull;
+    private CheckBox like;
     private TabLayout liveTab;
     private ViewPager liveVp;
 
 
     @Override
     protected int setLayout() {
-        return R.layout.videobuffer;
+        return R.layout.video_mormal_view;
     }
 
     @Override
@@ -51,6 +54,7 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
         btnFull = (ImageButton) findViewById(R.id.live_full);
         liveTab = (TabLayout) findViewById(R.id.live_tab);
         liveVp = (ViewPager) findViewById(R.id.live_vp);
+        like = (CheckBox) findViewById(R.id.live_like);
     }
 
     @Override
@@ -85,16 +89,27 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
         mVideoView.setOnPreparedListener(this);
         btnFull.setOnClickListener(this);
         btnBack.setOnClickListener(this);
+        like.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    Toast.makeText(LiveVideoNormalActivity.this, "已收藏", Toast.LENGTH_SHORT).show();
+                }else {
+                    Toast.makeText(LiveVideoNormalActivity.this, "已取消收藏", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
 
 
         ArrayList<Fragment> fragments = new ArrayList<>();
+        LiveAnchorFragment liveAnchorFragment = new LiveAnchorFragment();
         LiveBoardFragment liveBoardFragment = new LiveBoardFragment();
         Bundle bundle = new Bundle();
         bundle.putString("roomid",roomid);
+        liveAnchorFragment.setArguments(bundle);
         liveBoardFragment.setArguments(bundle);
-        fragments.add(new LiveChatFragment());
-        fragments.add(new LiveAnchorFragment());
+        fragments.add(liveAnchorFragment);
         fragments.add(liveBoardFragment);
 
         VideoViewVpAdapter adapter = new VideoViewVpAdapter(getSupportFragmentManager(),fragments);
