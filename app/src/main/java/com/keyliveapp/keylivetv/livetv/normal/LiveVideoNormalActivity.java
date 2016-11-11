@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseActivity;
+import com.keyliveapp.keylivetv.bean.DomainBean;
 import com.keyliveapp.keylivetv.bean.LiveStreamBean;
 import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
@@ -62,6 +63,7 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
     protected void inidate() {
         Intent intent = getIntent();
         final String roomid = intent.getExtras().getString("roomid");
+        DomainBean bean = (DomainBean) intent.getSerializableExtra("domain");
 
         if (roomid != null) {
             String streamInfo = URLvalues.STREAM_URL_FRONT + roomid + URLvalues.STREAN_URL_BEHIND;
@@ -119,6 +121,7 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
         LiveBoardFragment liveBoardFragment = new LiveBoardFragment();
         Bundle bundle = new Bundle();
         bundle.putString("roomid",roomid);
+        bundle.putSerializable("domain",bean);
         liveAnchorFragment.setArguments(bundle);
         liveBoardFragment.setArguments(bundle);
         fragments.add(liveAnchorFragment);

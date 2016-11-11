@@ -21,6 +21,7 @@ public class LiveBoardFragment extends BaseFragment {
     private TabLayout liveBoardTab;
 
 
+
     @Override
     protected int setLayout() {
         return R.layout.live_board;
@@ -55,6 +56,9 @@ public class LiveBoardFragment extends BaseFragment {
         LiveBoardVpAdapter adapter = new LiveBoardVpAdapter(getChildFragmentManager(), fragments);
         liveBoardVp.setAdapter(adapter);
         liveBoardTab.setupWithViewPager(liveBoardVp);
+
+
+
 
     }
 
