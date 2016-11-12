@@ -8,7 +8,7 @@
         android:layout_width="180dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
-        android:background="#0d000000"
+        android:background="@drawable/image_round_corner_background"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"/>
     <TextView
