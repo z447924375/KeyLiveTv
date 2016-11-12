@@ -74,6 +74,8 @@ public class DBtools {
 
         searchDB.execSQL(deleteExecSQL, new String[]{word});
 
+        rawQueue();
+
     }
 
     public ArrayList<String> rawQueue(String tableName) {

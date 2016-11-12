@@ -114,6 +114,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 String word = words.get(position);
+                words.remove(position);
                 dbTools.delete(TABLE_NAME, COLUMNS_NAME, word);
                 historyAdapter.delete(position);
                 return true;
