@@ -45,21 +45,6 @@
         <activity android:name=".search.result.ResultActivity">
 
         </activity>
-
-<<<<<<< HEAD
-=======
-        <activity android:name=".search.history.SearchActivity">
-            <!--<intent-filter>-->
-            <!--<action android:name="android.intent.action.MAIN" />-->
-
-            <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
-        </activity>
-
-        <activity android:name=".search.result.ResultActivity">
-
-        </activity>
->>>>>>> feature/search
     </application>
 
 </manifest>
