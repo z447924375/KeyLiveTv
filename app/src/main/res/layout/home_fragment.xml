@@ -28,7 +28,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:text="  "
-                    android:background="#6af55c1f"/>
+                    android:background="#6aff8352"/>
             </LinearLayout>
 
         </android.support.design.widget.CollapsingToolbarLayout>

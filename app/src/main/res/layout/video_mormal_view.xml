@@ -89,14 +89,15 @@
         android:layout_marginTop="20dp"
         android:background="@mipmap/btn_zhibo_fangjian_back_normal"/>
 
-    <ImageButton
+    <CheckBox
+
         android:id="@+id/live_full"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
-        android:background="@mipmap/btn_zhibo_bofangqi_quanping_normal"/>
+        android:button="@drawable/full_screen"/>
 
 
 </RelativeLayout>

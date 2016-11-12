@@ -195,12 +195,10 @@ public class HomeFragment extends BaseFragment implements IHomeView, View.OnClic
             }
         });
 
-
         homeBanner.setOnBannerClickListener(new OnBannerClickListener() {
             @Override
             public void OnBannerClick(int position) {
                 Toast.makeText(mContext, "position:" + position, Toast.LENGTH_SHORT).show();
-
             }
         });
 
@@ -276,6 +274,7 @@ public class HomeFragment extends BaseFragment implements IHomeView, View.OnClic
 
                 Intent intent = new Intent(getActivity(), LiveVideoNormalActivity.class);
                 intent.putExtra("roomid", roomid);
+                intent.putExtra("domain", result);
                 startActivity(intent);
             }
 

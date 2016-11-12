@@ -300,6 +300,7 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
 
                 Intent intent = new Intent(getApplicationContext(), LiveVideoNormalActivity.class);
                 intent.putExtra("roomid", roomid);
+                intent.putExtra("domain", result);
                 startActivity(intent);
             }
 
