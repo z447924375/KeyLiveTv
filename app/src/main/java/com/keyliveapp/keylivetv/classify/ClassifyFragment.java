@@ -1,11 +1,15 @@
 package com.keyliveapp.keylivetv.classify;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
+import android.widget.ImageView;
 
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
 import com.keyliveapp.keylivetv.bean.ClassifyBean;
+import com.keyliveapp.keylivetv.search.history.SearchActivity;
 import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
 
@@ -26,6 +30,7 @@ public class ClassifyFragment extends BaseFragment {
     private List<String> recommendsIcon;
     private List<String> recommendsName;
     private List<String> recommendsId;
+    private ImageView imaSearch;
 
     @Override
     protected int setLayout() {
@@ -36,6 +41,15 @@ public class ClassifyFragment extends BaseFragment {
     protected void initView() {
 
         recyclerView = getViewLayout(R.id.rv_classify_base);
+
+        imaSearch = getViewLayout(R.id.ima_search);
+        imaSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

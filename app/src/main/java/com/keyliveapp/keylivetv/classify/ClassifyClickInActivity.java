@@ -20,6 +20,7 @@ import com.keyliveapp.keylivetv.baseclass.BaseActivity;
 import com.keyliveapp.keylivetv.bean.ClassfyAllBean;
 import com.keyliveapp.keylivetv.bean.DomainBean;
 import com.keyliveapp.keylivetv.livetv.VideoViewBuffer;
+import com.keyliveapp.keylivetv.search.history.SearchActivity;
 import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
 import com.keyliveapp.keylivetv.values.URLvalues;
@@ -51,6 +52,7 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
 
     private android.os.Handler handler;
     private TextView tvLoading;
+    private ImageButton imageButton;
 
     @Override
     protected int setLayout() {
@@ -59,6 +61,14 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
 
     @Override
     protected void initView() {
+        imageButton = (ImageButton) findViewById(R.id.fram_in_classif).findViewById(R.id.imageButton);
+        imageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
         classi_ff = bindView(R.id.classify_ff);
         topTitle = bindView(R.id.classify_clickin_title);
         lvPull = bindView(R.id.lv_classify);
@@ -81,6 +91,11 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
                 String url = URL_BEFORE1 + startIndes + URL_BEFORE2 + gameId + URL_BEHIND;
 
                 pullToRefreshAdapter = null;
+
+                    previews.clear();
+                    names.clear();
+                    titles.clear();
+                    viewers.clear();
 
                 setOrChangeAdapter(url);
                 handler.postDelayed(new Runnable() {
@@ -237,8 +252,6 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
                         handler.post(new Runnable() {
                             @Override
                             public void run() {
-
-
                                 String domain = mClassfyAllBeen.get(position/30).getData().getItems().get(position%30).getChannel().getDomain();
                                 startLiveTv(domain);
                             }
