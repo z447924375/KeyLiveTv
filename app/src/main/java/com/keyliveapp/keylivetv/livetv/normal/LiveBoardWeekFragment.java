@@ -10,8 +10,6 @@ import com.keyliveapp.keylivetv.baseclass.BaseFragment;
 import com.keyliveapp.keylivetv.baseclass.BaseListViewAdapter;
 import com.keyliveapp.keylivetv.baseclass.BaseViewHolder;
 import com.keyliveapp.keylivetv.bean.LiveBoardBean;
-import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
-import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -51,19 +49,7 @@ public class LiveBoardWeekFragment extends BaseFragment {
         Bundle bundle = getArguments();
         final String boardurl = bundle.getString("url");
 
-        HttpManager.getInstance().getRequest(boardurl, LiveBoardBean.class, new OnCompletedListener<LiveBoardBean>() {
-            @Override
-            public void onCompleted(LiveBoardBean result) {
-
-            }
-
-            @Override
-            public void onFailed() {
-
-            }
-        });
-
-
+        
         Observable.just(boardurl)
                 .map(new Function<String, String>() {
                     @Override
