@@ -4,11 +4,12 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorGray">#7c7c7c</color>
-    <color name="colorOrange">#d78300</color>
+    <color name="colorOrange">#ffb748</color>
     <color name="colorWhite">#ffffff</color>
     <color name="colorLight">#e1ffffff</color>
     <color name="colorAlpha">#00000000</color>
     <color name="colorBlack">#000000</color>
     <color name="colorLightGray">#6b000000</color>
     <color name="colorAlphaBackground">#2e000000</color>
+    <color name="colorBlue">#0025dc</color>
 </resources>
