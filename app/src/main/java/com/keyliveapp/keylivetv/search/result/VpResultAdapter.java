@@ -4,8 +4,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.util.Log;
-
-
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
 
 import java.util.List;

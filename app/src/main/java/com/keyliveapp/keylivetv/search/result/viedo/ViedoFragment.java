@@ -90,6 +90,7 @@ public class ViedoFragment extends BaseFragment {
                                 pageIndex ++;
                             } else {
                                 BaseToast.showToast(getActivity(), "到底啦");
+                                BaseToast.showToast(getActivity(), "视频到底啦");
                             }
                         }
 

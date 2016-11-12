@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -13,7 +12,6 @@ import android.widget.Toast;
 
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseActivity;
-import com.keyliveapp.keylivetv.baseclass.BaseToast;
 import com.keyliveapp.keylivetv.search.result.ResultActivity;
 
 import java.io.UnsupportedEncodingException;
@@ -32,13 +30,13 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     private String COLUMNS_NAME = "word";
     private TextView tvSearch;
     private DBtools dbTools;
-    private Button dropBtn;
-    private Button updateBtn;
-    private Button deleteBtn;
-    private Button insertBtn;
-    private Button rawQueueBtn;
+    //    private Button dropBtn;
+//    private Button updateBtn;
+//    private Button deleteBtn;
+//    private Button insertBtn;
+//    private Button rawQueueBtn;
+//    private Button createTableBtn;
     private EditText edSearch;
-    private Button createTableBtn;
     private HistoryAdapter historyAdapter;
     private ArrayList<String> words;
 
@@ -51,20 +49,18 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void initView() {
 
-
-        insertBtn = (Button) findViewById(R.id.insert_btn);
-        insertBtn.setOnClickListener(this);
-        deleteBtn = (Button) findViewById(R.id.delete_btn);
-        deleteBtn.setOnClickListener(this);
-        updateBtn = (Button) findViewById(R.id.update_btn);
-        updateBtn.setOnClickListener(this);
-        dropBtn = (Button) findViewById(R.id.drop_btn);
-        dropBtn.setOnClickListener(this);
-        createTableBtn = (Button) findViewById(R.id.create_table_btn);
-        createTableBtn.setOnClickListener(this);
-        rawQueueBtn = (Button) findViewById(R.id.rawqueue_btn);
-        rawQueueBtn.setOnClickListener(this);
-
+//        insertBtn = (Button) findViewById(R.id.insert_btn);
+//        insertBtn.setOnClickListener(this);
+//        deleteBtn = (Button) findViewById(R.id.delete_btn);
+//        deleteBtn.setOnClickListener(this);
+//        updateBtn = (Button) findViewById(R.id.update_btn);
+//        updateBtn.setOnClickListener(this);
+//        dropBtn = (Button) findViewById(R.id.drop_btn);
+//        dropBtn.setOnClickListener(this);
+//        createTableBtn = (Button) findViewById(R.id.create_table_btn);
+//        createTableBtn.setOnClickListener(this);
+//        rawQueueBtn = (Button) findViewById(R.id.rawqueue_btn);
+//        rawQueueBtn.setOnClickListener(this);
 
 
         imgBack = (ImageView) findViewById(R.id.history_in_frame).findViewById(R.id.search_back);
@@ -93,7 +89,6 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     }
 
 
-
     @Override
     protected void inidate() {
 
@@ -108,7 +103,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                 String word = words.get(position);
                 dbTools.insert(TABLE_NAME, COLUMNS_NAME, word);
                 edSearch.setText(null);
-                String utfWord= getUTF8(word);
+                String utfWord = getUTF8(word);
                 Intent intent = new Intent(parent.getContext(), ResultActivity.class);
                 intent.putExtra("utfWord", utfWord);
                 startActivity(intent);
@@ -127,6 +122,13 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        words = dbTools.rawQueue(TABLE_NAME);
+        historyAdapter.setWords(words);
+        historyAdapter.notifyDataSetChanged();
+    }
     public String getUTF8(String str) {
         String utf8 = null;
         try {
@@ -161,7 +163,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                     word = edSearch.getText().toString();
                     dbTools.insert(TABLE_NAME, COLUMNS_NAME, word);
                     edSearch.setText(null);
-                    String utfWord= getUTF8(word);
+                    String utfWord = getUTF8(word);
                     Intent intent = new Intent(this, ResultActivity.class);
                     intent.putExtra("utfWord", utfWord);
                     startActivity(intent);
@@ -169,27 +171,28 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                     Toast.makeText(this, "搜索关键词不能为空", Toast.LENGTH_SHORT);
                 }
                 break;
-            case R.id.insert_btn:
-                dbTools.insert(TABLE_NAME, COLUMNS_NAME, "丫头");
-                dbTools.insert(TABLE_NAME, COLUMNS_NAME, "刺猬");
-                break;
-            case R.id.delete_btn:
-                dbTools.delete(TABLE_NAME, COLUMNS_NAME, "刺猬");
-                break;
-            case R.id.update_btn:
-                BaseToast.showToast(this, "修改");
-                break;
-            case R.id.drop_btn:
-                dbTools.dropTable(TABLE_NAME);
-                break;
-            case R.id.create_table_btn:
-                dbTools.createOrOpenTable(TABLE_NAME);
-                break;
-            case R.id.rawqueue_btn:
-                words = dbTools.rawQueue(TABLE_NAME);
-                historyAdapter.setWords(words);
-                historyAdapter.notifyDataSetChanged();
-                break;
+
+//            case R.id.insert_btn:
+//                dbTools.insert(TABLE_NAME, COLUMNS_NAME, "丫头");
+//                dbTools.insert(TABLE_NAME, COLUMNS_NAME, "刺猬");
+//                break;
+//            case R.id.delete_btn:
+//                dbTools.delete(TABLE_NAME, COLUMNS_NAME, "刺猬");
+//                break;
+//            case R.id.update_btn:
+//                BaseToast.showToast(this, "修改");
+//                break;
+//            case R.id.drop_btn:
+//                dbTools.dropTable(TABLE_NAME);
+//                break;
+//            case R.id.create_table_btn:
+//                dbTools.createOrOpenTable(TABLE_NAME);
+//                break;
+//            case R.id.rawqueue_btn:
+//                words = dbTools.rawQueue(TABLE_NAME);
+//                historyAdapter.setWords(words);
+//                historyAdapter.notifyDataSetChanged();
+//                break;
         }
 
     }

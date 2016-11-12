@@ -24,6 +24,7 @@ public class ClassifyFragment extends BaseFragment {
     private RecyclerView recyclerView;
 
     private String URL_CLASSIFY = "https://a4.plu.cn/api/games/all?version=3.7.0&device=4&packageId=1";
+<<<<<<< HEAD:app/src/main/java/com/keyliveapp/keylivetv/classify/ClassifyFragment.java
     private List<String> chennelsIcon;
     private List<String> channelsName;
     private List<String> channelsId;
@@ -31,6 +32,15 @@ public class ClassifyFragment extends BaseFragment {
     private List<String> recommendsName;
     private List<String> recommendsId;
     private ImageView imaSearch;
+=======
+    private ArrayList<String> chennelsIcon;
+    private ArrayList<String> channelsName;
+    private ArrayList<String> channelsId;
+    private ArrayList<String> recommendsIcon;
+    private ArrayList<String> recommendsName;
+    private ArrayList<String> recommendsId;
+    private ImageView imgSearch;
+>>>>>>> feature/search:app/src/main/java/com/keyliveapp/keylivetv/classify/pyh/ClassifyFragment.java
 
     @Override
     protected int setLayout() {
@@ -42,8 +52,13 @@ public class ClassifyFragment extends BaseFragment {
 
         recyclerView = getViewLayout(R.id.rv_classify_base);
 
+<<<<<<< HEAD:app/src/main/java/com/keyliveapp/keylivetv/classify/ClassifyFragment.java
         imaSearch = getViewLayout(R.id.ima_search);
         imaSearch.setOnClickListener(new View.OnClickListener() {
+=======
+        imgSearch = getViewLayout(R.id.img_search);
+        imgSearch.setOnClickListener(new View.OnClickListener() {
+>>>>>>> feature/search:app/src/main/java/com/keyliveapp/keylivetv/classify/pyh/ClassifyFragment.java
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), SearchActivity.class);
