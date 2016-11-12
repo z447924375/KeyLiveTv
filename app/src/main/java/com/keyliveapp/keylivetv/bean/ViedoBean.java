@@ -1,4 +1,4 @@
-package com.keyliveapp.keylivetv.search.result.viedo;
+package com.keyliveapp.keylivetv.bean;
 
 import java.util.List;
 

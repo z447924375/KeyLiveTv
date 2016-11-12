@@ -2,7 +2,6 @@ package com.keyliveapp.keylivetv.baseclass;
 
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.util.SparseIntArray;
 import android.view.ViewGroup;
 
@@ -35,7 +34,7 @@ public abstract class BaseExpandableAdapter<GH extends RecyclerView.ViewHolder, 
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Log.d("BaseExpandableAdapter", "++index:" + ++index);
+//        Log.d("BaseExpandableAdapter", "++index:" + ++index);
 
         switch (viewType) {
             case TYPE_GROUP:

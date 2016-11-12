@@ -1,7 +1,6 @@
 package com.keyliveapp.keylivetv.livetv.normal;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -47,6 +46,5 @@ public class LiveAnchorFragment extends BaseFragment {
         anchorDesc.setText("公告 : "+bean.getBaseRoomInfo().getDesc());
 
 
-        Log.d("vvv", bean.getBaseRoomInfo().getName());
     }
 }

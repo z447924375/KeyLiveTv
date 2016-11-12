@@ -24,11 +24,7 @@
                 <include layout="@layout/home_banner_view"/>
 
                 <include layout="@layout/home_quickbtn_view"/>
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:text="  "
-                    android:background="#6aff8352"/>
+
             </LinearLayout>
 
         </android.support.design.widget.CollapsingToolbarLayout>

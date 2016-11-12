@@ -10,7 +10,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
@@ -104,7 +103,6 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Toast.makeText(LiveVideoNormalActivity.this, "铺满", Toast.LENGTH_SHORT).show();
                     enterFullScreen();
                 } else {
                     quitFullScreen();
@@ -149,7 +147,10 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
         liveVp.setAdapter(adapter);
         liveTab.setupWithViewPager(liveVp);
 
+
     }
+
+
 
     @Override
     public void onClick(View v) {
@@ -196,11 +197,8 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
     public void onBufferingUpdate(MediaPlayer mp, int percent) {
         loadRateView.setText(percent + "%");
     }
-//    @Override
-//    protected void onResume() {
-//
-//        super.onResume();
-//    }
+
+
 
     public void enterFullScreen() {
 
@@ -211,10 +209,11 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
         mDm = new DisplayMetrics();
         this.getWindowManager().getDefaultDisplay().getMetrics(mDm);
         mCenterLayout.setLayoutParams(new RelativeLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
-        mVideoView.setLayoutParams(new ViewGroup.LayoutParams(mDm.widthPixels, mDm.heightPixels));
-
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.MATCH_PARENT));
+//        mVideoView.setLayoutParams(new CenterLayout.LayoutParams(mDm.widthPixels, mDm.heightPixels,0,0));
+//        Log.d("LiveVideoNormalActivity", "mDm.widthPixels + mDm.heightPixels:" + (mDm.widthPixels + mDm.heightPixels));
+//        mVideoView.setMediaController();
 
     }
 

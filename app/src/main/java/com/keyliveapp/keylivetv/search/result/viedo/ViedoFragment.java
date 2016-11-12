@@ -8,6 +8,7 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
 import com.keyliveapp.keylivetv.baseclass.BaseToast;
+import com.keyliveapp.keylivetv.bean.ViedoBean;
 import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
 
@@ -105,5 +106,9 @@ public class ViedoFragment extends BaseFragment {
         });
 
 
+
+
     }
+
+
 }
