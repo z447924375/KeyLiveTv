@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_margin="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="200dp">
+    <ImageView
+        android:layout_centerHorizontal="true"
+        android:id="@+id/discovery_hottest_pic"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:src="@mipmap/default_live_ic"
+        />
+    <ImageView
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:src="@mipmap/ic_zhibo_box_zhubo"
+        android:id="@+id/discovery_hottest_zhubo"
+        android:layout_alignBottom="@+id/discovery_hottest_text"
+        android:layout_alignLeft="@+id/discovery_hottest_pic"
+        android:layout_alignStart="@+id/discovery_hottest_pic"/>
+    <TextView
+        android:id="@+id/discovery_hottest_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="whatever"
+        android:textSize="10sp"
+        android:layout_below="@+id/discovery_hottest_pic"
+        android:layout_toRightOf="@+id/discovery_hottest_zhubo"
+        android:layout_toEndOf="@+id/discovery_hottest_zhubo"/>
+    <ImageView
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:src="@mipmap/ic_zhibo_box_zhubo_renqis"
+        android:id="@+id/discovery_hottest_grey"
+        android:layout_marginLeft="13dp"
+        android:layout_marginStart="13dp"
+        android:layout_alignBottom="@+id/discovery_hottest_text"
+        android:layout_toRightOf="@+id/discovery_hottest_text"
+        android:layout_toEndOf="@+id/discovery_hottest_text"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="10sp"
+        android:id="@+id/discovery_hottest_num"
+        android:layout_marginLeft="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_below="@id/discovery_hottest_pic"
+        android:layout_toRightOf="@id/discovery_hottest_grey"
+        android:layout_toEndOf="@id/discovery_hottest_grey"/>
+
+
+
+
+
+
+
+
+</RelativeLayout>

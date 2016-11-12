@@ -1,0 +1,144 @@
+package com.keyliveapp.keylivetv.classify;
+
+import android.content.Context;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+
+import com.keyliveapp.keylivetv.R;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by dllo on 16/10/24.
+ */
+public class ClassifyFragmentAdapter extends RecyclerView.Adapter {
+
+    private Context context;
+
+    private List<String> recommendsId;
+    private List<String> recommendsName;
+    private List<String> recommendsIcon;
+
+    private List<String> channelsId;
+    private List<String> channelsName;
+    private List<String> chennelsIcon;
+
+    private String URL_BEFORE = "https://a4.plu.cn/api/streams?start-index=0&max-results=30&game=";
+    private String URL_BEHIND = "&version=3.7.0&device=4&packageId=1";
+    private String URL_ALL = "https://a4.plu.cn/api/streams?start-index=0&max-results=30&game=0&sort-by=views&version=3.7.0&device=4&packageId=1";
+    private String URL_ALLMATCH = "https://a4.plu.cn/api/matches?start-index=0&max-results=200&version=3.7.0&device=4&packageId=1";
+
+    public void setRecommendsId(List<String> recommendsId) {
+        this.recommendsId = recommendsId;
+    }
+
+    public void setRecommendsName(List<String> recommendsName) {
+        this.recommendsName = recommendsName;
+    }
+
+    public void setRecommendsIcon(List<String> recommendsIcon) {
+        this.recommendsIcon = recommendsIcon;
+    }
+
+    public void setChannelsId(List<String> channelsId) {
+        this.channelsId = channelsId;
+    }
+
+    public void setChannelsName(List<String> channelsName) {
+        this.channelsName = channelsName;
+    }
+
+    public void setChennelsIcon(List<String> chennelsIcon) {
+        this.chennelsIcon = chennelsIcon;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+
+        if (context == null) {
+            context = parent.getContext();
+        }
+
+        RecyclerView.ViewHolder viewHolder = null;
+
+        switch (viewType) {
+            case 0:
+                View hotView = LayoutInflater.from(parent.getContext()).inflate(R.layout.classify_hot, parent, false);
+                viewHolder = new HotViewHolder(hotView);
+                break;
+            case 1:
+                View channelsView = LayoutInflater.from(parent.getContext()).inflate(R.layout.classify_channels, parent, false);
+                viewHolder = new ChannelsViewHolder(channelsView);
+                break;
+        }
+
+        return viewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+
+        switch (position) {
+            case 0:
+                HotViewHolder hotViewHolder = (HotViewHolder) holder;
+                HotAdapter hotAdapter = new HotAdapter();
+                hotAdapter.setRecommendsId(recommendsId);
+                hotAdapter.setRecommendsIcon(recommendsIcon);
+                hotAdapter.setRecommendsName(recommendsName);
+                LinearLayoutManager manager = new LinearLayoutManager(context);
+                manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+                hotViewHolder.hotRecyclerView.setLayoutManager(manager);
+                hotViewHolder.hotRecyclerView.setAdapter(hotAdapter);
+                break;
+            case 1:
+                ChannelsViewHolder channelsViewHolder = (ChannelsViewHolder) holder;
+                ChannelsAdapter channelsAdapter = new ChannelsAdapter();
+                channelsAdapter.setChannelsId(channelsId);
+                channelsAdapter.setChennelsIcon(chennelsIcon);
+                channelsAdapter.setChannelsName(channelsName);
+                GridLayoutManager manager1 = new GridLayoutManager(context, 3);
+                channelsViewHolder.channelsRecyclerView.addItemDecoration(new SpaceDecoration(80));
+                channelsViewHolder.channelsRecyclerView.setLayoutManager(manager1);
+                channelsViewHolder.channelsRecyclerView.setAdapter(channelsAdapter);
+                break;
+        }
+
+    }
+
+    @Override
+    public int getItemCount() {
+        return 2;
+    }
+
+    private class HotViewHolder extends RecyclerView.ViewHolder {
+
+        private final RecyclerView hotRecyclerView;
+
+        public HotViewHolder(View hotView) {
+            super(hotView);
+            hotRecyclerView = (RecyclerView) hotView.findViewById(R.id.rv_classify_hot);
+        }
+    }
+
+    private class ChannelsViewHolder extends RecyclerView.ViewHolder {
+
+        private final RecyclerView channelsRecyclerView;
+
+        public ChannelsViewHolder(View channelsView) {
+            super(channelsView);
+            channelsRecyclerView = (RecyclerView) channelsView.findViewById(R.id.rv_classify_channels);
+        }
+    }
+}
+
+
