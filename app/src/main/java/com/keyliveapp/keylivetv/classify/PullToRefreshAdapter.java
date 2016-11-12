@@ -1,11 +1,7 @@
 package com.keyliveapp.keylivetv.classify;
 
-<<<<<<< HEAD:app/src/main/java/com/keyliveapp/keylivetv/classify/PullToRefreshAdapter.java
-=======
 import android.content.Context;
-import android.support.v4.util.ArrayMap;
 import android.util.Log;
->>>>>>> feature/search:app/src/main/java/com/keyliveapp/keylivetv/classify/zxh/PullToRefreshAdapter.java
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,11 +15,13 @@ import com.keyliveapp.keylivetv.R;
 
 import java.util.ArrayList;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 /**
  * Created by dllo on 16/10/31.
  */
 public class PullToRefreshAdapter extends BaseAdapter {
-    Clicked mClicked;
+    private Clicked mClicked;
 
     public void setClicked(Clicked clicked) {
         mClicked = clicked;
@@ -67,13 +65,8 @@ public class PullToRefreshAdapter extends BaseAdapter {
         Log.d("PullToRefreshAdapter", "names:" + names);
         viewers.addAll(viewerss);
         titles.addAll(titless);
-<<<<<<< HEAD:app/src/main/java/com/keyliveapp/keylivetv/classify/PullToRefreshAdapter.java
-        notifyDataSetInvalidated();
-=======
-//        notifyDataSetChanged();
->>>>>>> feature/search:app/src/main/java/com/keyliveapp/keylivetv/classify/zxh/PullToRefreshAdapter.java
+        notifyDataSetChanged();
     }
-
 
 
     @Override
@@ -94,17 +87,8 @@ public class PullToRefreshAdapter extends BaseAdapter {
     }
 
     @Override
-<<<<<<< HEAD:app/src/main/java/com/keyliveapp/keylivetv/classify/PullToRefreshAdapter.java
-    public View getView(final int position, View convertView, ViewGroup parent) {
-=======
-    public void notifyDataSetChanged() {
-        Log.d("PullToRefreshAdapter", "names:" + names);
-        super.notifyDataSetChanged();
-    }
 
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
->>>>>>> feature/search:app/src/main/java/com/keyliveapp/keylivetv/classify/zxh/PullToRefreshAdapter.java
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         MyViewHolder myViewHolder = null;
 
@@ -126,9 +110,11 @@ public class PullToRefreshAdapter extends BaseAdapter {
         try {
             Glide.with(parent.getContext())
                     .load(previews.get(position * 2))
+                    .bitmapTransform(new RoundedCornersTransformation(mContext, 10, 0, RoundedCornersTransformation.CornerType.ALL))
                     .into(myViewHolder.imageViewLeft);
             Glide.with(parent.getContext())
                     .load(previews.get(position * 2 + 1))
+                    .bitmapTransform(new RoundedCornersTransformation(mContext, 10, 0, RoundedCornersTransformation.CornerType.ALL))
                     .into(myViewHolder.imageViewRight);
             myViewHolder.imageViewLeft.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -139,7 +125,7 @@ public class PullToRefreshAdapter extends BaseAdapter {
             myViewHolder.imageViewRight.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mClicked.click(position*2+1);
+                    mClicked.click(position * 2 + 1);
                 }
             });
 
@@ -161,34 +147,31 @@ public class PullToRefreshAdapter extends BaseAdapter {
         }
 
         return convertView;
+
     }
+        private class MyViewHolder {
 
-    private class MyViewHolder {
+            private final ImageView imageViewLeft;
+            private final ImageView imageViewRight;
+            private final TextView tvTitlesRight;
+            private final TextView tvTitlesLeft;
+            private final TextView tvViewRigth;
+            private final TextView tvViewerLeft;
+            private final TextView tvNameRight;
+            private final TextView tvNameLeft;
 
-        private final ImageView imageViewLeft;
-        private final ImageView imageViewRight;
-        private final TextView tvTitlesRight;
-        private final TextView tvTitlesLeft;
-        private final TextView tvViewRigth;
-        private final TextView tvViewerLeft;
-        private final TextView tvNameRight;
-        private final TextView tvNameLeft;
-
-        public MyViewHolder(View convertView) {
-            imageViewLeft = (ImageView) convertView.findViewById(R.id.img_classify_left);
-            imageViewRight = (ImageView) convertView.findViewById(R.id.img_classify_right);
-            tvNameLeft = (TextView) convertView.findViewById(R.id.tv_name_left);
-            tvNameRight = (TextView) convertView.findViewById(R.id.tv_name_right);
-            tvViewerLeft = (TextView) convertView.findViewById(R.id.tv_viewers_left);
-            tvViewRigth = (TextView) convertView.findViewById(R.id.tv_viewers_right);
-            tvTitlesLeft = (TextView) convertView.findViewById(R.id.tv_title_left);
-            tvTitlesRight = (TextView) convertView.findViewById(R.id.tv_title_right);
+            public MyViewHolder(View convertView) {
+                imageViewLeft = (ImageView) convertView.findViewById(R.id.img_classify_left);
+                imageViewRight = (ImageView) convertView.findViewById(R.id.img_classify_right);
+                tvNameLeft = (TextView) convertView.findViewById(R.id.tv_name_left);
+                tvNameRight = (TextView) convertView.findViewById(R.id.tv_name_right);
+                tvViewerLeft = (TextView) convertView.findViewById(R.id.tv_viewers_left);
+                tvViewRigth = (TextView) convertView.findViewById(R.id.tv_viewers_right);
+                tvTitlesLeft = (TextView) convertView.findViewById(R.id.tv_title_left);
+                tvTitlesRight = (TextView) convertView.findViewById(R.id.tv_title_right);
+            }
         }
-    }
-
-    public interface Clicked {
-        void click(int position);
-    }
-
-
+        public interface Clicked {
+            void click(int position);
+        }
 }

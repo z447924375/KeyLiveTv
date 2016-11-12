@@ -38,6 +38,7 @@ public class MainActivity extends BaseActivity {
 
         ArrayList<Fragment> fragments = new ArrayList<>();
         fragments.add(new HomeFragment());
+//        fragments.add(new TestFragment());
         fragments.add(new ClassifyFragment());
         fragments.add(new DiscoveryFragment());
         fragments.add(new MineFragment());

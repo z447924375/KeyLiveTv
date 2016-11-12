@@ -1,20 +1,22 @@
 package com.keyliveapp.keylivetv.home.homeui;
 
-import android.app.ProgressDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
 import com.keyliveapp.keylivetv.bean.DomainBean;
@@ -22,35 +24,35 @@ import com.keyliveapp.keylivetv.bean.HomeBean;
 import com.keyliveapp.keylivetv.classify.ClassifyClickInActivity;
 import com.keyliveapp.keylivetv.home.homepresenter.HomePresenter;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeContentClickListener;
+import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeHoriItemClickListner;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeTitleClickListener;
-import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnLiveRecChannelListener;
-import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnLiveRecItemClickListener;
-import com.keyliveapp.keylivetv.livetv.VideoViewBuffer;
+import com.keyliveapp.keylivetv.livetv.full.LiveVideoFullActivity;
+import com.keyliveapp.keylivetv.livetv.normal.LiveVideoNormalActivity;
 import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
 import com.keyliveapp.keylivetv.values.URLvalues;
 import com.youth.banner.Banner;
+import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerClickListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
-
 /**
  * Created by dllo on 16/10/22.
  */
-public class HomeFragment extends BaseFragment implements IHomeView {
+public class HomeFragment extends BaseFragment implements IHomeView, View.OnClickListener {
 
     private RecyclerView mHomeRecycler;
     private Banner homeBanner;
-    private LinearLayout homeScrollView;
-    private ImageButton homeSearch;
-    private ProgressDialog mDialog;
+    private ImageButton homeSearch, btnRefresh;
+    private Dialog mDialog;
     private HomePresenter mPresenter;
     private TextView bannerTitle;
     public static final String URL_BEFORE1 = "https://a4.plu.cn/api/streams?start-index=";
     public static final String URL_BEFORE2 = "&max-results=30&game=";
+    private RecyclerView horizontalRecycler;
+
 
     @Override
     protected int setLayout() {
@@ -63,9 +65,10 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         mDialog = createDialog();
         mHomeRecycler = getViewLayout(R.id.home_recyclerview);
         homeBanner = getViewLayout(R.id.home_banner);
-        homeScrollView = getViewLayout(R.id.home_quickbtn_scrollview);
         homeSearch = getViewLayout(R.id.home_search);
+        btnRefresh = getViewLayout(R.id.btn_refresh);
         bannerTitle = getViewLayout(R.id.banner_title);
+        horizontalRecycler = getViewLayout(R.id.home_horizontal_btns_recycler);
 
     }
 
@@ -74,6 +77,24 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
         mPresenter = new HomePresenter(this);
         mPresenter.startPresenterRequest(URLvalues.HOME_PAGE_URL);
+
+        btnRefresh.setOnClickListener(this);
+        homeSearch.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        switch (v.getId()) {
+            case R.id.btn_refresh:
+
+                mPresenter.startPresenterRequest(URLvalues.HOME_PAGE_URL);
+
+                break;
+            case R.id.home_search:
+                break;
+        }
 
     }
 
@@ -93,7 +114,6 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         showBanner(homeBean);
         showHoriScrollView(homeBean);
         showRecyclerView(homeBean);
-
     }
 
 
@@ -102,13 +122,24 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         Toast.makeText(mContext, "loading mistake", Toast.LENGTH_SHORT).show();
     }
 
-    private ProgressDialog createDialog() {
+    private Dialog createDialog() {
 
-        ProgressDialog dialog = new ProgressDialog(getContext());
-        dialog.setTitle("loading...");
-        dialog.setMessage("please waiting for a moment");
-        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        return dialog;
+        View view = LayoutInflater.from(getContext()).inflate(R.layout.loading_dialog_view, null);
+        ImageView img = (ImageView) view.findViewById(R.id.loading_img);
+        final AnimationDrawable animationDrawable = (AnimationDrawable) img.getDrawable();
+        animationDrawable.start();
+
+        Dialog loadingDialog = new Dialog(getContext(), R.style.loading_dialog);
+        loadingDialog.setContentView(view, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
+                , ViewGroup.LayoutParams.MATCH_PARENT));
+        loadingDialog.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialog) {
+                animationDrawable.stop();
+            }
+        });
+
+        return loadingDialog;
 
 
     }
@@ -116,32 +147,22 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
     private void showHoriScrollView(final HomeBean homeBean) {
 
-        for (int i = 0; i < homeBean.getData().getQuickbutton().size(); i++) {
+        HomeHoriRecyclerAdapter adapter = new HomeHoriRecyclerAdapter(getContext());
+        adapter.setHomeBean(homeBean);
+        horizontalRecycler.setAdapter(adapter);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        manager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        horizontalRecycler.setLayoutManager(manager);
 
-            View view = LayoutInflater.from(getContext()).inflate(R.layout.home_scrollview_imgs, homeScrollView, false);
-            ImageView imgs = (ImageView) view.findViewById(R.id.home_scrollview_pic);
-
-            imgs.setAdjustViewBounds(true);
-            Glide.with(getContext())
-                    .load(homeBean.getData().getQuickbutton().get(i).getImage())
-                    .bitmapTransform(new RoundedCornersTransformation(getContext(), 30, 0, RoundedCornersTransformation.CornerType.ALL))
-                    .into(imgs);
-            homeScrollView.addView(view);
-            final int finalI = i;
-            view.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    String gameid = homeBean.getData().getQuickbutton().get(finalI).getHrefTarget();
-                    String title = homeBean.getData().getQuickbutton().get(finalI).getTitle();
-                    Toast.makeText(mContext, title, Toast.LENGTH_SHORT).show();
-                    jumpToClassifyClickIn(title, gameid, URLvalues.CLASSIFY_URL_BEHIND);
-
-                }
-
-            });
-
-        }
+        adapter.setHoriItemClickListner(new OnHomeHoriItemClickListner() {
+            @Override
+            public void horiItemClick(int position) {
+                String gameid = homeBean.getData().getQuickbutton().get(position).getHrefTarget();
+                String title = homeBean.getData().getQuickbutton().get(position).getTitle();
+                Toast.makeText(mContext, title, Toast.LENGTH_SHORT).show();
+                jumpToClassifyClickIn(title, gameid, URLvalues.CLASSIFY_URL_BEHIND);
+            }
+        });
 
     }
 
@@ -151,9 +172,8 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         List<String> bannerImgSrc = new ArrayList<>();
         for (int i = 0; i < homeBean.getData().getBanner().size(); i++) {
             bannerImgSrc.add(homeBean.getData().getBanner().get(i).getImage());
-            Log.d("HomeFragment", homeBean.getData().getBanner().get(i).getTitle());
         }
-//        homeBanner.setBannerAnimation(Transformer.Tablet);
+        homeBanner.setBannerAnimation(Transformer.CubeIn);
         homeBanner.setImages(bannerImgSrc);
         homeBanner.setBannerStyle(Banner.SCROLL_INDICATOR_BOTTOM);
         homeBanner.setDelayTime(3500);
@@ -165,7 +185,8 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
             @Override
             public void onPageSelected(int position) {
-                bannerTitle.setText(homeBean.getData().getBanner().get((position - 1) % 5).getTitle());
+                bannerTitle.setText("   " + homeBean.getData().getBanner()
+                        .get(Math.abs(position - 1) % homeBean.getData().getBanner().size()).getTitle() + "   ");
             }
 
             @Override
@@ -188,47 +209,22 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
     private void showRecyclerView(final HomeBean homeBean) {
 
-        List<HomeBean.DataBean.ColumnsBean> columnsBean;
-        columnsBean = homeBean.getData().getColumns();
-        HomeRvAdapter adapter = new HomeRvAdapter(getContext(), columnsBean);
+        List<HomeBean.DataBean.ColumnsBean> columnsBean = homeBean.getData().getColumns();
+        HomeRecyclerAdapter adapter = new HomeRecyclerAdapter(getActivity(), columnsBean);
+        GridLayoutManager manager = new GridLayoutManager(getActivity(), 2);
+        manager.setSpanSizeLookup(adapter.getSpanSizeLookup(manager));
+
+        mHomeRecycler.setLayoutManager(manager);
         mHomeRecycler.setAdapter(adapter);
 
 
-        GridLayoutManager manager = new GridLayoutManager(getContext(), 2);
-
-        manager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
-            @Override
-            public int getSpanSize(int position) {
-                return position < 1 || position % 5 == 1 ? 2 : 1;
-            }
-        });
-        mHomeRecycler.setLayoutManager(manager);
-
-
-        //livechannel点击
-        adapter.setChannelListener(new OnLiveRecChannelListener() {
-            @Override
-            public void liveRecChannelClicked() {
-                Log.d("liveTitleClicked", "channel");
-                jumpToClassifyClickIn("正在直播", "0", "&sort-by=views&version=3.7.0&device=4&packageId=1");
-
-            }
-        });
-        //liveitem  点击
-        adapter.setLiveRecItemClickListener(new OnLiveRecItemClickListener() {
-            @Override
-            public void liveItemClicked(int i) {
-                String domain = homeBean.getData().getColumns().get(0).getRooms().get(i).getChannel().getDomain();
-                startLiveTv(domain);
-
-            }
-
-        });
-        //title点击
-        adapter.setTitleClickListener(new OnHomeTitleClickListener() {
+        adapter.setHomeTitleClickListener(new OnHomeTitleClickListener() {
             @Override
             public void titleClicked(int titlePosition) {
                 switch (titlePosition) {
+                    case 0:
+                        jumpToClassifyClickIn("正在直播", "0", "&sort-by=views&version=3.7.0&device=4&packageId=1");
+                        break;
                     case 1://随拍
                         jumpToClassifyClickIn("龙珠随拍", "119", "&sort-by=views&version=3.7.0&device=4&packageId=1");
                         break;
@@ -250,21 +246,24 @@ public class HomeFragment extends BaseFragment implements IHomeView {
                 }
             }
         });
-        //content点击
+
         adapter.setContentClickListener(new OnHomeContentClickListener() {
             @Override
             public void contentClicked(int titlePosition, int contentPosition) {
-
                 String domain = homeBean.getData().getColumns().get(titlePosition).getRooms().get(contentPosition)
                         .getChannel().getDomain();
                 if (domain != null) {
-                    startLiveTv(domain);
+                    if (titlePosition == 1) {
+                        startFullLiveTv(domain);
+                    } else {
+                        startLiveTv(domain);
+                    }
                 } else {
                     Toast.makeText(mContext, "链接不存在或网络数据错误", Toast.LENGTH_SHORT).show();
                 }
-
             }
         });
+
 
     }
 
@@ -275,8 +274,28 @@ public class HomeFragment extends BaseFragment implements IHomeView {
             public void onCompleted(DomainBean result) {
                 String roomid = result.getBroadcast().getRoomId() + "";
 
-                Intent intent = new Intent(getActivity(), VideoViewBuffer.class);
+                Intent intent = new Intent(getActivity(), LiveVideoNormalActivity.class);
                 intent.putExtra("roomid", roomid);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailed() {
+
+            }
+        });
+    }
+
+    private void startFullLiveTv(String domain) {
+        String domainUrl = URLvalues.DOMAIN_URL_FRONT + domain + URLvalues.DOMAIN_URL_BEHIND;
+        HttpManager.getInstance().getRequest(domainUrl, DomainBean.class, new OnCompletedListener<DomainBean>() {
+            @Override
+            public void onCompleted(DomainBean result) {
+                String roomid = result.getBroadcast().getRoomId() + "";
+
+                Intent intent = new Intent(getActivity(), LiveVideoFullActivity.class);
+                intent.putExtra("roomid", roomid);
+                intent.putExtra("domain", result);
                 startActivity(intent);
             }
 
@@ -289,7 +308,6 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 
     }
 
-
     private void jumpToClassifyClickIn(String title, String gameid
             , String urlbehind) {
         Intent intent = new Intent(getActivity(), ClassifyClickInActivity.class);
@@ -300,4 +318,5 @@ public class HomeFragment extends BaseFragment implements IHomeView {
         intent.putExtra("urlbehind", urlbehind);
         startActivity(intent);
     }
+
 }

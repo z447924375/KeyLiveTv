@@ -19,7 +19,7 @@ import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseActivity;
 import com.keyliveapp.keylivetv.bean.ClassfyAllBean;
 import com.keyliveapp.keylivetv.bean.DomainBean;
-import com.keyliveapp.keylivetv.livetv.VideoViewBuffer;
+import com.keyliveapp.keylivetv.livetv.normal.LiveVideoNormalActivity;
 import com.keyliveapp.keylivetv.search.history.SearchActivity;
 import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
@@ -83,29 +83,28 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
         lvPull.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
             public void onPullDownToRefresh(final PullToRefreshBase<ListView> refreshView) {
-
-<<<<<<< HEAD:app/src/main/java/com/keyliveapp/keylivetv/classify/ClassifyClickInActivity.java
                 startIndes = 0;
                 endIndes = 0;
                 int xxx = 0;
 
                 String url = URL_BEFORE1 + startIndes + URL_BEFORE2 + gameId + URL_BEHIND;
 
+//                pullToRefreshAdapter = null;
+
                 pullToRefreshAdapter = null;
 
-                    previews.clear();
-                    names.clear();
-                    titles.clear();
-                    viewers.clear();
-
+                previews.clear();
+                names.clear();
+                titles.clear();
+                viewers.clear();
                 setOrChangeAdapter(url);
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         refreshView.onRefreshComplete();
+
                     }
                 }, 1000);
-=======
 //                startIndes = 0;
 //                endIndes = 0;
 //
@@ -121,7 +120,6 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
 //                        refreshView.onRefreshComplete();
 //                    }
 //                },1000);
->>>>>>> feature/search:app/src/main/java/com/keyliveapp/keylivetv/classify/zxh/ClassifyClickInActivity.java
 
             }
 
@@ -220,8 +218,6 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
                     names = new ArrayList<>();
                     titles = new ArrayList<>();
                     viewers = new ArrayList<>();
-<<<<<<< HEAD:app/src/main/java/com/keyliveapp/keylivetv/classify/ClassifyClickInActivity.java
-=======
                 } else {
 //                    previews.clear();
 //                    names.clear();
@@ -231,7 +227,6 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
 //                    names = new ArrayList<>();
 //                    titles = new ArrayList<>();
 //                    viewers = new ArrayList<>();
->>>>>>> feature/search:app/src/main/java/com/keyliveapp/keylivetv/classify/zxh/ClassifyClickInActivity.java
                 }
 
                 List<ClassfyAllBean.DataBean.ItemsBean> itemsBeans = result.getData().getItems();
@@ -272,10 +267,6 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
                 } else {
 //                    pullToRefreshAdapter.setAll(previews, names, titles, viewers);
                     pullToRefreshAdapter.notifyDataSetChanged();
-<<<<<<< HEAD:app/src/main/java/com/keyliveapp/keylivetv/classify/ClassifyClickInActivity.java
-
-=======
->>>>>>> feature/search:app/src/main/java/com/keyliveapp/keylivetv/classify/zxh/ClassifyClickInActivity.java
                     lvPull.onRefreshComplete();
                 }
                 pullToRefreshAdapter.setClicked(new PullToRefreshAdapter.Clicked() {
@@ -307,7 +298,7 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
             public void onCompleted(DomainBean result) {
                 String roomid = result.getBroadcast().getRoomId() + "";
 
-                Intent intent = new Intent(getApplicationContext(), VideoViewBuffer.class);
+                Intent intent = new Intent(getApplicationContext(), LiveVideoNormalActivity.class);
                 intent.putExtra("roomid", roomid);
                 startActivity(intent);
             }

@@ -10,7 +10,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.keyliveapp.keylivetv.R;
-import com.keyliveapp.keylivetv.bean.NearbyBean;
+import com.keyliveapp.keylivetv.bean.DiscoveryBean;
+
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 /**
  * Created by dllo on 16/10/28.
@@ -18,13 +20,18 @@ import com.keyliveapp.keylivetv.bean.NearbyBean;
 
 public class NearbyRvAdapter extends RecyclerView.Adapter {
     private Context mContext;
-    private NearbyBean bean;
+    private DiscoveryBean bean;
+    private OnNearbyItemClickListener mNearbyItemClickListener;
+
+    public void setNearbyItemClickListener(OnNearbyItemClickListener nearbyItemClickListener) {
+        mNearbyItemClickListener = nearbyItemClickListener;
+    }
 
     public NearbyRvAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-    public void setBean(NearbyBean bean) {
+    public void setBean(DiscoveryBean bean) {
         this.bean = bean;
     }
 
@@ -36,11 +43,20 @@ public class NearbyRvAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        MyViewHolder myViewHolder = null;
-        Glide.with(mContext).load(bean.getData().getStreams().getItems().get(position).getPreview()).into(myViewHolder.pic);
-        myViewHolder.tv.setText(bean.getData().getStreams().getItems().get(position).getUser().getName());
+    public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
+        MyViewHolder myViewHolder= (MyViewHolder) holder;
+        Glide.with(mContext).load(bean.getData().getStreams().getItems().get(position).getPreview())
+                .bitmapTransform(new RoundedCornersTransformation(mContext, 10, 0, RoundedCornersTransformation.CornerType.ALL))
+                .into(myViewHolder.pic);
+        myViewHolder.pic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mNearbyItemClickListener.nearbyClick(position);
+            }
+        });
 
+
+        myViewHolder.name.setText(bean.getData().getStreams().getItems().get(position).getUser().getName());
     }
 
     @Override
@@ -48,16 +64,23 @@ public class NearbyRvAdapter extends RecyclerView.Adapter {
         return bean.getData().getStreams().getItems().size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder{
 
-        private  ImageView pic;
-        private  TextView tv;
+        private ImageView pic;
+        private TextView name;
+        private TextView location;
 
         public MyViewHolder(View itemView) {
             super(itemView);
             pic = (ImageView) itemView.findViewById(R.id.discovery_nearby_pic);
-            tv = (TextView) itemView.findViewById(R.id.discovery_nearby_text);
+            name = (TextView) itemView.findViewById(R.id.discovery_nearby_text);
+            location = (TextView) itemView.findViewById(R.id.discovery_nearby_location);
         }
     }
+
+    public interface OnNearbyItemClickListener{
+        void nearbyClick(int position);
+    }
+
 
 }

@@ -1,9 +1,15 @@
 
-package com.keyliveapp.keylivetv.livetv;
+package com.keyliveapp.keylivetv.livetv.normal;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,22 +21,28 @@ import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
 import com.keyliveapp.keylivetv.values.URLvalues;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.Vitamio;
 import io.vov.vitamio.widget.VideoView;
 
-public class VideoViewBuffer extends BaseActivity implements MediaPlayer.OnInfoListener,
+public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer.OnInfoListener,
         MediaPlayer.OnBufferingUpdateListener, MediaPlayer.OnPreparedListener, View.OnClickListener {
 
 
     private VideoView mVideoView;
     private TextView downloadRateView, loadRateView;
     private ImageButton btnBack, btnFull;
+    private CheckBox like;
+    private TabLayout liveTab;
+    private ViewPager liveVp;
 
 
     @Override
     protected int setLayout() {
-        return R.layout.videobuffer;
+        return R.layout.video_mormal_view;
     }
 
     @Override
@@ -40,14 +52,16 @@ public class VideoViewBuffer extends BaseActivity implements MediaPlayer.OnInfoL
         downloadRateView = (TextView) findViewById(R.id.download_rate);
         loadRateView = (TextView) findViewById(R.id.load_rate);
         btnBack = (ImageButton) findViewById(R.id.live_back);
-
         btnFull = (ImageButton) findViewById(R.id.live_full);
+        liveTab = (TabLayout) findViewById(R.id.live_tab);
+        liveVp = (ViewPager) findViewById(R.id.live_vp);
+        like = (CheckBox) findViewById(R.id.live_like);
     }
 
     @Override
     protected void inidate() {
         Intent intent = getIntent();
-        String roomid = intent.getExtras().getString("roomid");
+        final String roomid = intent.getExtras().getString("roomid");
 
         if (roomid != null) {
             String streamInfo = URLvalues.STREAM_URL_FRONT + roomid + URLvalues.STREAN_URL_BEHIND;
@@ -59,13 +73,13 @@ public class VideoViewBuffer extends BaseActivity implements MediaPlayer.OnInfoL
                         mVideoView.setVideoURI(Uri.parse(streamUrl));
 
                     } else {
-                        Toast.makeText(VideoViewBuffer.this, "链接无效", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LiveVideoNormalActivity.this, "链接无效", Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailed() {
-                    Toast.makeText(VideoViewBuffer.this, "解析错误", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LiveVideoNormalActivity.this, "解析错误", Toast.LENGTH_SHORT).show();
                 }
             });
         }
@@ -74,9 +88,45 @@ public class VideoViewBuffer extends BaseActivity implements MediaPlayer.OnInfoL
         mVideoView.setOnBufferingUpdateListener(this);
         mVideoView.setOnInfoListener(this);
         mVideoView.setOnPreparedListener(this);
-
         btnFull.setOnClickListener(this);
         btnBack.setOnClickListener(this);
+        like.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    List<String> listRoomId = new ArrayList<String>();
+                    listRoomId.add(roomid);
+//                    DBTools.getInstance().insert(listRoomId);
+//                    DBTools.getInstance().getAll(new DBTools.QueryListener<String>() {
+//                        @Override
+//                        public void onQuery(ArrayList<String> str) {
+//                            Log.d("LiveVideoNormalActivity", "str:" + str);
+//                        }
+//                    },null);
+
+                    Toast.makeText(LiveVideoNormalActivity.this, "已收藏", Toast.LENGTH_SHORT).show();
+                }else {
+//                    DBTools.getInstance().delete(roomid);
+                    Toast.makeText(LiveVideoNormalActivity.this, "已取消收藏", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+
+
+        ArrayList<Fragment> fragments = new ArrayList<>();
+        LiveAnchorFragment liveAnchorFragment = new LiveAnchorFragment();
+        LiveBoardFragment liveBoardFragment = new LiveBoardFragment();
+        Bundle bundle = new Bundle();
+        bundle.putString("roomid",roomid);
+        liveAnchorFragment.setArguments(bundle);
+        liveBoardFragment.setArguments(bundle);
+        fragments.add(liveAnchorFragment);
+        fragments.add(liveBoardFragment);
+
+        VideoViewVpAdapter adapter = new VideoViewVpAdapter(getSupportFragmentManager(),fragments);
+        liveVp.setAdapter(adapter);
+        liveTab.setupWithViewPager(liveVp);
 
     }
 
