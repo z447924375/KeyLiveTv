@@ -1,7 +1,6 @@
 package com.keyliveapp.keylivetv.discovery.hottest;
 import android.content.Intent;
 import android.os.Handler;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +21,6 @@ import com.keyliveapp.keylivetv.values.URLvalues;
 public class HottestFragment extends BaseFragment {
     private RecyclerView rv;
     private HottestBean bean;
-    private SwipeRefreshLayout mSwipeRefreshLayout;
 
     @Override
     protected int setLayout() {
@@ -32,7 +30,6 @@ public class HottestFragment extends BaseFragment {
     @Override
     protected void initView() {
         rv = getViewLayout(R.id.rv_discovery_hottest);
-        mSwipeRefreshLayout = getViewLayout(R.id.srfl_discovery_hottest);
 
     }
 
