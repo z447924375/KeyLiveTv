@@ -49,7 +49,7 @@ public class LiveBoardWeekFragment extends BaseFragment {
         Bundle bundle = getArguments();
         final String boardurl = bundle.getString("url");
 
-        
+
         Observable.just(boardurl)
                 .map(new Function<String, String>() {
                     @Override

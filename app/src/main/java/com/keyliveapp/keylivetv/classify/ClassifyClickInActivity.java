@@ -19,6 +19,7 @@ import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseActivity;
 import com.keyliveapp.keylivetv.bean.ClassfyAllBean;
 import com.keyliveapp.keylivetv.bean.DomainBean;
+import com.keyliveapp.keylivetv.livetv.full.LiveVideoFullActivity;
 import com.keyliveapp.keylivetv.livetv.normal.LiveVideoNormalActivity;
 import com.keyliveapp.keylivetv.search.history.SearchActivity;
 import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
@@ -278,7 +279,11 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
                             @Override
                             public void run() {
                                 String domain = mClassfyAllBeen.get(position/30).getData().getItems().get(position%30).getChannel().getDomain();
-                                startLiveTv(domain);
+                                if (gameId.equals("119")) {
+                                    startFullLiveTv(domain);
+                                }else {
+                                    startLiveTv(domain);
+                                }
                             }
                         });
                     }
@@ -299,6 +304,27 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
                 String roomid = result.getBroadcast().getRoomId() + "";
 
                 Intent intent = new Intent(getApplicationContext(), LiveVideoNormalActivity.class);
+                intent.putExtra("roomid", roomid);
+                intent.putExtra("domain", result);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onFailed() {
+
+            }
+        });
+
+
+    }
+    private void startFullLiveTv(String domain) {
+        String domainUrl = URLvalues.DOMAIN_URL_FRONT + domain + URLvalues.DOMAIN_URL_BEHIND;
+        HttpManager.getInstance().getRequest(domainUrl, DomainBean.class, new OnCompletedListener<DomainBean>() {
+            @Override
+            public void onCompleted(DomainBean result) {
+                String roomid = result.getBroadcast().getRoomId() + "";
+
+                Intent intent = new Intent(ClassifyClickInActivity.this, LiveVideoFullActivity.class);
                 intent.putExtra("roomid", roomid);
                 intent.putExtra("domain", result);
                 startActivity(intent);

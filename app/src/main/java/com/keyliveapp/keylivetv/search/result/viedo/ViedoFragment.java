@@ -1,8 +1,11 @@
 package com.keyliveapp.keylivetv.search.result.viedo;
 
 import android.content.Context;
+import android.view.View;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.keyliveapp.keylivetv.R;
@@ -11,6 +14,9 @@ import com.keyliveapp.keylivetv.baseclass.BaseToast;
 import com.keyliveapp.keylivetv.bean.ViedoBean;
 import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by dllo on 16/11/9.
@@ -28,6 +34,8 @@ public class ViedoFragment extends BaseFragment {
     private String VIEDO_URL_BEHIND = "&from=qq&version=3.7.0&device=4&packageId=1";
     private int pageIndex = 1;
     private String searchWord;
+
+    private List<ViedoBean> mViedoBeanList = new ArrayList<>();
 
 
     public void setmContext(Context mContext) {
@@ -55,12 +63,16 @@ public class ViedoFragment extends BaseFragment {
     @Override
     protected void initDate() {
 
+        mViedoBeanList.add(viedoBean);
+
         String totalItems = "共搜到" + viedoBean.getTotalItems() + "个视频";
         tvViedo.setText(totalItems);
 
         final ViedoViewAdapter viedoViewAdapter = new ViedoViewAdapter();
         viedoViewAdapter.setViedoBean(viedoBean);
         pullToRefreshListView.setAdapter(viedoViewAdapter);
+
+
 
         pullToRefreshListView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
@@ -85,6 +97,9 @@ public class ViedoFragment extends BaseFragment {
                     HttpManager.getInstance().getRequest(ur, ViedoBean.class, new OnCompletedListener<ViedoBean>() {
                         @Override
                         public void onCompleted(ViedoBean result) {
+
+                            mViedoBeanList.add(mViedoBeanList.size(),result);
+
                             if (0 != result.getItems().size()) {
                                 viedoViewAdapter.setListBean(result);
                                 viedoViewAdapter.notifyDataSetChanged();
@@ -93,6 +108,9 @@ public class ViedoFragment extends BaseFragment {
                                 BaseToast.showToast(getActivity(), "到底啦");
                                 BaseToast.showToast(getActivity(), "视频到底啦");
                             }
+
+
+
                         }
 
                         @Override
@@ -106,6 +124,16 @@ public class ViedoFragment extends BaseFragment {
         });
 
 
+        pullToRefreshListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+//                Log.d("ViedoFragment", mViedoBeanList.get((position - 1) / 20).getItems().get((position - 1) % 20).getTitle());
+//                Log.d("ViedoFragment", mViedoBeanList.get((position - 1) / 20).getItems().get((position - 1) % 20).getDomain());
+                Toast.makeText(mContext, "该视频暂不能播放", Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
 
     }

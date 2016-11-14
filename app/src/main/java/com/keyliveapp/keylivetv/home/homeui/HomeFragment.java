@@ -200,7 +200,10 @@ public class HomeFragment extends BaseFragment implements IHomeView, View.OnClic
         homeBanner.setOnBannerClickListener(new OnBannerClickListener() {
             @Override
             public void OnBannerClick(int position) {
-                Toast.makeText(mContext, "position:" + position, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, "position:" + position, Toast.LENGTH_SHORT).show();
+
+                startLiveTv(homeBean.getData().getBanner().get(position).getHrefTarget()+"");
+
             }
         });
 
@@ -309,8 +312,7 @@ public class HomeFragment extends BaseFragment implements IHomeView, View.OnClic
 
     }
 
-    private void jumpToClassifyClickIn(String title, String gameid
-            , String urlbehind) {
+    private void jumpToClassifyClickIn(String title, String gameid, String urlbehind) {
         Intent intent = new Intent(getActivity(), ClassifyClickInActivity.class);
         intent.putExtra("title", title);
         intent.putExtra("urlbefore1", URL_BEFORE1);
