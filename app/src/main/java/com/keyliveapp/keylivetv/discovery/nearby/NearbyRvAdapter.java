@@ -12,6 +12,8 @@ import com.bumptech.glide.Glide;
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.bean.DiscoveryBean;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 /**
  * Created by dllo on 16/10/28.
  */
@@ -38,7 +40,7 @@ public class NearbyRvAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MyViewHolder myViewHolder= (MyViewHolder) holder;
-        Glide.with(mContext).load(bean.getData().getStreams().getItems().get(position).getPreview()).into(myViewHolder.pic);
+        Glide.with(mContext).load(bean.getData().getStreams().getItems().get(position).getPreview()).bitmapTransform(new RoundedCornersTransformation(mContext, 10, 0, RoundedCornersTransformation.CornerType.ALL)).into(myViewHolder.pic);
         myViewHolder.name.setText(bean.getData().getStreams().getItems().get(position).getUser().getName());
 //        myViewHolder.location.setText(bean.getData().getStreams().getItems().get(position).getLocation().getName());
     }

@@ -1,5 +1,6 @@
 package com.keyliveapp.keylivetv.discovery.hottest;
 
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -7,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
 import com.keyliveapp.keylivetv.bean.HottestBean;
-import com.keyliveapp.keylivetv.discovery.hottest.HottestRvAdapter;
 import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
 import com.keyliveapp.keylivetv.values.URLvalues;
@@ -16,9 +16,10 @@ import com.keyliveapp.keylivetv.values.URLvalues;
  * Created by dllo on 16/10/28.
  */
 public class HottestFragment extends BaseFragment {
-    private RecyclerView rv;
-    private String url;
-    private HottestBean bean;
+    private RecyclerView mRecyclerView;
+    private HottestBean mHottestBean;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+
     @Override
     protected int setLayout() {
         return R.layout.discovery_hottest;
@@ -26,24 +27,23 @@ public class HottestFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-        rv = getViewLayout(R.id.rv_discovery_hottest);
+        mRecyclerView = getViewLayout(R.id.rv_discovery_hottest);
+        mSwipeRefreshLayout = getViewLayout(R.id.srfl_discovery_hottest);
 
     }
 
     @Override
     protected void initDate() {
-        url = URLvalues.DISCOVERY_URL_HOTTEST;
-
-        HttpManager.getInstance().getRequest(url, HottestBean.class, new OnCompletedListener<HottestBean>() {
+        HttpManager.getInstance().getRequest(URLvalues.DISCOVERY_URL_HOTTEST, HottestBean.class, new OnCompletedListener<HottestBean>() {
             @Override
             public void onCompleted(HottestBean result) {
-                bean = result;
+                mHottestBean = result;
                 HottestRvAdapter hottestRvAdapter = new HottestRvAdapter(getActivity());
-                hottestRvAdapter.setBean(bean);
-                rv.setAdapter(hottestRvAdapter);
+                hottestRvAdapter.setmHottestBean(mHottestBean);
+                mRecyclerView.setAdapter(hottestRvAdapter);
                 GridLayoutManager manager = new GridLayoutManager(getActivity(), 2);
                 manager.setOrientation(LinearLayoutManager.VERTICAL);
-                rv.setLayoutManager(manager);
+                mRecyclerView.setLayoutManager(manager);
 
             }
 
@@ -55,4 +55,5 @@ public class HottestFragment extends BaseFragment {
 
 
     }
+
 }

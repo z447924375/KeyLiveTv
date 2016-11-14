@@ -12,20 +12,22 @@ import com.bumptech.glide.Glide;
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.bean.HottestBean;
 
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
+
 /**
  * Created by dllo on 16/11/2.
  */
 
 public class HottestRvAdapter extends RecyclerView.Adapter{
     private Context mContext;
-    private HottestBean bean;
+    private HottestBean mHottestBean;
 
     public HottestRvAdapter(Context mContext) {
         this.mContext = mContext;
     }
 
-    public void setBean(HottestBean bean) {
-        this.bean = bean;
+    public void setmHottestBean(HottestBean mHottestBean) {
+        this.mHottestBean = mHottestBean;
     }
 
     @Override
@@ -39,16 +41,19 @@ public class HottestRvAdapter extends RecyclerView.Adapter{
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         MyViewHolder myViewHolder = (MyViewHolder) holder;
-        Glide.with(mContext).load(bean.getData().getItems().get(position).getPreview()).into(myViewHolder.pic);
-        myViewHolder.name.setText(bean.getData().getItems().get(position).getUser().getName());
-        myViewHolder.num.setText(Integer.toString(bean.getData().getItems().get(position).getViewers()));
-
+        Glide.with(mContext).load(mHottestBean.getData().getItems().get(position).getPreview()).bitmapTransform(new RoundedCornersTransformation(mContext, 10, 0, RoundedCornersTransformation.CornerType.ALL)).into(myViewHolder.pic);
+        myViewHolder.name.setText(mHottestBean.getData().getItems().get(position).getUser().getName());
+        if (mHottestBean.getData().getItems().get(position).getViewers() > 10000) {
+            myViewHolder.num.setText(mHottestBean.getData().getItems().get(position).getViewers() / 10000 + "万");
+        } else {
+            myViewHolder.num.setText(Integer.toString(mHottestBean.getData().getItems().get(position).getViewers()));
+        }
 
     }
 
     @Override
     public int getItemCount() {
-        return bean.getData().getItems().size();
+        return mHottestBean.getData().getItems().size();
     }
 
     class MyViewHolder extends RecyclerView.ViewHolder{
