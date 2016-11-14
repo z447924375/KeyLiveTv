@@ -54,8 +54,7 @@ public class NearbyRvAdapter extends RecyclerView.Adapter {
                 mNearbyItemClickListener.nearbyClick(position);
             }
         });
-
-
+        Glide.with(mContext).load(bean.getData().getStreams().getItems().get(position).getPreview()).bitmapTransform(new RoundedCornersTransformation(mContext, 10, 0, RoundedCornersTransformation.CornerType.ALL)).into(myViewHolder.pic);
         myViewHolder.name.setText(bean.getData().getStreams().getItems().get(position).getUser().getName());
     }
 

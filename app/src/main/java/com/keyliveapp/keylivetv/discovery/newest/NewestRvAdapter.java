@@ -45,6 +45,7 @@ public class NewestRvAdapter extends RecyclerView.Adapter {
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, final int position) {
         MyViewHolder myViewHolder = (MyViewHolder) holder;
+
         Glide.with(mContext).load(bean.getData().getStreams().getItems().get(position).getPreview())
                 .bitmapTransform(new RoundedCornersTransformation(mContext, 10, 0, RoundedCornersTransformation.CornerType.ALL))
                 .into(myViewHolder.pic);
@@ -56,6 +57,7 @@ public class NewestRvAdapter extends RecyclerView.Adapter {
             }
         });
 
+        Glide.with(mContext).load(bean.getData().getStreams().getItems().get(position).getPreview()).bitmapTransform(new RoundedCornersTransformation(mContext, 10, 0, RoundedCornersTransformation.CornerType.ALL)).into(myViewHolder.pic);
         myViewHolder.name.setText(bean.getData().getStreams().getItems().get(position).getUser().getName());
 
     }

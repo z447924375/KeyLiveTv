@@ -1,7 +1,7 @@
 package com.keyliveapp.keylivetv.discovery.hottest;
-
 import android.content.Intent;
 import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,8 +21,9 @@ import com.keyliveapp.keylivetv.values.URLvalues;
  */
 public class HottestFragment extends BaseFragment {
     private RecyclerView rv;
-    private String url;
     private HottestBean bean;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+
     @Override
     protected int setLayout() {
         return R.layout.discovery_hottest;
@@ -31,18 +32,17 @@ public class HottestFragment extends BaseFragment {
     @Override
     protected void initView() {
         rv = getViewLayout(R.id.rv_discovery_hottest);
+        mSwipeRefreshLayout = getViewLayout(R.id.srfl_discovery_hottest);
 
     }
 
     @Override
     protected void initDate() {
-        url = URLvalues.DISCOVERY_URL_HOTTEST;
-
-        HttpManager.getInstance().getRequest(url, HottestBean.class, new OnCompletedListener<HottestBean>() {
+        HttpManager.getInstance().getRequest(URLvalues.DISCOVERY_URL_HOTTEST, HottestBean.class, new OnCompletedListener<HottestBean>() {
             @Override
             public void onCompleted(final HottestBean result) {
                 bean = result;
-                HottestRvAdapter hottestRvAdapter = new HottestRvAdapter(getContext());
+                HottestRvAdapter hottestRvAdapter = new HottestRvAdapter(getActivity());
                 hottestRvAdapter.setBean(bean);
                 rv.setAdapter(hottestRvAdapter);
                 GridLayoutManager manager = new GridLayoutManager(getActivity(), 2);
