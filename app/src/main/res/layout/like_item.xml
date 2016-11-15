@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+    >
+
+    <ImageView
+        android:id="@+id/like_pic"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="10dp"
+        android:src="@mipmap/ic_launcher"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:layout_toRightOf="@id/like_pic"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/like_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:drawableLeft="@mipmap/ic_zhubo_lv_bg_1"
+            android:textColor="@color/colorBlack"
+            />
+
+        <TextView
+            android:textColor="@color/colorBlue"
+            android:id="@+id/like_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textSize="13sp"/>
+    </LinearLayout>
+
+
+</RelativeLayout>
