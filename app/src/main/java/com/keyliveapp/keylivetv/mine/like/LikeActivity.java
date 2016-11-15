@@ -60,7 +60,7 @@ public class LikeActivity extends BaseActivity implements View.OnClickListener {
                 likeLv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                        
+
 
                         return false;
                     }
