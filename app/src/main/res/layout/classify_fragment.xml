@@ -12,7 +12,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="龙珠直播"
+            android:text="珠龙直播"
             android:textColor="#000"
             android:textSize="20sp" />
 

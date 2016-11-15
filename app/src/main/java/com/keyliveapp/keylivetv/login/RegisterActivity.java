@@ -1,5 +1,8 @@
 package com.keyliveapp.keylivetv.login;
 
+import android.view.View;
+import android.widget.ImageView;
+
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseActivity;
 
@@ -8,6 +11,7 @@ import com.keyliveapp.keylivetv.baseclass.BaseActivity;
  */
 
 public class RegisterActivity extends BaseActivity {
+    private ImageView back;
     @Override
     protected int setLayout() {
         return R.layout.register_activity;
@@ -15,11 +19,16 @@ public class RegisterActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-
+        back = bindView(R.id.iv_register_back);
     }
 
     @Override
     protected void inidate() {
-
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 }

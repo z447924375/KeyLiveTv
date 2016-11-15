@@ -24,6 +24,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     private ImageView qq;
     private ImageView weibo;
 
+
     @Override
     protected int setLayout() {
         return R.layout.login_activity;
@@ -52,13 +53,15 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         register.setOnClickListener(this);
         qq.setOnClickListener(this);
         weibo.setOnClickListener(this);
+
     }
+
+
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_login_back :
-                
                 finish();
                 break;
             case R.id.et_login_phone :
@@ -79,4 +82,5 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 break;
         }
     }
+
 }
