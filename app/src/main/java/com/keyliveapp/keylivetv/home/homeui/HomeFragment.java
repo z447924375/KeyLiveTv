@@ -28,6 +28,7 @@ import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeHoriItemClic
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeTitleClickListener;
 import com.keyliveapp.keylivetv.livetv.full.LiveVideoFullActivity;
 import com.keyliveapp.keylivetv.livetv.normal.LiveVideoNormalActivity;
+import com.keyliveapp.keylivetv.search.history.SearchActivity;
 import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
 import com.keyliveapp.keylivetv.values.URLvalues;
@@ -93,6 +94,8 @@ public class HomeFragment extends BaseFragment implements IHomeView, View.OnClic
 
                 break;
             case R.id.home_search:
+                startActivity(new Intent(getActivity(), SearchActivity.class));
+
                 break;
         }
 
@@ -128,7 +131,6 @@ public class HomeFragment extends BaseFragment implements IHomeView, View.OnClic
         ImageView img = (ImageView) view.findViewById(R.id.loading_img);
         final AnimationDrawable animationDrawable = (AnimationDrawable) img.getDrawable();
         animationDrawable.start();
-
         Dialog loadingDialog = new Dialog(getContext(), R.style.loading_dialog);
         loadingDialog.setContentView(view, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT
                 , ViewGroup.LayoutParams.MATCH_PARENT));
@@ -187,6 +189,8 @@ public class HomeFragment extends BaseFragment implements IHomeView, View.OnClic
             public void onPageSelected(int position) {
                 bannerTitle.setText("   " + homeBean.getData().getBanner()
                         .get(Math.abs(position - 1) % homeBean.getData().getBanner().size()).getTitle() + "   ");
+
+
             }
 
             @Override
@@ -198,7 +202,10 @@ public class HomeFragment extends BaseFragment implements IHomeView, View.OnClic
         homeBanner.setOnBannerClickListener(new OnBannerClickListener() {
             @Override
             public void OnBannerClick(int position) {
-                Toast.makeText(mContext, "position:" + position, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(mContext, "position:" + position, Toast.LENGTH_SHORT).show();
+
+                startLiveTv(homeBean.getData().getBanner().get(position).getHrefTarget()+"");
+
             }
         });
 
@@ -307,8 +314,7 @@ public class HomeFragment extends BaseFragment implements IHomeView, View.OnClic
 
     }
 
-    private void jumpToClassifyClickIn(String title, String gameid
-            , String urlbehind) {
+    private void jumpToClassifyClickIn(String title, String gameid, String urlbehind) {
         Intent intent = new Intent(getActivity(), ClassifyClickInActivity.class);
         intent.putExtra("title", title);
         intent.putExtra("urlbefore1", URL_BEFORE1);

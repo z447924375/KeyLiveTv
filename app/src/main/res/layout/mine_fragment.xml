@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp">
+        android:layout_height="50dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -23,7 +23,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:src="@mipmap/top_setup_icon" />
+            android:src="@mipmap/top_setup_icon"
+            android:id="@+id/iv_login_setting"/>
     </RelativeLayout>
 
     <ScrollView
@@ -37,7 +38,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp">
+                android:layout_height="180dp"
+                android:id="@+id/rv_mine_login">
 
                 <ImageView
                     android:layout_width="match_parent"
@@ -70,10 +72,10 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_mine_pllogin"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="15dp"
                     android:text="登录可以收到订阅更新的通知"
                     android:textColor="#71798E"
-                    android:textSize="8sp" />
+                    android:textSize="10sp" />
 
             </RelativeLayout>
 
@@ -172,6 +174,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/iv_mine_sub_ll"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="10dp"

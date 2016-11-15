@@ -1,5 +1,8 @@
 package com.keyliveapp.keylivetv.bean;
 
+import com.litesuits.orm.db.annotation.PrimaryKey;
+import com.litesuits.orm.db.enums.AssignType;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -24,6 +27,7 @@ public class DomainBean implements Serializable{
      * RoomGrade : 4
      */
 
+    @PrimaryKey(AssignType.AUTO_INCREMENT)
     private int CityId;
     /**
      * Name :  苗苗是个小可爱
@@ -177,6 +181,7 @@ public class DomainBean implements Serializable{
     public static class BaseRoomInfoBean implements Serializable{
         private String Name;
         private String Avatar;
+
         private String Domain;
         private int Game;
         private String GameName;

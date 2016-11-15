@@ -6,9 +6,11 @@ import android.os.Looper;
 import android.util.Log;
 
 import com.keyliveapp.keylivetv.baseclass.MyApp;
+import com.keyliveapp.keylivetv.bean.DomainBean;
 import com.litesuits.orm.LiteOrm;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -23,7 +25,7 @@ public class DBTools {
     private DBTools() {
         //
 //        String name = EMClient.getInstance().getCurrentUser();
-        mLiteOrm = LiteOrm.newSingleInstance(MyApp.getContext(),  "myDataBase.db");
+        mLiteOrm = LiteOrm.newSingleInstance(MyApp.getContext(),  "like.db");
         threadPool = Executors.newFixedThreadPool(Runtime.getRuntime().availableProcessors() + 1);
         mHandler = new Handler(Looper.getMainLooper());
     }
@@ -165,32 +167,32 @@ public class DBTools {
     public interface QueryListener<T> {
         // 将接口用泛型去实现
         // 当查询完成后,将查到的数据作为data 返回给Activity等
-        void onQuery(ArrayList<T> str);
+        void onQuery(List<T> str);
     }
 
 
 
 
-//    // 检索数据库是否存在这个对象
-//    public <T> void check(final CheckListener<T> listener, final RequestBean requestBean) {
-//        threadPool.execute(new Runnable() {
-//            @Override
-//            public void run() {
-//                // 子线程进行数据的查询
-//                RequestBean bean = mLiteOrm.queryById(requestBean.getName(), RequestBean.class);
-//                if (bean!=null) {
-//                    Log.d("DBTools", "name:" + bean.getName());
-//                }
-//                // 得到结果，开始回传参数
-//                listener.onCheck(bean);
-//            }
-//        });
-//    }
+    // 检索数据库是否存在这个对象
+    public <T> void check(final CheckListener<T> listener, final DomainBean domainBean) {
+        threadPool.execute(new Runnable() {
+            @Override
+            public void run() {
+                // 子线程进行数据的查询
+                DomainBean bean = mLiteOrm.queryById(domainBean.getCityId(), DomainBean.class);
+                if (bean!=null) {
+                    Log.d("DBTools", "name:" + bean.getCityId());
+                }
+                // 得到结果，开始回传参数
+                listener.onCheck(bean);
+            }
+        });
+    }
 
 
-//    public interface CheckListener<T> {
-//        void onCheck(RequestBean bean);
-//    }
+    public interface CheckListener<T> {
+        void onCheck(DomainBean bean);
+    }
 
 
 

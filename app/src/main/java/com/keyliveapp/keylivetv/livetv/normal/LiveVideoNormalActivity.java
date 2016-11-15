@@ -5,12 +5,12 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.DisplayMetrics;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
@@ -22,12 +22,13 @@ import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseActivity;
 import com.keyliveapp.keylivetv.bean.DomainBean;
 import com.keyliveapp.keylivetv.bean.LiveStreamBean;
+import com.keyliveapp.keylivetv.tools.db.DBTools;
 import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
 import com.keyliveapp.keylivetv.values.URLvalues;
+import com.litesuits.orm.LiteOrm;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import io.vov.vitamio.MediaPlayer;
 import io.vov.vitamio.Vitamio;
@@ -45,7 +46,9 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
     private CheckBox like, btnFull;
     private TabLayout liveTab;
     private ViewPager liveVp;
-    private DisplayMetrics mDm;
+    private CountDownTimer countDownTimer;
+    private int clickedTime = 0;
+    private LiteOrm mLiteOrm;
 
 
     @Override
@@ -55,6 +58,7 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
 
     @Override
     protected void initView() {
+        mLiteOrm = LiteOrm.newSingleInstance(this,"like.db");
         Vitamio.isInitialized(getApplicationContext());
         mVideoView = (VideoView) findViewById(R.id.buffer);
         downloadRateView = (TextView) findViewById(R.id.download_rate);
@@ -68,11 +72,16 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
 
     }
 
+
+
+
     @Override
     protected void inidate() {
+
+
         Intent intent = getIntent();
         final String roomid = intent.getExtras().getString("roomid");
-        DomainBean bean = (DomainBean) intent.getSerializableExtra("domain");
+        final DomainBean bean = (DomainBean) intent.getSerializableExtra("domain");
 
         if (roomid != null) {
             String streamInfo = URLvalues.STREAM_URL_FRONT + roomid + URLvalues.STREAN_URL_BEHIND;
@@ -99,12 +108,49 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
         mVideoView.setOnBufferingUpdateListener(this);
         mVideoView.setOnInfoListener(this);
         mVideoView.setOnPreparedListener(this);
+
+        mVideoView.setOnTouchListener(new View.OnTouchListener() {
+
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+
+                        clickedTime++;
+                        if (clickedTime % 2 == 1) {
+                            btnFull.setVisibility(View.VISIBLE);
+                            btnBack.setVisibility(View.VISIBLE);
+                            countDownTimer = new CountDownTimer(5000, 1000) {
+                                @Override
+                                public void onTick(long millisUntilFinished) {
+                                }
+                                @Override
+                                public void onFinish() {
+                                    btnBack.setVisibility(View.INVISIBLE);
+                                    btnFull.setVisibility(View.INVISIBLE);
+                                    clickedTime++;
+                                }
+                            }.start();
+                        }
+                        if (clickedTime % 2 == 0) {
+                            btnFull.setVisibility(View.INVISIBLE);
+                            btnBack.setVisibility(View.INVISIBLE);
+                            countDownTimer.cancel();
+                        }
+                        break;
+
+                }
+                return false;
+            }
+        });
+
+
         btnBack.setOnClickListener(this);
         btnFull.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    Toast.makeText(LiveVideoNormalActivity.this, "铺满", Toast.LENGTH_SHORT).show();
                     enterFullScreen();
                 } else {
                     quitFullScreen();
@@ -115,19 +161,11 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    List<String> listRoomId = new ArrayList<String>();
-                    listRoomId.add(roomid);
-//                    DBTools.getInstance().insert(listRoomId);
-//                    DBTools.getInstance().getAll(new DBTools.QueryListener<String>() {
-//                        @Override
-//                        public void onQuery(ArrayList<String> str) {
-//                            Log.d("LiveVideoNormalActivity", "str:" + str);
-//                        }
-//                    },null);
+
+                    DBTools.getInstance().insert(bean);
 
                     Toast.makeText(LiveVideoNormalActivity.this, "已收藏", Toast.LENGTH_SHORT).show();
                 } else {
-//                    DBTools.getInstance().delete(roomid);
                     Toast.makeText(LiveVideoNormalActivity.this, "已取消收藏", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -149,7 +187,9 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
         liveVp.setAdapter(adapter);
         liveTab.setupWithViewPager(liveVp);
 
+
     }
+
 
     @Override
     public void onClick(View v) {
@@ -196,11 +236,7 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
     public void onBufferingUpdate(MediaPlayer mp, int percent) {
         loadRateView.setText(percent + "%");
     }
-//    @Override
-//    protected void onResume() {
-//
-//        super.onResume();
-//    }
+
 
     public void enterFullScreen() {
 
@@ -208,14 +244,9 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
         if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         }
-        mDm = new DisplayMetrics();
-        this.getWindowManager().getDefaultDisplay().getMetrics(mDm);
         mCenterLayout.setLayoutParams(new RelativeLayout.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
-        mVideoView.setLayoutParams(new ViewGroup.LayoutParams(mDm.widthPixels, mDm.heightPixels));
-
-
+                RelativeLayout.LayoutParams.MATCH_PARENT,
+                RelativeLayout.LayoutParams.MATCH_PARENT));
     }
 
     public void quitFullScreen() {

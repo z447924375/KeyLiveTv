@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.keyliveapp.keylivetv.R;
+import com.keyliveapp.keylivetv.bean.HostBean;
 
 import java.util.ArrayList;
 import java.util.List;

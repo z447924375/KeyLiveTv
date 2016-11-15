@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class SearchActivity extends BaseActivity implements View.OnClickListener {
 
-    private ImageView imgBack;
+    private ImageButton imgBack;
     private ListView searchLv;
     private String TABLE_NAME = "search_table";
     private String COLUMNS_NAME = "word";
@@ -63,7 +63,7 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
 //        rawQueueBtn.setOnClickListener(this);
 
 
-        imgBack = (ImageView) findViewById(R.id.history_in_frame).findViewById(R.id.search_back);
+        imgBack = (ImageButton) findViewById(R.id.history_in_frame).findViewById(R.id.search_back);
 //        imgBack.setTag(1);
         imgBack.setOnClickListener(this);
 
