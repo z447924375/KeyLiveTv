@@ -58,6 +58,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.iv_login_back :
+                
                 finish();
                 break;
             case R.id.et_login_phone :
