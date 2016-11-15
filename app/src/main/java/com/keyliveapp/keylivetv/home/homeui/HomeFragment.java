@@ -189,6 +189,8 @@ public class HomeFragment extends BaseFragment implements IHomeView, View.OnClic
             public void onPageSelected(int position) {
                 bannerTitle.setText("   " + homeBean.getData().getBanner()
                         .get(Math.abs(position - 1) % homeBean.getData().getBanner().size()).getTitle() + "   ");
+
+
             }
 
             @Override

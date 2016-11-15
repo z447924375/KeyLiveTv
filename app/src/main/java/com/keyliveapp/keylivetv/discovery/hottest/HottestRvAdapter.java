@@ -2,7 +2,6 @@ package com.keyliveapp.keylivetv.discovery.hottest;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,6 +62,13 @@ public class HottestRvAdapter extends RecyclerView.Adapter{
         myViewHolder.name.setText(bean.getData().getItems().get(position).getUser().getName());
         myViewHolder.num.setText(Integer.toString(bean.getData().getItems().get(position).getViewers()));
 
+        Glide.with(mContext).load(bean.getData().getItems().get(position).getPreview()).bitmapTransform(new RoundedCornersTransformation(mContext, 10, 0, RoundedCornersTransformation.CornerType.ALL)).into(myViewHolder.pic);
+        myViewHolder.name.setText(bean.getData().getItems().get(position).getUser().getName());
+        if (bean.getData().getItems().get(position).getViewers() > 10000) {
+            myViewHolder.num.setText(bean.getData().getItems().get(position).getViewers() / 10000 + "万");
+        } else {
+            myViewHolder.num.setText(Integer.toString(bean.getData().getItems().get(position).getViewers()));
+        }
 
     }
 
