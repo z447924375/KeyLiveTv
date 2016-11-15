@@ -10,14 +10,6 @@
         android:layout_height="180dp"
         android:src="@mipmap/default_live_ic"
         />
-    <ImageView
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:src="@mipmap/ic_zhibo_box_zhubo"
-        android:id="@+id/discovery_nearby_zhubo"
-        android:layout_alignTop="@+id/discovery_newaby_grey"
-        android:layout_alignLeft="@+id/discovery_nearby_pic"
-        android:layout_alignStart="@+id/discovery_nearby_pic"/>
 
 
     <TextView
@@ -32,16 +24,6 @@
         android:layout_toRightOf="@+id/discovery_nearby_zhubo"
        />
 
-    <ImageView
-        android:layout_width="10dp"
-        android:layout_height="10dp"
-        android:src="@mipmap/icon_location_grey"
-        android:id="@+id/discovery_newaby_grey"
-        android:layout_below="@+id/discovery_nearby_pic"
-        android:layout_toRightOf="@+id/discovery_nearby_text"
-        android:layout_marginLeft="20dp"
-        />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,6 +33,26 @@
         android:layout_below="@+id/discovery_nearby_pic"
         android:layout_toRightOf="@+id/discovery_newaby_grey"
         android:layout_marginLeft="5dp"/>
+
+    <ImageView
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:src="@mipmap/icon_location_grey"
+        android:id="@+id/discovery_newaby_grey"
+        android:layout_marginLeft="20dp"
+        android:layout_alignBottom="@+id/discovery_nearby_location"
+        android:layout_toRightOf="@+id/discovery_nearby_text"
+        android:layout_toEndOf="@+id/discovery_nearby_text"
+        android:layout_marginStart="20dp"/>
+
+    <ImageView
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:src="@mipmap/ic_zhibo_box_zhubo"
+        android:id="@+id/discovery_nearby_zhubo"
+        android:layout_alignBottom="@+id/discovery_nearby_text"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"/>
 
 
 </RelativeLayout>

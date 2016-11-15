@@ -38,7 +38,7 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp"
+                android:layout_height="180dp"
                 android:id="@+id/rv_mine_login">
 
                 <ImageView
@@ -72,10 +72,10 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_mine_pllogin"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="5dp"
+                    android:layout_marginTop="15dp"
                     android:text="登录可以收到订阅更新的通知"
                     android:textColor="#71798E"
-                    android:textSize="8sp" />
+                    android:textSize="10sp" />
 
             </RelativeLayout>
 
