@@ -55,7 +55,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         weibo.setOnClickListener(this);
 
     }
-
+   
 
 
     @Override
