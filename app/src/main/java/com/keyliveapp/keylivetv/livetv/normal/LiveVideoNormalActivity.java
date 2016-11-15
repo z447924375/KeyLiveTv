@@ -40,7 +40,7 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
 
 
     private VideoView mVideoView;
-    private TextView downloadRateView, loadRateView;
+    private TextView downloadRateView, loadRateView,liveTitle;
     private ImageButton btnBack;
     private CenterLayout mCenterLayout;
     private CheckBox like, btnFull;
@@ -49,6 +49,7 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
     private CountDownTimer countDownTimer;
     private int clickedTime = 0;
     private LiteOrm mLiteOrm;
+    private RelativeLayout liveHeader;
 
 
     @Override
@@ -69,7 +70,8 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
         liveVp = (ViewPager) findViewById(R.id.live_vp);
         like = (CheckBox) findViewById(R.id.live_like);
         mCenterLayout = (CenterLayout) findViewById(R.id.centerLayout);
-
+        liveTitle = (TextView) findViewById(R.id.live_title);
+        liveHeader = (RelativeLayout) findViewById(R.id.live_header);
     }
 
 
@@ -82,6 +84,9 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
         Intent intent = getIntent();
         final String roomid = intent.getExtras().getString("roomid");
         final DomainBean bean = (DomainBean) intent.getSerializableExtra("domain");
+
+        liveTitle.setText(bean.getBaseRoomInfo().getName());
+
 
         if (roomid != null) {
             String streamInfo = URLvalues.STREAM_URL_FRONT + roomid + URLvalues.STREAN_URL_BEHIND;
@@ -119,23 +124,21 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
 
                         clickedTime++;
                         if (clickedTime % 2 == 1) {
-                            btnFull.setVisibility(View.VISIBLE);
-                            btnBack.setVisibility(View.VISIBLE);
-                            countDownTimer = new CountDownTimer(5000, 1000) {
+                            liveHeader.setVisibility(View.VISIBLE);
+
+                            countDownTimer = new CountDownTimer(4000, 1000) {
                                 @Override
                                 public void onTick(long millisUntilFinished) {
                                 }
                                 @Override
                                 public void onFinish() {
-                                    btnBack.setVisibility(View.INVISIBLE);
-                                    btnFull.setVisibility(View.INVISIBLE);
+                                    liveHeader.setVisibility(View.INVISIBLE);
                                     clickedTime++;
                                 }
                             }.start();
                         }
                         if (clickedTime % 2 == 0) {
-                            btnFull.setVisibility(View.INVISIBLE);
-                            btnBack.setVisibility(View.INVISIBLE);
+                            liveHeader.setVisibility(View.INVISIBLE);
                             countDownTimer.cancel();
                         }
                         break;
@@ -151,9 +154,11 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
+
                     enterFullScreen();
                 } else {
                     quitFullScreen();
+
                 }
             }
         });

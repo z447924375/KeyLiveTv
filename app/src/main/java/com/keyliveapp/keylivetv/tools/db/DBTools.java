@@ -87,12 +87,18 @@ public class DBTools {
 
     // 删除单条数据(传一个bean)
     public <T> void delete(final T bean) {
+
+
         threadPool.execute(new Runnable() {
             @Override
             public void run() {
                 mLiteOrm.delete(bean);
             }
         });
+
+
+
+
     }
 
 

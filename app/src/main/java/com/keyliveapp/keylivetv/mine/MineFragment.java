@@ -65,7 +65,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         }
         login.setOnClickListener(this);
         setting.setOnClickListener(this);
-
+        mineSubLayout.setOnClickListener(this);
     }
 
 
@@ -79,13 +79,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
     }
 
-
     @Override
-    public void onDestroy() {
-        super.onDestroy();
+    public void onDestroyView() {
         EventBus.getDefault().unregister(this);
-        mineSubLayout.setOnClickListener(this);
+        super.onDestroyView();
     }
+
+
 
 
     @Override
@@ -102,8 +102,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             case R.id.iv_mine_sub_ll:
                 Intent intent2 = new Intent(getActivity(), LikeActivity.class);
                 startActivity(intent2);
-                login.setOnClickListener(this);
-                setting.setOnClickListener(this);
                 break;
 
         }

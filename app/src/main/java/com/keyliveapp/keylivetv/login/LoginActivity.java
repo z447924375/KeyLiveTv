@@ -128,7 +128,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
 //                        intent.putExtra(USER_ICON, platDB.getUserIcon());
 //                        getBaseContext().sendBroadcast(intent);
 
-                        Toast.makeText(getBaseContext(), "登录成功", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
