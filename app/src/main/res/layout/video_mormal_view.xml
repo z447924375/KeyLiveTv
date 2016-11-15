@@ -85,19 +85,19 @@
         android:id="@+id/live_back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="20dp"
-        android:background="@mipmap/btn_zhibo_fangjian_back_normal"/>
+        android:layout_margin="20dp"
+        android:background="@mipmap/btn_zhibo_fangjian_back_normal"
+        android:visibility="invisible"/>
 
     <CheckBox
-
         android:id="@+id/live_full"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
-        android:button="@drawable/full_screen"/>
+        android:button="@drawable/full_screen"
+        android:visibility="invisible"/>
 
 
 </RelativeLayout>

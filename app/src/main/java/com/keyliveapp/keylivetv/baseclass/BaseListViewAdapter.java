@@ -26,6 +26,8 @@ public abstract class BaseListViewAdapter<T> extends BaseAdapter {
         mInflater = LayoutInflater.from(context);
     }
 
+
+
     @Override
     public int getCount() {
         return mDataList == null ? 0 : mDataList.size();
