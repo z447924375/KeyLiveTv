@@ -184,6 +184,8 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
         String url = "";
         if (null == URL_BEFORE1 || null == URL_BEFORE2 || null == URL_BEHIND) {
             url = "https://a4.plu.cn/api/matches?start-index=0&max-results=200&version=3.7.0&device=4&packageId=1";
+            imgLoading.setImageResource(R.mipmap.img_loading_fail);
+            tvLoading.setText("没有任何数据");
         } else {
             url = URL_BEFORE1 + startIndes + URL_BEFORE2 + gameId + URL_BEHIND;
         }

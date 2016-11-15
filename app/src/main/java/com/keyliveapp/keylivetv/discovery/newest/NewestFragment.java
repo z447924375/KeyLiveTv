@@ -85,7 +85,7 @@ public class NewestFragment extends BaseFragment {
                 String roomid = result.getBroadcast().getRoomId() + "";
 
                 Intent intent = new Intent(getActivity(), LiveVideoFullActivity.class);
-                intent.putExtra("roomid", roomid);
+                intent.putExtra ("roomid", roomid);
                 intent.putExtra("domain",result);
                 startActivity(intent);
             }
