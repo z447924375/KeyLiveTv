@@ -13,6 +13,7 @@
         android:src="@mipmap/ic_column_h"/>
 
     <TextView
+        android:textColor="@color/colorBlack"
         android:id="@+id/home_head_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,6 +22,7 @@
         android:layout_toRightOf="@+id/all_tag"/>
 
     <Button
+        android:gravity="center"
         android:id="@+id/home_btn_channel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,7 +32,7 @@
         android:background="@color/colorAlpha"
         android:drawableRight="@mipmap/ic_arrow_go"
         android:textColor="@color/colorGray"
-        android:textSize="10sp"
+        android:textSize="13sp"
 
         />
 
