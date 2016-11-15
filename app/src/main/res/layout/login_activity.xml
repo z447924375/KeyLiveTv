@@ -26,23 +26,41 @@
 
 
     </RelativeLayout>
-    <EditText
-        android:layout_marginTop="100dp"
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
+        android:background="@drawable/edit_background">
+    <EditText
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="请输入手机号"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="    请输入手机号"
+        android:textColorHint="#D0D0D0"
         android:id="@+id/et_login_phone"
+        android:background="@null"
         />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#F2F2F2"
+            android:layout_marginRight="2dp"
+            android:layout_marginLeft="2dp"
+            />
     <EditText
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="请输入密码"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:hint="  请输入密码"
+        android:textColorHint="#D0D0D0"
         android:password="true"
+        android:background="@null"
         android:id="@+id/et_login_password"/>
+    </LinearLayout>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

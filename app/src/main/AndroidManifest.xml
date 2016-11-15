@@ -30,9 +30,10 @@
             </intent-filter>
         </activity>
         <activity android:name=".classify.ClassifyClickInActivity"></activity>
-        <activity android:name=".livetv.normal.LiveVideoNormalActivity">
-
-        </activity>
+        <activity android:name=".livetv.normal.LiveVideoNormalActivity"></activity>
+        <activity android:name=".login.LoginActivity"/>
+        <activity android:name=".login.RegisterActivity"/>
+        <activity android:name=".mine.SettingActivity"/>
         <activity android:name=".livetv.full.LiveVideoFullActivity">
 
         </activity>

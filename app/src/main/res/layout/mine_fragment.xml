@@ -23,7 +23,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
-            android:src="@mipmap/top_setup_icon" />
+            android:src="@mipmap/top_setup_icon"
+            android:id="@+id/iv_login_setting"/>
     </RelativeLayout>
 
     <ScrollView
@@ -37,7 +38,8 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="150dp">
+                android:layout_height="150dp"
+                android:id="@+id/rv_mine_login">
 
                 <ImageView
                     android:layout_width="match_parent"
