@@ -1,6 +1,6 @@
 package com.keyliveapp.keylivetv.mine.like;
 
-import android.util.Log;
+import android.content.Context;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -13,6 +13,7 @@ import com.keyliveapp.keylivetv.baseclass.BaseListViewAdapter;
 import com.keyliveapp.keylivetv.baseclass.BaseToast;
 import com.keyliveapp.keylivetv.baseclass.BaseViewHolder;
 import com.keyliveapp.keylivetv.bean.DomainBean;
+import com.keyliveapp.keylivetv.livetv.StartVideoViewPlayer;
 import com.keyliveapp.keylivetv.tools.db.DBTools;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public class LikeActivity extends BaseActivity implements View.OnClickListener {
     private ListView likeLv;
     private ImageButton likeBack;
     private Button likeDeleteAll;
+    private Context mContext = this.getBaseContext();
 
     @Override
     protected int setLayout() {
@@ -56,15 +58,21 @@ public class LikeActivity extends BaseActivity implements View.OnClickListener {
                 };
 
                 likeLv.setAdapter(adapter);
+
+                likeLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        StartVideoViewPlayer.getInstance(mContext)
+                                .startBroadCast(domainList.get(position).getBaseRoomInfo().getDomain());
+                    }
+                });
+
                 likeLv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 
-                        Log.d("LikeActivity", "position+++++++++++++++++listItem:" + position);
                         DBTools.getInstance().delete(domainList.get(position));
                         domainList.remove(position);
-
-
                         adapter.deleteItem(position);
                         return false;
                     }

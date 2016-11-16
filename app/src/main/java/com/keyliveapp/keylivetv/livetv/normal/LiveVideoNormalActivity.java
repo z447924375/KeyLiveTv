@@ -168,7 +168,6 @@ public class LiveVideoNormalActivity extends BaseActivity implements MediaPlayer
                 if (isChecked) {
 
                     DBTools.getInstance().insert(bean);
-
                     Toast.makeText(LiveVideoNormalActivity.this, "已收藏", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(LiveVideoNormalActivity.this, "已取消收藏", Toast.LENGTH_SHORT).show();

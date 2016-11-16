@@ -19,18 +19,14 @@ import android.widget.Toast;
 
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
-import com.keyliveapp.keylivetv.bean.DomainBean;
 import com.keyliveapp.keylivetv.bean.HomeBean;
 import com.keyliveapp.keylivetv.classify.ClassifyClickInActivity;
 import com.keyliveapp.keylivetv.home.homepresenter.HomePresenter;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeContentClickListener;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeHoriItemClickListner;
 import com.keyliveapp.keylivetv.home.homeui.homeclickcallback.OnHomeTitleClickListener;
-import com.keyliveapp.keylivetv.livetv.full.LiveVideoFullActivity;
-import com.keyliveapp.keylivetv.livetv.normal.LiveVideoNormalActivity;
 import com.keyliveapp.keylivetv.search.history.SearchActivity;
-import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
-import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
+import com.keyliveapp.keylivetv.livetv.StartVideoViewPlayer;
 import com.keyliveapp.keylivetv.values.URLvalues;
 import com.youth.banner.Banner;
 import com.youth.banner.Transformer;
@@ -190,7 +186,6 @@ public class HomeFragment extends BaseFragment implements IHomeView, View.OnClic
                 bannerTitle.setText("   " + homeBean.getData().getBanner()
                         .get(Math.abs(position - 1) % homeBean.getData().getBanner().size()).getTitle() + "   ");
 
-
             }
 
             @Override
@@ -202,9 +197,9 @@ public class HomeFragment extends BaseFragment implements IHomeView, View.OnClic
         homeBanner.setOnBannerClickListener(new OnBannerClickListener() {
             @Override
             public void OnBannerClick(int position) {
-//                Toast.makeText(mContext, "position:" + position, Toast.LENGTH_SHORT).show();
 
-                startLiveTv(homeBean.getData().getBanner().get(position).getHrefTarget()+"");
+                StartVideoViewPlayer.getInstance(getContext())
+                        .startBroadCast(homeBean.getData().getBanner().get(position).getHrefTarget() + "");
 
             }
         });
@@ -258,56 +253,10 @@ public class HomeFragment extends BaseFragment implements IHomeView, View.OnClic
                 String domain = homeBean.getData().getColumns().get(titlePosition).getRooms().get(contentPosition)
                         .getChannel().getDomain();
                 if (domain != null) {
-                    if (titlePosition == 1) {
-                        startFullLiveTv(domain);
-                    } else {
-                        startLiveTv(domain);
-                    }
+                    StartVideoViewPlayer.getInstance(getContext()).startBroadCast(domain);
                 } else {
                     Toast.makeText(mContext, "链接不存在或网络数据错误", Toast.LENGTH_SHORT).show();
                 }
-            }
-        });
-
-
-    }
-
-    private void startLiveTv(String domain) {
-        String domainUrl = URLvalues.DOMAIN_URL_FRONT + domain + URLvalues.DOMAIN_URL_BEHIND;
-        HttpManager.getInstance().getRequest(domainUrl, DomainBean.class, new OnCompletedListener<DomainBean>() {
-            @Override
-            public void onCompleted(DomainBean result) {
-                String roomid = result.getBroadcast().getRoomId() + "";
-
-                Intent intent = new Intent(getActivity(), LiveVideoNormalActivity.class);
-                intent.putExtra("roomid", roomid);
-                intent.putExtra("domain", result);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onFailed() {
-
-            }
-        });
-    }
-
-    private void startFullLiveTv(String domain) {
-        String domainUrl = URLvalues.DOMAIN_URL_FRONT + domain + URLvalues.DOMAIN_URL_BEHIND;
-        HttpManager.getInstance().getRequest(domainUrl, DomainBean.class, new OnCompletedListener<DomainBean>() {
-            @Override
-            public void onCompleted(DomainBean result) {
-                String roomid = result.getBroadcast().getRoomId() + "";
-
-                Intent intent = new Intent(getActivity(), LiveVideoFullActivity.class);
-                intent.putExtra("roomid", roomid);
-                intent.putExtra("domain", result);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onFailed() {
-
             }
         });
 

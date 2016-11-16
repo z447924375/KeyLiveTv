@@ -1,6 +1,5 @@
 package com.keyliveapp.keylivetv.discovery.nearby;
 
-import android.content.Intent;
 import android.os.Handler;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,8 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseFragment;
 import com.keyliveapp.keylivetv.bean.DiscoveryBean;
-import com.keyliveapp.keylivetv.bean.DomainBean;
-import com.keyliveapp.keylivetv.livetv.full.LiveVideoFullActivity;
+import com.keyliveapp.keylivetv.livetv.StartVideoViewPlayer;
 import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
 import com.keyliveapp.keylivetv.values.URLvalues;
@@ -55,7 +53,8 @@ public class NearbyFragment extends BaseFragment{
 
                                 String domain = result.getData().getStreams().getItems().get(position).getChannel().getDomain();
 
-                                startFullLiveTv(domain);
+                                StartVideoViewPlayer.getInstance(getContext()).startBroadCast(domain);
+
                             }
                         });
                     }
@@ -74,27 +73,7 @@ public class NearbyFragment extends BaseFragment{
 
 
     }
-    private void startFullLiveTv(final String domain) {
-        final String domainUrl = URLvalues.DOMAIN_URL_FRONT + domain + URLvalues.DOMAIN_URL_BEHIND;
-        HttpManager.getInstance().getRequest(domainUrl, DomainBean.class, new OnCompletedListener<DomainBean>() {
-            @Override
-            public void onCompleted(DomainBean result) {
-                String roomid = result.getBroadcast().getRoomId() + "";
 
-                Intent intent = new Intent(getActivity(), LiveVideoFullActivity.class);
-                intent.putExtra("roomid", roomid);
-                intent.putExtra("domain",result);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onFailed() {
-
-            }
-        });
-
-
-    }
 
 
 }

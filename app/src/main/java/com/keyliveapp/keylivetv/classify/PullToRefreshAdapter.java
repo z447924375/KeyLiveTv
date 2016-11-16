@@ -119,13 +119,13 @@ public class PullToRefreshAdapter extends BaseAdapter {
             myViewHolder.imageViewLeft.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mClicked.click(position * 2);
+                    mClicked.click(position * 2,mContext);
                 }
             });
             myViewHolder.imageViewRight.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mClicked.click(position * 2 + 1);
+                    mClicked.click(position * 2 + 1,mContext);
                 }
             });
 
@@ -172,6 +172,6 @@ public class PullToRefreshAdapter extends BaseAdapter {
             }
         }
         public interface Clicked {
-            void click(int position);
+            void click(int position,Context context);
         }
 }

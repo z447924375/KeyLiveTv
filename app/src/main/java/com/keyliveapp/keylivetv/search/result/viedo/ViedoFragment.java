@@ -128,8 +128,9 @@ public class ViedoFragment extends BaseFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-//                Log.d("ViedoFragment", mViedoBeanList.get((position - 1) / 20).getItems().get((position - 1) % 20).getTitle());
+//                String domain = mViedoBeanList.get((position - 1) / 20).getItems().get((position - 1) % 20).getDomain();
 //                Log.d("ViedoFragment", mViedoBeanList.get((position - 1) / 20).getItems().get((position - 1) % 20).getDomain());
+//                StartVideoViewPlayer.getInstance(getContext()).startBroadCast(domain);
                 Toast.makeText(mContext, "该视频暂不能播放", Toast.LENGTH_SHORT).show();
 
             }

@@ -1,8 +1,8 @@
 package com.keyliveapp.keylivetv.classify;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
-import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
@@ -18,13 +18,10 @@ import com.handmark.pulltorefresh.library.PullToRefreshListView;
 import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseActivity;
 import com.keyliveapp.keylivetv.bean.ClassfyAllBean;
-import com.keyliveapp.keylivetv.bean.DomainBean;
-import com.keyliveapp.keylivetv.livetv.full.LiveVideoFullActivity;
-import com.keyliveapp.keylivetv.livetv.normal.LiveVideoNormalActivity;
 import com.keyliveapp.keylivetv.search.history.SearchActivity;
+import com.keyliveapp.keylivetv.livetv.StartVideoViewPlayer;
 import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
-import com.keyliveapp.keylivetv.values.URLvalues;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,7 +36,7 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
     private String URL_BEFORE2 = "";
     private String URL_BEHIND = "";
 
-    private ArrayList<ClassfyAllBean> mClassfyAllBeen= new ArrayList<>();
+    private ArrayList<ClassfyAllBean> mClassfyAllBeen = new ArrayList<>();
     private ArrayList<String> previews;
     private ArrayList<String> viewers;
     private ArrayList<String> names;
@@ -78,8 +75,6 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
         btnBack = bindView(R.id.btn_back);
 
 
-//        lvPull.setMode(PullToRefreshBase.Mode.BOTH);
-
         lvPull.setMode(PullToRefreshBase.Mode.BOTH);
         lvPull.setOnRefreshListener(new PullToRefreshBase.OnRefreshListener2<ListView>() {
             @Override
@@ -90,7 +85,6 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
 
                 String url = URL_BEFORE1 + startIndes + URL_BEFORE2 + gameId + URL_BEHIND;
 
-//                pullToRefreshAdapter = null;
 
                 pullToRefreshAdapter = null;
 
@@ -106,21 +100,6 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
 
                     }
                 }, 1000);
-//                startIndes = 0;
-//                endIndes = 0;
-//
-//                String url =
-//                        URL_BEFORE1 + startIndes + URL_BEFORE2 + gameId + URL_BEHIND;
-//
-//                pullToRefreshAdapter = null;
-//
-//                setOrChangeAdapter(url);
-//                handler.postDelayed(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        refreshView.onRefreshComplete();
-//                    }
-//                },1000);
 
             }
 
@@ -202,7 +181,7 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
         HttpManager.getInstance().getRequest(url, ClassfyAllBean.class, new OnCompletedListener<ClassfyAllBean>() {
             @Override
             public void onCompleted(ClassfyAllBean result) {
-               mClassfyAllBeen.add(mClassfyAllBeen.size(),result);
+                mClassfyAllBeen.add(mClassfyAllBeen.size(), result);
                 setData(result);
             }
 
@@ -222,14 +201,7 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
                     titles = new ArrayList<>();
                     viewers = new ArrayList<>();
                 } else {
-//                    previews.clear();
-//                    names.clear();
-//                    titles.clear();
-//                    viewers.clear();
-//                    previews = new ArrayList<>();
-//                    names = new ArrayList<>();
-//                    titles = new ArrayList<>();
-//                    viewers = new ArrayList<>();
+
                 }
 
                 List<ClassfyAllBean.DataBean.ItemsBean> itemsBeans = result.getData().getItems();
@@ -258,7 +230,6 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
                                     tvLoading.setText("没有任何数据");
                                     break;
                                 default:
-//                                    animationDrawable.stop();
                                     classi_ff.setVisibility(View.GONE);
                                     break;
                             }
@@ -268,26 +239,16 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
                     handler.sendEmptyMessageDelayed(endIndes, 0);
 
                 } else {
-//                    pullToRefreshAdapter.setAll(previews, names, titles, viewers);
                     pullToRefreshAdapter.notifyDataSetChanged();
                     lvPull.onRefreshComplete();
                 }
                 pullToRefreshAdapter.setClicked(new PullToRefreshAdapter.Clicked() {
                     @Override
-                    public void click(final int position) {
-                        Log.d("ClassifyClickInActivity", "position:" + position);
-                        Handler handler = new Handler();
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                String domain = mClassfyAllBeen.get(position/30).getData().getItems().get(position%30).getChannel().getDomain();
-                                if (gameId.equals("119")) {
-                                    startFullLiveTv(domain);
-                                }else {
-                                    startLiveTv(domain);
-                                }
-                            }
-                        });
+                    public void click(int position, Context context) {
+                        String domain = mClassfyAllBeen.get(position / 30).getData().getItems().get(position % 30).getChannel().getDomain();
+
+                        StartVideoViewPlayer.getInstance(context).startBroadCast(domain);
+
                     }
                 });
 
@@ -298,48 +259,6 @@ public class ClassifyClickInActivity extends BaseActivity implements View.OnClic
     }
 
 
-    private void startLiveTv(String domain) {
-        String domainUrl = URLvalues.DOMAIN_URL_FRONT + domain + URLvalues.DOMAIN_URL_BEHIND;
-        HttpManager.getInstance().getRequest(domainUrl, DomainBean.class, new OnCompletedListener<DomainBean>() {
-            @Override
-            public void onCompleted(DomainBean result) {
-                String roomid = result.getBroadcast().getRoomId() + "";
-
-                Intent intent = new Intent(getApplicationContext(), LiveVideoNormalActivity.class);
-                intent.putExtra("roomid", roomid);
-                intent.putExtra("domain", result);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onFailed() {
-
-            }
-        });
-
-
-    }
-    private void startFullLiveTv(String domain) {
-        String domainUrl = URLvalues.DOMAIN_URL_FRONT + domain + URLvalues.DOMAIN_URL_BEHIND;
-        HttpManager.getInstance().getRequest(domainUrl, DomainBean.class, new OnCompletedListener<DomainBean>() {
-            @Override
-            public void onCompleted(DomainBean result) {
-                String roomid = result.getBroadcast().getRoomId() + "";
-
-                Intent intent = new Intent(ClassifyClickInActivity.this, LiveVideoFullActivity.class);
-                intent.putExtra("roomid", roomid);
-                intent.putExtra("domain", result);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onFailed() {
-
-            }
-        });
-
-
-    }
 
     @Override
     public void onClick(View v) {
