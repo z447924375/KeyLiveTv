@@ -1,8 +1,11 @@
 package com.keyliveapp.keylivetv.login;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,7 +44,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
     private Button register;
     private ImageView tx;
     private ImageView sn;
-    private String USER_NAME, USER_ICON;
+    private int number, code;
     /**
      * ATTENTION: This was auto-generated to implement the App Indexing API.
      * See https://g.co/AppIndexing/AndroidStudio for more information.
@@ -74,14 +77,73 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
 
 
         back.setOnClickListener(this);
-        phonenum.setOnClickListener(this);
-        password.setOnClickListener(this);
         reset.setOnClickListener(this);
         login.setOnClickListener(this);
         register.setOnClickListener(this);
         tx.setOnClickListener(this);
         sn.setOnClickListener(this);
+        phonenum.addTextChangedListener(num);
+        password.addTextChangedListener(word);
+
     }
+    TextWatcher num = new TextWatcher() {
+        private CharSequence phone;
+        private int numStart;
+        private int numEnd;
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            phone = s;
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            numStart = phonenum.getSelectionStart();
+            numEnd = phonenum.getSelectionEnd();
+            number = phone.length();
+            if (number == 11 && code > 6) {
+                login.setTextColor(Color.BLACK);
+                login.setBackgroundColor(Color.WHITE);
+            } else {
+                    login.setTextColor(Color.WHITE);
+                    login.setBackgroundColor(Color.GRAY);
+                }
+            }
+
+    };
+    TextWatcher word = new TextWatcher() {
+        private CharSequence pass;
+        private int wordStart;
+        private int wortEnd;
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            pass = s;
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            wordStart = password.getSelectionStart();
+            wortEnd = password.getSelectionEnd();
+            code = pass.length();
+            if (number == 11 && code > 6) {
+                login.setTextColor(Color.BLACK);
+                login.setBackgroundColor(Color.WHITE);
+            } else {
+                login.setTextColor(Color.WHITE);
+                login.setBackgroundColor(Color.GRAY);
+            }
+
+        }
+    };
 
 
     @Override
@@ -90,13 +152,18 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
             case R.id.iv_login_back:
                 finish();
                 break;
-            case R.id.et_login_phone:
-                break;
-            case R.id.et_login_password:
-                break;
             case R.id.tv_login_new:
                 break;
             case R.id.btn_login_login:
+                if (phonenum == null) {
+                    number = 0;
+                }
+                if (number != 11) {
+                    Toast.makeText(this, "手机号都是11位的,你是二货吗?", Toast.LENGTH_SHORT).show();
+                }
+                if (code < 6) {
+                    Toast.makeText(this, "请输入至少6位字符", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.btn_login_register:
                 Intent intent = new Intent(LoginActivity.this, RegisterActivity.class);

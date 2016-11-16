@@ -1,5 +1,27 @@
 package com.keyliveapp.keylivetv.mine;
 
+/*
+                             _ooOoo_
+                            o8888888o
+                            88" . "88
+                            (| -_- |)
+                            O\  =  /O
+                         ____/`---'\____
+                       .'  \\|     |//  `.
+                      /  \\|||  :  |||//  \
+                     /  _||||| -:- |||||-  \
+                     |   | \\\  -  /// |   |
+                     | \_|  ''\---/''  |   |
+                     \  .-\__  `-`  ___/-. /
+                   ___`. .'  /--.--\  `. . __
+                ."" '<  `.___\_<|>_/___.'  >'"".
+               | | :  `- \`.;`\ _ /`;.`/ - ` : | |
+               \  \ `-.   \_ __\ /__ _/   .-` /  /
+          ======`-.____`-.___\_____/___.-`____.-'======
+                             `=---='
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                      佛祖保佑      永无BUG
+*/
 import android.content.Intent;
 import android.util.Log;
 import android.view.View;
@@ -96,9 +118,9 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.iv_login_setting:
-                Intent intent1 = new Intent(getActivity(), SettingActivity.class);
-                startActivity(intent1);
-                break;
+//                Intent intent1 = new Intent(getActivity(), SettingActivity.class);
+//                startActivity(intent1);
+//                break;
             case R.id.iv_mine_sub_ll:
                 Intent intent2 = new Intent(getActivity(), LikeActivity.class);
                 startActivity(intent2);
