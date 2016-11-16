@@ -81,23 +81,40 @@
 
     </LinearLayout>
 
-    <ImageButton
-        android:id="@+id/live_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:background="@mipmap/btn_zhibo_fangjian_back_normal"
-        android:visibility="invisible"/>
+    <RelativeLayout
+        android:background="#b4000000"
+        android:visibility="invisible"
+        android:id="@+id/live_header"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
 
-    <CheckBox
-        android:id="@+id/live_full"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="20dp"
-        android:button="@drawable/full_screen"
-        android:visibility="invisible"/>
+        <TextView
+            android:id="@+id/live_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:textColor="#cbffffff"/>
+
+        <ImageButton
+            android:layout_centerVertical="true"
+            android:id="@+id/live_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:background="@mipmap/btn_zhibo_fangjian_back_normal"
+            />
+
+        <CheckBox
+            android:id="@+id/live_full"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+           android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:button="@drawable/full_screen"
+           />
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

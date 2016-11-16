@@ -27,6 +27,16 @@ public abstract class BaseListViewAdapter<T> extends BaseAdapter {
     }
 
 
+    public void deleteItem(int position){
+        mDataList.remove(position);
+        notifyDataSetChanged();
+    }
+
+    public void clearAll(){
+        mDataList.clear();
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public int getCount() {

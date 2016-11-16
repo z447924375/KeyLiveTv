@@ -16,6 +16,7 @@ import com.keyliveapp.keylivetv.R;
 import com.keyliveapp.keylivetv.baseclass.BaseActivity;
 import com.keyliveapp.keylivetv.bean.DomainBean;
 import com.keyliveapp.keylivetv.bean.LiveStreamBean;
+import com.keyliveapp.keylivetv.tools.db.DBTools;
 import com.keyliveapp.keylivetv.tools.okhttp.HttpManager;
 import com.keyliveapp.keylivetv.tools.okhttp.OnCompletedListener;
 import com.keyliveapp.keylivetv.values.URLvalues;
@@ -59,7 +60,7 @@ public class LiveVideoFullActivity extends BaseActivity implements MediaPlayer.O
     protected void inidate() {
         Intent intent = getIntent();
         String roomid = intent.getExtras().getString("roomid");
-        DomainBean bean = (DomainBean) intent.getSerializableExtra("domain");
+        final DomainBean bean = (DomainBean) intent.getSerializableExtra("domain");
 
         roomNum.setText("龙珠直播房间号" + roomid);
         fullName.setText(bean.getBaseRoomInfo().getName());
@@ -98,6 +99,7 @@ public class LiveVideoFullActivity extends BaseActivity implements MediaPlayer.O
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked){
+                    DBTools.getInstance().insert(bean);
                     Toast.makeText(LiveVideoFullActivity.this, "已收藏", Toast.LENGTH_SHORT).show();
                 }else {
                     Toast.makeText(LiveVideoFullActivity.this, "已取消收藏", Toast.LENGTH_SHORT).show();
