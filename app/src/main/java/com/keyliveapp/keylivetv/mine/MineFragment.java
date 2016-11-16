@@ -120,7 +120,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             case R.id.iv_login_setting:
 //                Intent intent1 = new Intent(getActivity(), SettingActivity.class);
 //                startActivity(intent1);
-//                break;
+                break;
             case R.id.iv_mine_sub_ll:
                 Intent intent2 = new Intent(getActivity(), LikeActivity.class);
                 startActivity(intent2);
