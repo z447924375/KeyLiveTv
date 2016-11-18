@@ -57,9 +57,9 @@ public abstract class BaseFragment extends Fragment {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    protected void changeFragmentTo(Fragment fragment, int framlayoutId) {
+    protected void changeFragmentTo(Fragment fragment, int frameLayoutId) {
         FragmentManager fragmentManager = getChildFragmentManager();
-        fragmentManager.beginTransaction().replace(framlayoutId, fragment).commit();
+        fragmentManager.beginTransaction().replace(frameLayoutId, fragment).commit();
 
     }
 
